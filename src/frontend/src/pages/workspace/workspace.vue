@@ -10,7 +10,6 @@ import robotIcon from '../../assets/robot.svg'
 import pluginIcon from '../../assets/plugin.svg'
 import knowledgeIcon from '../../assets/knowledge.svg'
 import modelIcon from '../../assets/model.svg'
-import mcpIcon from '../../assets/mcp.svg'
 import { useUserStore } from '../../store/user'
 import { logoutAPI, getUserInfoAPI } from '../../apis/auth'
 import { 
@@ -111,23 +110,13 @@ const selectSession = (sessionId: string) => {
   console.log('选择会话:', sessionId, '类型:', session.agent)
   
   // 根据agent类型判断跳转页面
-  if (session.agent === 'simple') {
-    // 日常模式，跳转到日常对话页面，并传递session_id
-    router.push({
-      name: 'workspaceDefaultPage',
-      query: {
-        session_id: sessionId
-      }
-    })
-  } else {
-    // lingseek模式，跳转到三列布局页面
-    router.push({
-      name: 'taskGraphPage',
-      query: {
-        session_id: sessionId
-      }
-    })
-  }
+  // 统一跳转到日常对话页面，并传递session_id
+  router.push({
+    name: 'workspaceDefaultPage',
+    query: {
+      session_id: sessionId
+    }
+  })
 }
 
 // 用户下拉菜单命令处理
@@ -205,7 +194,6 @@ const appCenterColumns = ref([
     { label: '模型', icon: modelIcon, route: '/model' }
   ],
   [
-    { label: 'MCP', icon: mcpIcon, route: '/mcp-server' }
   ]
 ])
 

@@ -52,7 +52,6 @@ export interface WorkSpaceSimpleTask {
   query: string
   model_id: string
   plugins: string[]
-  mcp_servers: string[]
   session_id?: string  // 会话ID，使用uuid4().hex格式
 }
 

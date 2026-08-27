@@ -21,12 +21,8 @@ const showSearchSelector = ref(false)
 const selectedModel = ref<string>('')
 const selectedModelId = ref<string>('')
 const selectedTools = ref<string[]>([])
-const showMcpSelector = ref(false)
-const selectedMcpServers = ref<string[]>([])
-const mcpServers = ref<any[]>([])
 const webSearchEnabled = ref(false)
 const toolDropdownRef = ref<HTMLElement | null>(null)
-const mcpDropdownRef = ref<HTMLElement | null>(null)
 const fileInputRef = ref<HTMLInputElement | null>(null)
 const currentSessionId = ref<string>('')  // 当前会话ID
 const chatConversationRef = ref<HTMLElement | null>(null)  // 聊天容器引用
@@ -52,11 +48,6 @@ const modes = [
     id: 'normal',
     label: '日常模式',
     icon: '💬'
-  },
-  {
-    id: 'lingseek',
-    label: '灵寻LingSeek',
-    icon: '✨'
   }
 ]
 
@@ -136,9 +127,6 @@ const handleClickOutside = (e: MouseEvent) => {
   if (showToolSelector.value && toolDropdownRef.value && !toolDropdownRef.value.contains(target)) {
     showToolSelector.value = false
   }
-  if (showMcpSelector.value && mcpDropdownRef.value && !mcpDropdownRef.value.contains(target)) {
-    showMcpSelector.value = false
-  }
 }
 
 // 触发文件选择
@@ -157,14 +145,6 @@ const onFileChange = (e: Event) => {
 }
 
 // 切换 MCP 服务器选择
-const toggleMcp = (serverId: string) => {
-  const index = selectedMcpServers.value.indexOf(serverId)
-  if (index > -1) {
-    selectedMcpServers.value.splice(index, 1)
-  } else {
-    selectedMcpServers.value.push(serverId)
-  }
-}
 
 // 生成UUID（模拟Python的uuid4().hex）
 const generateSessionId = (): string => {
@@ -198,28 +178,8 @@ const handleSend = async () => {
   
   const query = inputMessage.value.trim()
   
-  // 根据模式跳转到不同的页面
-  if (selectedMode.value === 'lingseek') {
-    // 灵寻模式：直接跳转到任务流程图页面（三列布局）
-    console.log('跳转到灵寻任务页面')
-    console.log('query:', query)
-    console.log('tools:', selectedTools.value)
-    console.log('webSearch:', webSearchEnabled.value)
-    
-    // 立即清空输入框
-    inputMessage.value = ''
-    
-    router.push({
-      name: 'taskGraphPage',
-      query: {
-        query: query,
-        tools: JSON.stringify(selectedTools.value),
-        webSearch: webSearchEnabled.value.toString(),
-        mcp_servers: JSON.stringify(selectedMcpServers.value)
-      }
-    })
-  } else {
-    // 日常模式：在本页进行对话（流式）
+  // 日常模式：在本页进行对话（流式）
+  {
     console.log('=== 日常模式发送消息 ===')
     console.log('selectedModelId:', selectedModelId.value)
     console.log('query:', query)
@@ -259,7 +219,6 @@ const handleSend = async () => {
         query,
         model_id: selectedModelId.value,
         plugins: selectedTools.value,
-        mcp_servers: selectedMcpServers.value,
         session_id: currentSessionId.value  // 添加session_id参数
       }
       console.log('准备调用 workspaceSimpleChatStreamAPI，payload:', payload)
@@ -347,17 +306,6 @@ onMounted(async () => {
     console.log('生成新会话ID:', currentSessionId.value)
   }
   
-  // 懒加载 MCP 列表（用于选择）
-  import('../../../apis/mcp-server').then(async ({ getMCPServersAPI }) => {
-    try {
-      const res = await getMCPServersAPI()
-      if (res.data && res.data.status_code === 200 && Array.isArray(res.data.data)) {
-        mcpServers.value = res.data.data
-      }
-    } catch (e) {
-      console.error('加载 MCP 服务器失败', e)
-    }
-  })
   document.addEventListener('click', handleClickOutside)
 })
 
@@ -443,7 +391,7 @@ watch(
 
       <!-- 输入区域（固定在底部） -->
       <div class="input-section" :class="{ 'input-fixed': messages.length > 0 }">
-        <div class="input-wrapper" :class="{ 'lingseek-glow': selectedMode === 'lingseek' }">
+        <div class="input-wrapper">
           <textarea
             v-model="inputMessage"
             placeholder="给智言发消息，让智言帮你完成任务~"
@@ -585,78 +533,7 @@ watch(
                 </transition>
               </div>
 
-              <!-- MCP 服务器选择（紧跟工具选择后） -->
-              <div class="selector-dropdown" ref="mcpDropdownRef">
-                <div 
-                  class="selector-item"
-                  @click="showMcpSelector = !showMcpSelector"
-                >
-                  <img src="../../../assets/mcp.svg" alt="MCP" class="selector-icon-img" />
-                  <span class="selector-text">
-                    {{ selectedMcpServers.length > 0 ? `已选 ${selectedMcpServers.length} 个MCP` : '选择MCP' }}
-                  </span>
-                  <span class="selector-arrow">▲</span>
-                </div>
-                
-                <!-- MCP 下拉菜单 -->
-                <transition name="dropdown">
-                  <div v-if="showMcpSelector" class="dropdown-menu tool-menu">
-                    <!-- 标题 -->
-                    <div class="dropdown-header">
-                      <span class="header-title">选择MCP服务器</span>
-                      <span class="header-count">{{ mcpServers.length }} 个可用</span>
-                    </div>
 
-                    <!-- 列表 -->
-                    <div class="dropdown-list">
-                      <div v-if="mcpServers.length === 0" class="dropdown-empty">
-                        <img src="../../../assets/mcp.svg" alt="MCP" class="empty-icon-img" />
-                        <span class="empty-text">暂无可用MCP服务器</span>
-                      </div>
-                      <div
-                        v-for="mcp in mcpServers"
-                        :key="mcp.mcp_server_id"
-                        :class="['dropdown-item', { selected: selectedMcpServers.includes(mcp.mcp_server_id) }]"
-                        @click="toggleMcp(mcp.mcp_server_id)"
-                      >
-                        <div class="item-left">
-                          <div class="item-icon-wrapper">
-                            <img 
-                              v-if="mcp.logo_url" 
-                              :src="mcp.logo_url" 
-                              :alt="mcp.server_name"
-                              class="item-icon-img"
-                            />
-                            <img v-else src="../../../assets/mcp.svg" alt="MCP" class="item-icon-img" />
-                          </div>
-                          <div class="item-content">
-                            <div class="item-text">{{ mcp.server_name }}</div>
-                          </div>
-                        </div>
-                        <div 
-                          v-if="selectedMcpServers.includes(mcp.mcp_server_id)" 
-                          class="item-check-wrapper"
-                        >
-                          <span class="item-check">✓</span>
-                        </div>
-                      </div>
-                    </div>
-
-                    <!-- 底部操作栏 -->
-                    <div v-if="selectedMcpServers.length > 0" class="dropdown-footer">
-                      <button 
-                        class="clear-btn"
-                        @click.stop="selectedMcpServers = []"
-                      >
-                        <span>清空</span>
-                      </button>
-                      <div class="selected-info">
-                        <span class="selected-count">已选 {{ selectedMcpServers.length }} 个MCP</span>
-                      </div>
-                    </div>
-                  </div>
-                </transition>
-              </div>
             </div>
             
             <div class="footer-right">

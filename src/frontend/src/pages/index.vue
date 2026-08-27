@@ -10,8 +10,6 @@ import robotIcon from '../assets/robot.svg'
 import pluginIcon from '../assets/plugin.svg'
 import knowledgeIcon from '../assets/knowledge.svg'
 import modelIcon from '../assets/model.svg'
-import mcpIcon from '../assets/mcp.svg'
-import skillIcon from '../assets/skill.svg'
 import { User, SwitchButton, Setting } from '@element-plus/icons-vue'
 import { useAgentCardStore } from "../store/agent_card"
 import { useUserStore } from "../store/user"
@@ -57,8 +55,6 @@ const appCenterColumns = ref([
     { label: '模型', icon: modelIcon, route: '/model' }
   ],
   [
-    { label: 'MCP', icon: mcpIcon, route: '/mcp-server' },
-    { label: 'Skill', icon: skillIcon, route: '/agent-skill' }
   ]
 ])
 const current = ref(route.meta.current)
@@ -110,14 +106,10 @@ const goCurrent = (item: string) => {
     "homepage": "/homepage",
     "conversation": "/conversation",
     "agent": "/agent",
-    "mcp-server": "/mcp-server",
-    "mcp-chat": "/mcp-server/chat",
     "knowledge": "/knowledge",
     "tool": "/tool",
-    "agent-skill": "/agent-skill",
     "model": "/model",
     "workspace": "/workspace",
-    "dashboard": "/dashboard"
   }
   
   router.push(routes[item] || "/")
@@ -260,20 +252,6 @@ watch(
                 <span>智能体</span>
               </template>
             </el-menu-item>
-            <el-sub-menu index="mcp">
-              <template #title>
-                <el-icon>
-                  <img src="../assets/mcp.svg" width="22px" height="22px" />
-                </el-icon>
-                <span>MCP</span>
-              </template>
-              <el-menu-item index="mcp-server">
-                <span>管理 MCP</span>
-              </el-menu-item>
-              <el-menu-item index="mcp-chat">
-                <span>生成 MCP</span>
-              </el-menu-item>
-            </el-sub-menu>
             <el-menu-item index="knowledge" @click="goCurrent('knowledge')">
               <template #title>
                 <el-icon>
@@ -290,28 +268,12 @@ watch(
                 <span>工具</span>
               </template>
             </el-menu-item>
-            <el-menu-item index="agent-skill" @click="goCurrent('agent-skill')">
-              <template #title>
-                <el-icon>
-                  <img src="../assets/skill.svg" width="22px" height="22px" />
-                </el-icon>
-                <span>Skill</span>
-              </template>
-            </el-menu-item>
             <el-menu-item index="model" @click="goCurrent('model')">
               <template #title>
                 <el-icon>
                   <img src="../assets/model.svg" width="22px" height="22px" />
                 </el-icon>
                 <span>模型</span>
-              </template>
-            </el-menu-item>
-            <el-menu-item index="dashboard" @click="goCurrent('dashboard')">
-              <template #title>
-                <el-icon>
-                  <img src="../assets/dashboard.svg" width="22px" height="22px" />
-                </el-icon>
-                <span>数据看板</span>
               </template>
             </el-menu-item>
           </el-menu>

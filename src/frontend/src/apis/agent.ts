@@ -7,7 +7,6 @@ export interface AgentCreateRequest {
   logo_url: string
   tool_ids: string[]
   llm_id: string
-  mcp_ids: string[]
   system_prompt: string
   knowledge_ids: string[]
   enable_memory: boolean
@@ -20,7 +19,6 @@ export interface AgentUpdateRequest {
   logo_url?: string
   tool_ids?: string[]
   llm_id?: string
-  mcp_ids?: string[]
   system_prompt?: string
   knowledge_ids?: string[]
   enable_memory?: boolean
@@ -33,7 +31,6 @@ export interface AgentResponse {
   logo_url: string
   tool_ids: string[]
   llm_id: string
-  mcp_ids: string[]
   system_prompt: string
   knowledge_ids: string[]
   enable_memory: boolean

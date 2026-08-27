@@ -11,22 +11,15 @@ import Login from '../pages/login'
 import { Register } from '../pages/login'
 import Agent from '../pages/agent'
 import AgentEditor from '../pages/agent/agent-editor.vue'
-import McpServer from '../pages/mcp-server'
-import McpChat from '../pages/mcp-server/mcp-chat.vue'
 import Knowledge from '../pages/knowledge'
 import KnowledgeFile from '../pages/knowledge/knowledge-file.vue'
 import Tool from '../pages/tool'
-import AgentSkill from '../pages/agent-skill'
 import Model from '../pages/model'
 import ModelEditor from '../pages/model/model-editor.vue'
 import Profile from '../pages/profile'
 import Homepage from '../pages/homepage'
-import MarsChat from '../pages/mars'
 import Workspace from '../pages/workspace/workspace.vue'
-import WorkspacePage from '../pages/workspace/workspacePage/workspacePage.vue'
 import WorkspaceDefaultPage from '../pages/workspace/defaultPage/defaultPage.vue'
-import TaskGraphPage from '../pages/workspace/taskGraphPage/taskGraphPage.vue'
-import Dashboard from '../pages/dashboard'
 import type { RouteRecordRaw } from 'vue-router'
 
 const routes: RouteRecordRaw[] = [
@@ -59,20 +52,7 @@ const routes: RouteRecordRaw[] = [
         name: 'workspaceDefaultPage',
         component: WorkspaceDefaultPage,
       },
-      {
-        path: 'workspacePage',
-        name: 'workspacePage',
-        component: WorkspacePage,
-      }
     ]
-  },
-  {
-    path: '/workspace/taskGraph',
-    name: 'taskGraphPage',
-    component: TaskGraphPage,
-    meta: {
-      requiresAuth: true
-    }
   },
   {
     path: '/',
@@ -144,22 +124,6 @@ const routes: RouteRecordRaw[] = [
         component: AgentEditor,
       },
       {
-        path: '/mcp-server',
-        name: 'mcp-server',
-        meta: {
-          current: 'mcp-server'
-        },
-        component: McpServer,
-      },
-      {
-        path: '/mcp-server/chat',
-        name: 'mcp-chat',
-        meta: {
-          current: 'mcp-chat'
-        },
-        component: McpChat,
-      },
-      {
         path: '/knowledge',
         name: 'knowledge',
         meta: {
@@ -182,14 +146,6 @@ const routes: RouteRecordRaw[] = [
           current: 'tool'
         },
         component: Tool,
-      },
-      {
-        path: '/agent-skill',
-        name: 'agent-skill',
-        meta: {
-          current: 'agent-skill'
-        },
-        component: AgentSkill,
       },
       {
         path: '/model',
@@ -215,22 +171,6 @@ const routes: RouteRecordRaw[] = [
         },
         component: Profile,
       },
-      {
-        path: '/mars',
-        name: 'mars',
-        meta: {
-          current: 'mars'
-        },
-        component: MarsChat,
-      },
-      {
-        path: '/dashboard',
-        name: 'dashboard',
-        meta: {
-          current: 'dashboard'
-        },
-        component: Dashboard,
-      }
     ]
   },
   {

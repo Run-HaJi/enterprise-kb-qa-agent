@@ -19,9 +19,7 @@ import type { UploadProps, UploadUserFile } from 'element-plus'
 import { createAgentAPI, updateAgentAPI, getAgentByIdAPI } from '../../apis/agent'
 import { getVisibleLLMsAPI, getAgentModelsAPI, type LLMResponse } from '../../apis/llm'
 import { getVisibleToolsAPI, type ToolResponse } from '../../apis/tool'
-import { getMCPServersAPI, type MCPServer } from '../../apis/mcp-server'
 import { getKnowledgeListAPI, type KnowledgeResponse } from '../../apis/knowledge'
-import { getAgentSkillsAPI, type AgentSkill } from '../../apis/agent-skill'
 import { Agent, AgentFormData } from '../../type'
 import { uploadFileAPI } from '../../apis/file'
 
@@ -47,10 +45,8 @@ const formData = reactive<AgentFormData>({
   logo_url: '',
   tool_ids: [],
   llm_id: '',
-  mcp_ids: [],
   system_prompt: '',
   knowledge_ids: [],
-  agent_skill_ids: [],
   enable_memory: false
 })
 
@@ -61,15 +57,11 @@ const collapseItems = ref({
   memory: false,
   knowledge: false,
   tools: false,
-  mcp: false,
-  skills: false
 })
 
 // 选项数据
 const llmOptions = ref<Array<LLMResponse & { name: string }>>([])
 const toolOptions = ref<Array<ToolResponse & { name: string; icon: string }>>([])
-const mcpOptions = ref<Array<MCPServer & { name: string; icon: string }>>([])
-const agentSkillOptions = ref<Array<AgentSkill & { name: string; icon: string }>>([])
 const knowledgeOptions = ref<Array<KnowledgeResponse & { 
   knowledge_id: string
   knowledge_name: string 
@@ -82,8 +74,6 @@ const knowledgeOptions = ref<Array<KnowledgeResponse & {
 const dataLoading = ref({
   llm: false,
   tool: false,
-  mcp: false,
-  agentSkill: false,
   knowledge: false
 })
 
@@ -114,35 +104,21 @@ const loadAgent = (agent?: Agent) => {
     // 处理tool_ids字段映射 - 确保与选择器的value一致  
     const processedToolIds = Array.isArray(agent.tool_ids) 
       ? agent.tool_ids.filter(id => id) // 过滤空值
-      : []
-      
-    // 处理mcp_ids字段映射 - 确保与选择器的value一致
-    const processedMcpIds = Array.isArray(agent.mcp_ids) 
-      ? agent.mcp_ids.filter(id => id) // 过滤空值
-      : []
-    
-    // 处理agent_skill_ids字段映射 - 确保与选择器的value一致
-    const processedAgentSkillIds = Array.isArray(agent.agent_skill_ids) 
-      ? agent.agent_skill_ids.filter(id => id) // 过滤空值
-      : []
-    
+      : []        
     Object.assign(formData, {
       name: agent.name || '',
       description: agent.description || '',
       logo_url: agent.logo_url || '',
       tool_ids: processedToolIds,
       llm_id: agent.llm_id || '',
-      mcp_ids: processedMcpIds,
       system_prompt: agent.system_prompt || '',
       knowledge_ids: processedKnowledgeIds,
-      agent_skill_ids: processedAgentSkillIds,
       enable_memory: agent.enable_memory || false
     })
     
     console.log('✅ 表单数据已更新:', formData)
     console.log('🔧 当前工具选项:', toolOptions.value.map(t => ({ id: t.tool_id, name: t.name })))
     console.log('📚 当前知识库选项:', knowledgeOptions.value.map(k => ({ id: k.knowledge_id, name: k.name })))
-    console.log('🤖 当前MCP选项:', mcpOptions.value.map(m => ({ id: m.mcp_server_id, name: m.name })))
     console.log('🧠 当前大模型选项:', llmOptions.value.map(l => ({ id: l.llm_id, name: l.name })))
     
     // 延迟验证ID匹配性，确保选择器已渲染
@@ -170,10 +146,8 @@ const loadAgent = (agent?: Agent) => {
       logo_url: '',
       tool_ids: [],
       llm_id: '',
-      mcp_ids: [],
       system_prompt: '',
       knowledge_ids: [],
-      agent_skill_ids: [],
       enable_memory: false
     })
     fileList.value = []
@@ -252,10 +226,8 @@ const saveAgent = async () => {
       logo_url: formData.logo_url,
       tool_ids: formData.tool_ids,
       llm_id: formData.llm_id,
-      mcp_ids: formData.mcp_ids,
       system_prompt: formData.system_prompt,
       knowledge_ids: formData.knowledge_ids,
-      agent_skill_ids: formData.agent_skill_ids,
       enable_memory: formData.enable_memory
     }
     
@@ -406,56 +378,7 @@ const loadToolOptions = async () => {
   }
 }
 
-// 加载MCP服务器数据
-const loadMCPOptions = async () => {
-  try {
-    dataLoading.value.mcp = true
-    const response = await getMCPServersAPI()
-    
-    // 处理不同的响应格式
-    let mcpData: MCPServer[] = []
-    if (response.data.status_code === 200) {
-      // 检查data字段是否存在且不为null
-      if (response.data.data && Array.isArray(response.data.data)) {
-        mcpData = response.data.data
-      }
-    }
-    
-    mcpOptions.value = mcpData.map(mcp => ({
-      ...mcp,
-      name: mcp.server_name
-    }))
-    console.log(`✅ 成功加载 ${mcpOptions.value.length} 个MCP服务器`)
-  } catch (error) {
-    console.error('加载MCP服务器失败:', error)
-    ElMessage.error('加载MCP服务器列表失败')
-  } finally {
-    dataLoading.value.mcp = false
-  }
-}
 
-// 加载Agent Skill数据
-const loadAgentSkillOptions = async () => {
-  try {
-    dataLoading.value.agentSkill = true
-    const response = await getAgentSkillsAPI()
-    
-    if (response.data.status_code === 200) {
-      const skillData = response.data.data || []
-      agentSkillOptions.value = skillData.map(skill => ({
-        ...skill,
-        name: skill.name,
-        icon: '🎯'
-      }))
-      console.log(`✅ 成功加载 ${agentSkillOptions.value.length} 个Agent Skill`)
-    }
-  } catch (error) {
-    console.error('加载Agent Skill失败:', error)
-    ElMessage.error('加载Agent Skill列表失败')
-  } finally {
-    dataLoading.value.agentSkill = false
-  }
-}
 
 // 加载知识库数据
 const loadKnowledgeOptions = async () => {
@@ -528,15 +451,6 @@ const validateIdMatching = () => {
       console.warn('⚠️ 知识库ID不匹配:', unmatchedKnowledgeIds, '可用选项:', knowledgeOptionsIds)
     }
   }
-  
-  // 验证MCP ID匹配
-  if (formData.mcp_ids.length > 0) {
-    const mcpOptionsIds = mcpOptions.value.map(m => m.mcp_server_id)
-    const unmatchedMcpIds = formData.mcp_ids.filter(id => !mcpOptionsIds.includes(id))
-    if (unmatchedMcpIds.length > 0) {
-      console.warn('⚠️ MCP ID不匹配:', unmatchedMcpIds, '可用选项:', mcpOptionsIds)
-    }
-  }
 }
 
 // 从API加载智能体数据
@@ -558,10 +472,8 @@ const loadAgentFromAPI = async (agentId: string) => {
         logo_url: agentData.logo_url,
         tool_ids: agentData.tool_ids || [],
         llm_id: agentData.llm_id,
-        mcp_ids: agentData.mcp_ids || [],
         system_prompt: agentData.system_prompt,
         knowledge_ids: agentData.knowledge_ids || [],
-        agent_skill_ids: agentData.agent_skill_ids || [],
         enable_memory: agentData.enable_memory,
         created_time: new Date().toISOString()
       }
@@ -595,8 +507,6 @@ const initializeData = async () => {
     await Promise.all([
       loadLLMOptions(),
       loadToolOptions(),
-      loadMCPOptions(),
-      loadAgentSkillOptions(),
       loadKnowledgeOptions()
     ])
     
@@ -604,8 +514,6 @@ const initializeData = async () => {
     console.log('📊 数据统计:')
     console.log('  - 大模型:', llmOptions.value.length, '个')
     console.log('  - 工具:', toolOptions.value.length, '个')
-    console.log('  - MCP:', mcpOptions.value.length, '个')
-    console.log('  - Agent Skill:', agentSkillOptions.value.length, '个')
     console.log('  - 知识库:', knowledgeOptions.value.length, '个')
     
     // 如果没有数据，添加一些测试数据
@@ -620,22 +528,6 @@ const initializeData = async () => {
         logo_url: '',
         name: '🔍 搜索工具',
         icon: '🔍'
-      } as any)
-    }
-    
-    if (mcpOptions.value.length === 0) {
-      console.log('⚠️ MCP数据为空，添加测试数据')
-      mcpOptions.value.push({
-        mcp_server_id: 'test_mcp_1',
-        server_name: '邮件服务',
-        url: 'http://localhost:8080',
-        type: 'email',
-        config: {},
-        config_enabled: false,
-        tools: [],
-        params: [],
-        name: '📧 邮件服务',
-        icon: '📧'
       } as any)
     }
     
@@ -954,102 +846,6 @@ defineExpose({ loadAgent })
                         <img :src="tool.logo_url || '/src/assets/plugin.svg'" class="option-logo" :alt="tool.name" />
                         <span class="option-name">{{ tool.name }}</span>
                         <span class="option-badge tool-badge">TOOL</span>
-                      </div>
-                    </el-option>
-                  </el-select>
-                </el-form-item>
-              </div>
-            </div>
-
-            <!-- MCP -->
-            <div class="config-section">
-              <div class="section-header" @click="toggleCollapse('mcp')">
-                <div class="section-title">
-                  <el-icon class="section-icon">
-                    <ArrowDown v-if="collapseItems.mcp" />
-                    <ArrowRight v-else />
-                  </el-icon>
-                  <span>MCP</span>
-                </div>
-                <div class="section-badge">
-                </div>
-              </div>
-              <div v-show="collapseItems.mcp" class="section-content">
-                <el-form-item label="MCP服务">
-                  <el-select
-                    v-model="formData.mcp_ids"
-                    multiple
-                    placeholder="🔍 搜索或选择MCP服务器"
-                    class="form-select"
-                    :loading="dataLoading.mcp"
-                    filterable
-                    clearable
-                    collapse-tags
-                    collapse-tags-tooltip
-                    :max-collapse-tags="2"
-                  >
-                    <template #prefix>
-                      <span v-if="dataLoading.mcp" style="color: #7c2d12; font-size: 12px; font-weight: 500;">加载中...</span>
-                      <span v-else style="color: #7c2d12; font-size: 12px; font-weight: 600;"><img src="/src/assets/mcp.svg" style="width:14px;height:14px;vertical-align:middle;margin-right:4px;" />{{ mcpOptions.length }}个服务</span>
-                    </template>
-                    <el-option
-                      v-for="mcp in mcpOptions"
-                      :key="mcp.mcp_server_id"
-                      :label="mcp.name"
-                      :value="mcp.mcp_server_id"
-                    >
-                      <div class="custom-option">
-                        <img :src="mcp.logo_url || '/src/assets/mcp.svg'" class="option-logo" :alt="mcp.name" />
-                        <span class="option-name">{{ mcp.name }}</span>
-                        <span class="option-badge mcp-badge">MCP</span>
-                      </div>
-                    </el-option>
-                  </el-select>
-                </el-form-item>
-              </div>
-            </div>
-
-            <!-- 技能（Skill） -->
-            <div class="config-section">
-              <div class="section-header" @click="toggleCollapse('skills')">
-                <div class="section-title">
-                  <el-icon class="section-icon">
-                    <ArrowDown v-if="collapseItems.skills" />
-                    <ArrowRight v-else />
-                  </el-icon>
-                  <span>技能（Skill）</span>
-                </div>
-                <div class="section-badge">
-                </div>
-              </div>
-              <div v-show="collapseItems.skills" class="section-content">
-                <el-form-item label="选择技能">
-                  <el-select
-                    v-model="formData.agent_skill_ids"
-                    multiple
-                    placeholder="🔍 搜索或选择Agent Skill"
-                    class="form-select"
-                    :loading="dataLoading.agentSkill"
-                    filterable
-                    clearable
-                    collapse-tags
-                    collapse-tags-tooltip
-                    :max-collapse-tags="2"
-                  >
-                    <template #prefix>
-                      <span v-if="dataLoading.agentSkill" style="color: #7c2d12; font-size: 12px; font-weight: 500;">加载中...</span>
-                      <span v-else style="color: #7c2d12; font-size: 12px; font-weight: 600;"><img src="/src/assets/skill.svg" style="width:14px;height:14px;vertical-align:middle;margin-right:4px;" />{{ agentSkillOptions.length }}个技能</span>
-                    </template>
-                    <el-option
-                      v-for="skill in agentSkillOptions"
-                      :key="skill.id"
-                      :label="skill.name"
-                      :value="skill.id"
-                    >
-                      <div class="custom-option">
-                        <img src="/src/assets/skill.svg" class="option-logo" :alt="skill.name" />
-                        <span class="option-name">{{ skill.name }}</span>
-                        <span class="option-badge skill-badge">Skill</span>
                       </div>
                     </el-option>
                   </el-select>
