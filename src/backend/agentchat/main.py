@@ -9,7 +9,6 @@ from fastapi.responses import JSONResponse
 from fastapi.middleware.cors import CORSMiddleware
 
 from agentchat.api.JWT import Settings as AuthJwtSettings
-from agentchat.mcp_proxy.session.manager import SessionManager
 from agentchat.middleware.trace_id_middleware import TraceIDMiddleware
 from agentchat.middleware.white_list_middleware import WhitelistMiddleware
 from agentchat.settings import init_app_settings
@@ -70,7 +69,6 @@ async def lifespan(app: FastAPI):
         app_settings.redis.get("endpoint"),
         decode_responses=True
     )
-    app.state.session_manager = SessionManager(redis_client)
 
     await register_router(app)
     print_logo()

@@ -13,17 +13,12 @@ from langgraph.config import get_stream_writer
 from langchain_core.messages import BaseMessage, ToolMessage, HumanMessage, AIMessageChunk
 from langchain.agents.middleware import LLMToolSelectorMiddleware, ModelRequest, ModelResponse, AgentMiddleware
 
-from agentchat.api.services.agent_skill import AgentSkillService
-from agentchat.core.agents.skill_agent import SkillAgent
 from agentchat.core.callbacks import usage_metadata_callback
-from agentchat.database import AgentSkill
 from agentchat.tools import AgentToolsWithName
 from agentchat.api.services.llm import LLMService
 from agentchat.core.models.manager import ModelManager
 from agentchat.api.services.tool import ToolService
 from agentchat.services.rag.handler import RagHandler
-from agentchat.core.agents.mcp_agent import MCPAgent, MCPConfig
-from agentchat.api.services.mcp_server import MCPService
 from agentchat.tools.openapi_tool.adapter import OpenAPIToolAdapter
 
 
@@ -39,10 +34,8 @@ MAX_TOOLS_SIZE = 10
 class AgentConfig(BaseModel):
     user_id: str
     llm_id: str
-    mcp_ids: List[str]
     knowledge_ids: List[str]
     tool_ids: List[str]
-    agent_skill_ids: List[str]
     system_prompt: str
     enable_memory: bool = False
     name: str = None
@@ -141,11 +134,9 @@ class GeneralAgent:
         return event
 
     async def init_agent(self):
-        self.mcp_agent_as_tools = await self.setup_mcp_agent_as_tools()
 
         self.tools = await self.setup_tools()
 
-        self.skill_agent_as_tools = await self.setup_agent_skill_as_tools()
 
         await self.setup_knowledge_tool()
         await self.setup_language_model()
@@ -272,72 +263,6 @@ class GeneralAgent:
                 }
 
         return tools
-
-    async def setup_agent_skill_as_tools(self) -> List[BaseTool]:
-        agent_skill_as_tools = []
-        agent_skills = await AgentSkillService.get_agent_skills_by_ids(self.agent_config.agent_skill_ids)
-
-        def create_skill_agent_as_tool(agent_skill: AgentSkill):
-
-            @tool(agent_skill.as_tool_name, description=agent_skill.description)
-            async def call_skill_agent(query: str):
-                """调用技能Agent"""
-                skill_agent = SkillAgent(agent_skill, self.agent_config.user_id)
-                await skill_agent.init_skill_agent()
-                messages = await skill_agent.ainvoke([HumanMessage(content=query)])
-                return "\n".join([message.content for message in messages])
-
-            return call_skill_agent
-
-        for agent_skill in agent_skills:
-            self.tool_metadata_map[agent_skill.as_tool_name] = {
-                "name": agent_skill.name,  # 技能的中文/友好名称
-                "type": "Skill"
-            }
-            agent_skill_as_tools.append(create_skill_agent_as_tool(agent_skill))
-
-        return agent_skill_as_tools
-
-
-    async def setup_mcp_agent_as_tools(self):
-        mcp_agent_as_tools = []
-
-        def create_mcp_agent_as_tool(mcp_agent, mcp_as_tool_name, description):
-            @tool(mcp_as_tool_name, description=description)
-            async def call_mcp_agent(query: str):
-                """
-                用户想要根据这些mcp工具来完成的一些任务
-                Args:
-                    query: 用户询问的问题
-                Returns:
-                    根据该MCP Agent来完成的一些任务
-                """
-
-                messages = await mcp_agent.ainvoke([HumanMessage(content=query)])
-                return "\n".join([message.content for message in messages])
-            return call_mcp_agent
-
-        for mcp_id in self.agent_config.mcp_ids:
-            mcp_server = await MCPService.get_mcp_server_from_id(mcp_id)
-            mcp_config = MCPConfig(**mcp_server)
-
-            mcp_agent = MCPAgent(mcp_config, self.agent_config.user_id)
-            await mcp_agent.init_mcp_agent()
-
-            tool_name = mcp_server.get("mcp_as_tool_name")
-            description = mcp_server.get("description")
-
-            # 更新元数据映射
-            self.tool_metadata_map[tool_name] = {
-                "name": mcp_config.server_name,
-                "type": "MCP"
-            }
-
-            # 创建并添加工具
-            mcp_agent_as_tools.append(
-                create_mcp_agent_as_tool(mcp_agent, tool_name, description)
-            )
-        return mcp_agent_as_tools
 
     async def setup_knowledge_tool(self):
         @tool(parse_docstring=True)

@@ -15,4 +15,3 @@ class WorkSpaceSimpleTask(BaseModel):
     model_id: str
     session_id: str
     plugins: List[str] = []
-    mcp_servers: List[str] = []

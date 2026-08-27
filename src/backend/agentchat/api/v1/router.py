@@ -1,10 +1,7 @@
 from fastapi import APIRouter
 from agentchat.api.v1 import (
     completion, dialog, message, agent, history,
-    user, llm, tool, knowledge, knowledge_file, mcp_server, mcp_user_config,
-    workspace, usage_stats, upload, agent_skill,
-    register_mcp, register_mcp_completion, register_task
-)
+    user, llm, tool, knowledge, knowledge_file, workspace, usage_stats, upload, )
 
 api_v1_router = APIRouter(prefix="/api/v1")
 
@@ -18,12 +15,6 @@ api_v1_router.include_router(tool.router)
 api_v1_router.include_router(llm.router)
 api_v1_router.include_router(knowledge.router)
 api_v1_router.include_router(knowledge_file.router)
-api_v1_router.include_router(mcp_server.router)
-api_v1_router.include_router(mcp_user_config.router)
 api_v1_router.include_router(workspace.router)
 api_v1_router.include_router(usage_stats.router)
 api_v1_router.include_router(upload.router)
-api_v1_router.include_router(agent_skill.router)
-api_v1_router.include_router(register_task.router)
-api_v1_router.include_router(register_mcp.router)
-api_v1_router.include_router(register_mcp_completion.router)

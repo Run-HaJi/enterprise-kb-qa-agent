@@ -9,16 +9,10 @@ from agentchat.database import engine, SystemUser, ensure_mysql_database, AgentT
 from agentchat.api.services.agent import AgentService
 from agentchat.api.services.llm import LLMService
 from agentchat.api.services.tool import ToolService
-from agentchat.api.services.mcp_server import MCPService
 from agentchat.database.dao.agent import AgentDao
 from agentchat.database.models.user import AdminUser
-from agentchat.prompts.mcp import McpAsToolPrompt
-from agentchat.schemas.mcp import MCPResponseFormat
-from agentchat.services.mcp.manager import MCPManager
 from agentchat.services.storage import storage_client
 from agentchat.settings import app_settings
-from agentchat.utils.convert import convert_mcp_config
-from agentchat.core.agents.structured_response_agent import StructuredResponseAgent
 from agentchat.utils.helpers import get_provider_from_model
 
 async def init_agentchat_system():
@@ -196,106 +190,6 @@ async def _init_default_agents():
     await asyncio.gather(*tasks)
 
     logger.success("Default agents initialized")
-
-async def _init_system_mcp_server():
-    """
-    初始化 MCP Server（仅首次）
-    """
-    try:
-        existing = await MCPService.get_all_servers(SystemUser)
-
-        if not existing:
-            await _update_mcp_server_into_mysql(False)
-
-        logger.success("MCP servers initialized")
-
-    except Exception as err:
-        logger.error(f"MCP init failed: {err}")
-
-
-async def _update_mcp_server_into_mysql(has_mcp_server: bool):
-    """
-    同步 MCP Server 到数据库（核心逻辑）
-
-    Args:
-        has_mcp_server:
-            True = 更新模式
-            False = 初始化模式
-    """
-    if has_mcp_server:
-        if not await MCPService.mcp_server_need_update():
-            return
-
-        servers = await MCPService.get_all_servers(AdminUser)
-        logger.info("Updating MCP servers...")
-    else:
-        servers = await load_json("./agentchat/config/mcp_server.json")
-
-    servers_info = [
-        {
-            "type": s["type"],
-            "url": s["url"],
-            "server_name": s["server_name"]
-        }
-        for s in servers
-    ]
-
-    mcp_manager = MCPManager(convert_mcp_config(servers_info))
-    servers_params = await mcp_manager.show_mcp_tools()
-
-    semaphore = asyncio.Semaphore(5)
-
-    async def build_meta(server_name, params):
-        """
-        构建 MCP Tool 元信息（调用 LLM）
-        """
-        async with semaphore:
-            agent = StructuredResponseAgent(MCPResponseFormat)
-
-            result = agent.get_structured_response(
-                McpAsToolPrompt.format(
-                    tools_info=json.dumps(params, indent=2)
-                )
-            )
-            return server_name, params, result
-
-    tasks = [
-        build_meta(name, params)
-        for name, params in servers_params.items()
-    ]
-
-    results = await asyncio.gather(*tasks)
-
-    for server_name, params, structured in results:
-        server = next((s for s in servers if s["server_name"] == server_name), None)
-
-        tools_name = [t["name"] for t in params]
-
-        if has_mcp_server:
-            await MCPService.update_mcp_server(
-                server_id=server["mcp_server_id"],
-                update_data={
-                    "tools": tools_name,
-                    "params": params,
-                    "mcp_as_tool_name": structured.mcp_as_tool_name,
-                    "description": structured.description
-                }
-            )
-        else:
-            await MCPService.create_mcp_server(
-                server_name=server_name,
-                user_id=SystemUser,
-                user_name="Admin",
-                url=server["url"],
-                type=server["type"],
-                config=server["config"],
-                tools=tools_name,
-                params=params,
-                config_enabled=server["config_enabled"],
-                logo_url=server["logo_url"],
-                mcp_as_tool_name=structured.mcp_as_tool_name,
-                description=structured.description,
-            )
 
 async def upload_user_avatars_storage():
     """上传默认用户头像到存储"""
