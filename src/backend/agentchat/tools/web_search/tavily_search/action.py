@@ -5,7 +5,11 @@ from tavily import TavilyClient
 from agentchat.settings import app_settings
 
 
-tavily_client = TavilyClient(app_settings.tools.tavily.get("api_key"))
+try:
+    tavily_client = TavilyClient(app_settings.tools.tavily.get("api_key"))
+except Exception:
+    # 未配置 TAVILY_API_KEY 时允许服务正常启动，调用时再返回不可用提示
+    tavily_client = None
 
 @tool("web_search", parse_docstring=True)
 def tavily_search(query: str,
@@ -28,6 +32,8 @@ def tavily_search(query: str,
 
 def _tavily_search(query, topic, max_results, time_range):
     """使用Tavily搜索工具给用户进行搜索"""
+    if tavily_client is None:
+        return "联网搜索不可用：未配置 Tavily Key，请在配置文件中填写后重启服务"
     response = tavily_client.search(
         query=query,
         country="china",
