@@ -20,19 +20,19 @@ redis:
 multi_models:
   # 对话模型配置
   conversation_model:
-    api_key: "sk-local-placeholder"
-    base_url: "https://dashscope.aliyuncs.com/compatible-mode/v1"
-    model_name: "qwen-plus"
+    api_key: "sk-local-placeholder"  # 由 .env 的 DEEPSEEK_API_KEY 注入
+    base_url: "https://api.deepseek.com/v1"
+    model_name: "deepseek-v4-flash"
   # 工具调用/Function Call 模型配置
   tool_call_model:
-    api_key: "sk-local-placeholder"
-    base_url: "https://dashscope.aliyuncs.com/compatible-mode/v1"
-    model_name: "qwen-plus"
+    api_key: "sk-local-placeholder"  # 由 .env 注入
+    base_url: "https://api.deepseek.com/v1"
+    model_name: "deepseek-v4-flash"
   # 复杂推理模型配置
   reasoning_model:
     api_key: "sk-local-placeholder"
     base_url: "https://api.deepseek.com/v1"
-    model_name: "deepseek-reasoner"
+    model_name: "deepseek-v4-pro"
   # 文生图模型配置
   text2image:
     api_key: "sk-local-placeholder"
@@ -46,9 +46,9 @@ multi_models:
 
   # Embedding 模型配置 (用于向量化)
   embedding:
-    api_key: "sk-local-placeholder"
-    base_url: "https://dashscope.aliyuncs.com/compatible-mode/v1"
-    model_name: "text-embedding-v4"
+    api_key: "local-embedding-key"  # 本地向量服务不校验Key
+    base_url: "http://127.0.0.1:19000/v1"
+    model_name: "BAAI/bge-small-zh-v1.5"
 
   # Rerank 模型配置 (用于重排序召回结果)
   rerank:

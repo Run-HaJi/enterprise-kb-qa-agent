@@ -2,6 +2,7 @@ import asyncio
 import json
 
 import aiohttp
+from loguru import logger
 from agentchat.settings import app_settings
 from agentchat.schemas.rerank import RerankResultModel
 
@@ -42,7 +43,15 @@ class Reranker:
         final_documents = []
         original_documents = documents
 
-        results = await cls.request_rerank(query, documents)
+        try:
+            results = await cls.request_rerank(query, documents)
+        except Exception as err:
+            # 未配置 Rerank 服务或调用失败时，降级为召回原始顺序
+            logger.warning(f"Rerank 调用失败，降级为原始召回顺序: {err}")
+            results = [
+                {"index": idx, "relevance_score": 1.0 - idx / max(len(documents), 1)}
+                for idx in range(len(documents))
+            ]
 
         for result in results:
             result['document'] = original_documents[result['index']]
