@@ -32,4 +32,4 @@ storage/
 logs/
 *.log
 docker/data/
-src/backend/agentchat/storage_data/
+src/backend/storage_data/
