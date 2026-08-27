@@ -4,8 +4,7 @@ from langchain_core.messages import BaseMessage, AIMessage, HumanMessage
 
 from agentchat.database.dao.dialog import DialogDao
 from agentchat.database.dao.history import HistoryDao
-from agentchat.services.rag.es_client import client as es_client
-from agentchat.services.rag.vector_stores import milvus_client
+from agentchat.services.rag.vector_stores import vector_client
 from agentchat.schemas.chunk import ChunkModel
 from agentchat.utils.helpers import get_now_beijing_time
 
@@ -68,23 +67,7 @@ class HistoryService:
             raise ValueError(f"Get dialog history is appear error: {err}")
 
     @classmethod
-    async def save_es_documents(cls, index_name, content):
-        chunk = ChunkModel(
-            chunk_id=uuid4().hex,
-            content=content,
-            file_id="history_rag",
-            knowledge_id=index_name,
-            summary="history_rag",
-            update_time=get_now_beijing_time(),
-            file_name="history_rag",
-        )
-
-        chunks = [chunk]
-
-        await es_client.index_documents(index_name, chunks)
-
-    @classmethod
-    async def save_milvus_documents(cls, collection_name, content):
+    async def save_documents(cls, collection_name, content):
         chunk = ChunkModel(
             chunk_id=uuid4().hex,
             content=content,
@@ -96,7 +79,7 @@ class HistoryService:
         )
         chunks = [chunk]
 
-        await milvus_client.insert(collection_name, chunks)
+        await vector_client.insert(collection_name, chunks)
 
     @classmethod
     async def save_chat_history(cls, role, content, events, dialog_id, token_usage: int = 0, memory_enable: bool=False):

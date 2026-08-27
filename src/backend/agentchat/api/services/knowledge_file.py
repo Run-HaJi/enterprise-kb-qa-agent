@@ -38,9 +38,8 @@ class KnowledgeFileService:
             chunks = await doc_parser.parse_doc_into_chunks(knowledge_file_id, file_path, knowledge_id)
 
             # 将上传的文件解析成chunks 放到ES 和 Milvus
-            await RagHandler.index_milvus_documents(knowledge_id, chunks)
-            if app_settings.rag.enable_elasticsearch:
-                await RagHandler.index_es_documents(knowledge_id, chunks)
+            await RagHandler.index_documents(knowledge_id, chunks)
+
             # 解析状态改为 成功
             await cls.update_parsing_status(knowledge_file_id, Status.success)
         except Exception as err:
@@ -52,7 +51,7 @@ class KnowledgeFileService:
     @classmethod
     async def delete_knowledge_file(cls, knowledge_file_id):
         knowledge_file = await cls.select_knowledge_file_by_id(knowledge_file_id)
-        await RagHandler.delete_documents_es_milvus(knowledge_file.id, knowledge_file.knowledge_id)
+        await RagHandler.delete_documents(knowledge_file.id, knowledge_file.knowledge_id)
 
         await KnowledgeFileDao.delete_knowledge_file(knowledge_file_id)
 

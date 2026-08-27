@@ -1,9 +1,8 @@
 from loguru import logger
 from typing import Optional
-from agentchat.services.rag.retrieval import MixRetrival
+from agentchat.services.rag.retrieval import VectorRetrieval
 from agentchat.services.rewrite.query_write import query_rewriter
-from agentchat.services.rag.es_client import client as es_client
-from agentchat.services.rag.vector_stores import milvus_client
+from agentchat.services.rag.vector_stores import vector_client
 from agentchat.services.rag.rerank import Reranker
 from agentchat.settings import app_settings
 
@@ -15,24 +14,13 @@ class RagHandler:
         return query_list
 
     @classmethod
-    async def index_milvus_documents(cls, collection_name, chunks):
-        await milvus_client.insert(collection_name, chunks)
-
-    @classmethod
-    async def index_es_documents(cls, index_name, chunks):
-        await es_client.index_documents(index_name, chunks)
+    async def index_documents(cls, collection_name, chunks):
+        await vector_client.insert(collection_name, chunks)
 
     @classmethod
     async def mix_retrival_documents(cls, query_list, knowledges_id, search_field="summary"):
 
-        if app_settings.rag.enable_elasticsearch:
-            es_documents, milvus_documents = await MixRetrival.mix_retrival_documents(query_list, knowledges_id, search_field)
-            # 先对ES和Milvus结果分别排序
-            es_documents.sort(key=lambda x: x.score, reverse=True)
-            milvus_documents.sort(key=lambda x: x.score, reverse=True)
-            all_documents = es_documents + milvus_documents
-        else:
-            all_documents = await MixRetrival.retrival_milvus_documents(query_list, knowledges_id, search_field)
+        all_documents = await VectorRetrieval.retrieve_documents(query_list, knowledges_id, search_field)
 
         # 合并并去重，保留分数更高的文档
         documents = []
@@ -145,7 +133,5 @@ class RagHandler:
         return final_result
 
     @classmethod
-    async def delete_documents_es_milvus(cls, file_id, knowledge_id):
-        if app_settings.rag.enable_elasticsearch:
-            await es_client.delete_documents(file_id, knowledge_id)
-        await milvus_client.delete_by_file_id(file_id, knowledge_id)
+    async def delete_documents(cls, file_id, knowledge_id):
+        await vector_client.delete_by_file_id(file_id, knowledge_id)

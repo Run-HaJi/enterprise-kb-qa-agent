@@ -88,8 +88,6 @@ tools:
 # RAG (检索增强生成) 配置
 rag:
   enable_summary: False # 是否对知识库片段进行摘要
-  enable_elasticsearch: False # 是否启用 Elasticsearch 进行关键词搜索
-  enable_ik_analyzer: False # 是否启用 Elasticsearch 的IK分词器
 
   retrival:
     top_k: 5  # 知识库召回的最大数量
@@ -99,15 +97,9 @@ rag:
     chunk_size: 500 # 知识库文档分块的最大字符数
     overlap_size: 100 # 文档分块之间的重叠字符数
 
-  # ES数据库配置，主要做关键词召回
-  elasticsearch:
-    hosts: "http://127.0.0.1:9200" # Elasticsearch 连接地址。如果 'enable_elasticsearch' 为 False，则不需要填写。
-
-  # 向量数据库配置 (Vector DB)
+  # 向量数据库配置：统一使用 ChromaDB（本地持久化）
   vector_db:
-    host: "127.0.0.1"
-    port: "19530"
-    mode: "chroma" # 向量库模式: standalone (Milvus), lite (轻量Milvus), chroma (ChromaDB)
+    mode: "chroma"
 
 # 阿里云对象存储 OSS 配置
 storage:

@@ -35,13 +35,10 @@ class Tools(BaseModel):
 class Rag(BaseModel):
     class Config:
         extra = "allow"
-
-    enable_elasticsearch: bool = Field(default=False)
     enable_summary: bool = Field(default=False)
     enable_ik_analyzer: bool = Field(default=False)
     retrival: dict = Field(default_factory=dict)
     split: dict = Field(default_factory=dict)
-    elasticsearch: dict = Field(default_factory=dict)
     vector_db: dict = Field(default_factory=dict)
 
 
