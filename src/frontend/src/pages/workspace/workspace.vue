@@ -226,683 +226,303 @@ onMounted(async () => {
 
 <template>
   <div class="workspace-container">
-    <!-- 顶部导航栏 -->
-    <div class="workspace-nav">
-      <div class="nav-left">
-        <div class="logo-section">
-          <img src="../../assets/robot.svg" alt="Logo" class="logo" />
-        </div>
-        <div class="nav-links">
-          <img src="../../assets/robot.svg" alt="KBQA" class="brand-logo-img" />
-        </div>
-      </div>
-      <div class="nav-right">
-        <!-- 用户信息区域 -->
-        <div class="user-info">
-          <el-dropdown @command="handleUserCommand" trigger="click">
-            <div class="user-avatar-wrapper">
-              <div class="user-avatar">
-                <img
-                  :src="userStore.userInfo?.avatar || '/src/assets/user.svg'"
-                  alt="用户头像"
-                  @error="handleAvatarError"
-                  referrerpolicy="no-referrer"
-                />
-              </div>
-            </div>
-            <template #dropdown>
-              <el-dropdown-menu>
-                <el-dropdown-item command="profile" :icon="User">
-                  个人资料
-                </el-dropdown-item>
-<!--                <el-dropdown-item command="settings" :icon="Setting">-->
-<!--                  系统设置-->
-<!--                </el-dropdown-item>-->
-                <el-dropdown-item divided command="logout" :icon="SwitchButton">
-                  退出登录
-                </el-dropdown-item>
-              </el-dropdown-menu>
-            </template>
-          </el-dropdown>
+    <!-- 顶栏 -->
+    <header class="topbar">
+      <div class="brand">
+        <div class="brand-mark">KB</div>
+        <div class="brand-text">
+          <span class="brand-name">KBQA</span>
+          <span class="brand-sub">企业知识库智能问答</span>
         </div>
       </div>
-    </div>
-
-    <!-- 工作区主内容 -->
-    <div class="workspace-main">
-    <!-- 左侧边栏 -->
-    <div class="sidebar">
-      <!-- 应用中心按钮 -->
-      <div class="create-section">
-        <button @click="goToHomepage" class="create-btn-native">
-          <div class="btn-content">
-            <span class="icon">
-              <img src="../../assets/application-center.svg" width="30px" height="30px" />
-            </span>
-            <span>应用中心</span>
-          </div>
+      <div class="topbar-right">
+        <button class="ghost-btn" @click="goToHomepage">
+          <span>应用中心</span>
         </button>
+        <el-dropdown @command="handleUserCommand" trigger="click">
+          <div class="avatar-wrap" title="账号">
+            <img
+              :src="userStore.userInfo?.avatar || '/src/assets/user.svg'"
+              alt="用户头像"
+              @error="handleAvatarError"
+              referrerpolicy="no-referrer"
+            />
+          </div>
+          <template #dropdown>
+            <el-dropdown-menu>
+              <el-dropdown-item command="profile" :icon="User">个人资料</el-dropdown-item>
+              <el-dropdown-item divided command="logout" :icon="SwitchButton">退出登录</el-dropdown-item>
+            </el-dropdown-menu>
+          </template>
+        </el-dropdown>
       </div>
+    </header>
 
-      <!-- 会话列表 -->
-      <div class="session-list">
-        <!-- 加载状态 -->
-        <div v-if="loading" class="loading-state">
-          <div class="loading-icon">⏳</div>
-          <div class="loading-text">正在加载会话列表...</div>
+    <div class="workspace-body">
+      <!-- 会话侧栏 -->
+      <aside class="sidebar">
+        <div class="sidebar-label">会话</div>
+
+        <div v-if="loading" class="side-hint">正在加载会话…</div>
+
+        <div v-else-if="sessions.length === 0" class="side-empty">
+          <div class="empty-ring"></div>
+          <p>暂无会话记录</p>
+          <span>发起一次对话后显示在这里</span>
         </div>
 
-        <!-- 空状态 -->
-        <div v-else-if="sessions.length === 0" class="empty-state">
-          <img src="../../assets/workspace-session.svg" alt="暂无会话" class="empty-icon-img" />
-          <div class="empty-text">暂无会话记录</div>
-        </div>
-
-        <!-- 会话卡片 -->
         <div
           v-for="session in sessions"
           :key="session.sessionId"
-          :class="['session-card', { active: selectedSession === session.sessionId }]"
+          :class="['session-item', { active: selectedSession === session.sessionId }]"
           @click="selectSession(session.sessionId)"
         >
-          <div class="session-icon">
-            <img src="../../assets/workspace-session.svg" width="30px" height="30px" />
-          </div>
-          <div class="session-info">
+          <div class="session-meta">
             <div class="session-title">{{ session.title }}</div>
             <div class="session-time">{{ formatTime(session.createTime) }}</div>
           </div>
-          <button
-            class="delete-btn"
-            @click="deleteSession(session.sessionId, $event)"
-            title="删除会话"
-          >
-            ×
-          </button>
+          <button class="session-del" title="删除会话" @click="deleteSession(session.sessionId, $event)">×</button>
         </div>
-      </div>
-    </div>
+      </aside>
 
-    <!-- 右侧内容区域 -->
-    <div class="content">
-      <router-view />
-    </div>
+      <!-- 内容区 -->
+      <main class="content">
+        <router-view />
+      </main>
     </div>
   </div>
 </template>
 
 <style lang="scss" scoped>
 .workspace-container {
-@import url('https://fonts.googleapis.com/css2?family=ZCOOL+KuaiLe&family=Zhi+Mang+Xing&family=Ma+Shan+Zheng&display=swap');
-}
-.workspace-container {
-  width: 100%;
-  height: 100vh;
   display: flex;
   flex-direction: column;
-  background-color: #f8f9fa;
+  height: 100vh;
+  background: var(--color-bg);
+  color: var(--color-ink);
 }
 
-.workspace-nav {
+/* ---------- 顶栏 ---------- */
+.topbar {
   display: flex;
-  justify-content: space-between;
   align-items: center;
-  height: 64px;
-  background: linear-gradient(180deg, #e0f2fe 0%, #dbeafe 100%);
-  padding: 0 24px;
-  box-shadow: 0 1px 0 rgba(15, 23, 42, 0.06);
-  position: relative;
-  z-index: 3000;
+  justify-content: space-between;
+  height: 52px;
+  flex-shrink: 0;
+  padding: 0 16px;
+  background: var(--color-panel);
+  border-bottom: 1px solid var(--color-edge);
+}
 
-  .nav-left {
-    display: flex;
-    align-items: center;
+.brand {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
 
-    .logo-section {
-      display: flex;
-      align-items: center;
-      gap: 12px;
+.brand-mark {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 28px;
+  height: 28px;
+  border-radius: 7px;
+  background: rgba(91, 157, 255, 0.14);
+  border: 1px solid rgba(91, 157, 255, 0.3);
+  font-family: var(--font-mono);
+  font-size: 12px;
+  font-weight: 700;
+  color: var(--color-brand);
+}
 
-      .logo {
-        width: 32px;
-        height: 32px;
-          display: block;
-          object-fit: contain;
-        filter: drop-shadow(0 0 3px rgba(0, 0, 0, 0.2));
-      }
-    }
+.brand-text {
+  display: flex;
+  flex-direction: column;
+  line-height: 1.2;
+}
 
-    .nav-links {
-      display: flex;
-      align-items: center;
-      margin-left: 8px;
-      gap: 10px;
+.brand-name {
+  font-family: var(--font-mono);
+  font-size: 13px;
+  font-weight: 600;
+  letter-spacing: 1px;
+  color: var(--color-ink);
+}
 
-        .brand-title {
-          font-family: 'Zhi Mang Xing', 'Ma Shan Zheng', 'ZCOOL KuaiLe', 'PingFang SC', 'Microsoft YaHei', 'Source Han Sans CN', 'Noto Sans CJK SC', 'Helvetica Neue', Arial, sans-serif;
-          font-size: 28px;
-          font-weight: 700;
-          letter-spacing: 0.5px;
-          background: linear-gradient(135deg, #1f2937 0%, #3b82f6 50%, #8b5cf6 100%);
-          -webkit-background-clip: text;
-          -webkit-text-fill-color: transparent;
-          background-clip: text;
-          -webkit-text-stroke: 0.4px rgba(31, 41, 55, 0.06);
-          text-shadow: 0 3px 12px rgba(59, 130, 246, 0.3);
-          user-select: none;
-        }
+.brand-sub {
+  font-size: 11px;
+  color: var(--color-ink-3);
+}
 
-        .brand-logo-img {
-          height: 45px;
-          width: auto;
-          display: block;
-          filter: drop-shadow(0 2px 6px rgba(59, 130, 246, 0.25));
-          user-select: none;
-        }
+.topbar-right {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
 
-      .nav-link {
-        background: #f8fafc;
-        color: #0f172a;
-        border: 1px solid #e5e7eb;
-        height: 40px;
-        padding: 0 14px;
-        border-radius: 14px;
-        font-size: 13px;
-        font-weight: 800;
-        letter-spacing: 0.4px;
-        cursor: pointer;
-        transition: all 0.2s ease;
-        display: inline-flex;
-        align-items: center;
-        gap: 10px;
-        position: relative;
+.ghost-btn {
+  padding: 5px 12px;
+  font-size: 12px;
+  color: var(--color-ink-2);
+  background: transparent;
+  border: 1px solid var(--color-edge);
+  border-radius: 7px;
+  cursor: pointer;
+  transition: all 0.15s ease;
 
-        &:hover {
-          background: #eef2ff;
-          transform: translateY(-1px);
-          box-shadow: 0 8px 18px rgba(2, 6, 23, 0.08);
-        }
-
-        .icon {
-          width: 20px;
-          height: 20px;
-          display: inline-flex;
-          align-items: center;
-          justify-content: center;
-
-          img {
-            width: 20px;
-            height: 20px;
-          }
-        }
-      }
-
-      .workspace-link {
-        background: linear-gradient(135deg, rgba(59,130,246,0.18), rgba(99,102,241,0.18));
-        border-color: rgba(99,102,241,0.24);
-
-        &:hover {
-          background: linear-gradient(135deg, rgba(59,130,246,0.26), rgba(99,102,241,0.26));
-        }
-
-        &.active {
-          background: #eef2ff;
-          border-color: #c7d2fe;
-          color: #0f172a;
-          box-shadow: inset 0 0 0 1px rgba(99,102,241,0.25);
-
-          &::after {
-            content: '';
-            position: absolute;
-            left: 12px;
-            right: 12px;
-            bottom: -5px;
-            height: 2px;
-            border-radius: 2px;
-            background: rgba(99,102,241,0.6);
-          }
-        }
-      }
-
-      .appcenter-link {
-        background: linear-gradient(135deg, rgba(16,185,129,0.16), rgba(59,130,246,0.16));
-        border-color: rgba(59,130,246,0.22);
-
-        &:hover {
-          background: linear-gradient(135deg, rgba(16,185,129,0.24), rgba(59,130,246,0.24));
-        }
-
-        &.active {
-          background: #ebf5ff;
-          border-color: #bfdbfe;
-          color: #0f172a;
-          box-shadow: inset 0 0 0 1px rgba(59,130,246,0.22);
-
-          &::after {
-            content: '';
-            position: absolute;
-            left: 12px;
-            right: 12px;
-            bottom: -5px;
-            height: 2px;
-            border-radius: 2px;
-            background: rgba(59,130,246,0.55);
-          }
-        }
-      }
-
-      .app-center { position: relative; }
-
-      .mega-menu {
-        position: absolute;
-        top: 48px;
-        left: 0;
-        background: var(--color-panel);
-        border: 1px solid rgba(2, 6, 23, 0.08);
-        border-radius: 14px;
-        box-shadow: 0 20px 40px rgba(2, 6, 23, 0.18);
-        padding: 18px;
-        min-width: 560px;
-        z-index: 4000;
-        color: #0f172a;
-
-        .menu-header {
-          font-size: 13px;
-        font-weight: 600;
-          color: #64748b;
-          margin-bottom: 8px;
-        }
-
-        .menu-columns {
-          display: grid;
-          grid-template-columns: repeat(4, minmax(0, 1fr));
-          gap: 14px;
-        }
-
-        .menu-column {
-          display: flex;
-          flex-direction: column;
-          gap: 6px;
-        }
-
-        .menu-item {
-          display: flex;
-          align-items: center;
-          gap: 10px;
-          padding: 10px 12px;
-          border-radius: 10px;
-          color: #1f2937;
-          text-decoration: none;
-          transition: all 0.2s ease;
-
-          &:hover {
-            background: linear-gradient(180deg, #f8fbff, #f3f6fb);
-            box-shadow: inset 0 0 0 1px #e5e7eb;
-          }
-
-          .icon {
-            width: 30px;
-            height: 30px;
-            display: inline-flex;
-            align-items: center;
-            justify-content: center;
-            border-radius: 9px;
-            background: #eef4ff;
-            border: 1px solid rgba(99, 102, 241, 0.12);
-
-            img {
-              width: 19px;
-              height: 19px;
-            }
-          }
-
-          .text {
-            font-size: 14px;
-            font-weight: 700;
-          }
-        }
-      }
-    }
-  }
-
-  .nav-right {
-    .user-info {
-      .user-avatar-wrapper {
-        display: flex;
-        align-items: center;
-        padding: 4px;
-        border-radius: 50%;
-        background: rgba(255, 255, 255, 0.15);
-        backdrop-filter: blur(10px);
-        cursor: pointer;
-        transition: all 0.3s ease;
-
-        &:hover {
-          background: rgba(255, 255, 255, 0.25);
-          transform: translateY(-2px);
-          box-shadow: 0 8px 16px rgba(0, 0, 0, 0.15);
-        }
-
-        .user-avatar {
-          img {
-            width: 40px;
-            height: 40px;
-            border-radius: 50%;
-            border: 2px solid rgba(255, 255, 255, 0.5);
-            object-fit: cover;
-            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
-            transition: all 0.3s ease;
-
-            &:hover {
-              border-color: rgba(255, 255, 255, 0.8);
-              transform: scale(1.05);
-            }
-          }
-        }
-      }
-    }
+  &:hover {
+    color: var(--color-ink);
+    background: var(--color-hover);
   }
 }
 
-.workspace-main {
+.avatar-wrap {
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  overflow: hidden;
+  border: 1px solid var(--color-edge);
+  cursor: pointer;
+
+  img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+}
+
+/* ---------- 主体 ---------- */
+.workspace-body {
   display: flex;
   flex: 1;
-  height: calc(100vh - 64px);
-  background-color: var(--color-panel);
+  min-height: 0;
+}
 
-  .sidebar {
-    height: 100%;
-    width: 280px;
-    background-color: var(--color-panel);
-    border-right: 1px solid #e9ecef;
-    display: flex;
-    flex-direction: column;
-    box-shadow: 2px 0 8px rgba(0, 0, 0, 0.1);
+/* ---------- 会话侧栏 ---------- */
+.sidebar {
+  display: flex;
+  flex-direction: column;
+  width: 248px;
+  flex-shrink: 0;
+  padding: 14px 10px;
+  background: var(--color-panel);
+  border-right: 1px solid var(--color-edge);
+  overflow-y: auto;
+}
 
-    .create-section {
-      padding: 20px 16px;
+.sidebar-label {
+  padding: 0 8px 10px;
+  font-family: var(--font-mono);
+  font-size: 11px;
+  letter-spacing: 2px;
+  color: var(--color-ink-3);
+}
 
-      .create-btn-native {
-        width: 100%;
-        height: 48px;
-        border-radius: 8px;
-        font-weight: 600;
-        transition: all 0.3s ease;
-        background: var(--color-panel);
-        color: #3b82f6;
-        border: 2px solid #3b82f6;
-        cursor: pointer;
-        font-size: 15px;
-        font-family: 'PingFang SC', 'Microsoft YaHei UI', 'Source Han Sans CN', 'Noto Sans CJK SC', sans-serif;
-        letter-spacing: 1px;
+.side-hint {
+  padding: 12px 8px;
+  font-size: 12px;
+  color: var(--color-ink-3);
+}
 
-        &:hover {
-          transform: translateY(-1px);
-          box-shadow: 0 4px 12px rgba(59, 130, 246, 0.3);
-          background: #eff6ff;
-        }
+.side-empty {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 6px;
+  padding: 42px 10px;
+  text-align: center;
 
-        &:active {
-          transform: translateY(0);
-        }
-
-        .btn-content {
-          display: flex;
-          align-items: center;
-          justify-content: center;
-          gap: 8px;
-
-          .icon {
-            font-size: 20px;
-          }
-        }
-      }
-    }
-
-    .session-list {
-      flex: 1;
-      padding: 8px;
-      overflow-y: auto;
-
-      .loading-state {
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        justify-content: center;
-        height: 200px;
-        color: #3b82f6;
-
-        .loading-icon {
-          font-size: 48px;
-          margin-bottom: 16px;
-          animation: spin 1s linear infinite;
-        }
-
-        .loading-text {
-          font-size: 14px;
-          color: #6b7280;
-        }
-      }
-
-      .empty-state {
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        justify-content: center;
-        height: 200px;
-        color: #9ca3af;
-
-        .empty-icon {
-          font-size: 48px;
-          margin-bottom: 16px;
-        }
-
-        .empty-icon-img {
-          width: 60px;
-          height: 60px;
-          margin-bottom: 16px;
-          object-fit: contain;
-          opacity: 0.9;
-        }
-
-        .empty-text {
-          font-size: 16px;
-          font-weight: 600;
-          color: #6b7280;
-          letter-spacing: 0.2px;
-          margin-bottom: 8px;
-        }
-
-        .empty-hint {
-          font-size: 12px;
-          color: #d1d5db;
-        }
-      }
-
-      .session-card {
-        display: flex;
-        align-items: center;
-        gap: 12px;
-        padding: 16px;
-        margin-bottom: 8px;
-        background: var(--color-panel);
-        border: 1px solid #e5e7eb;
-        border-radius: 12px;
-        cursor: pointer;
-        transition: all 0.3s ease;
-        position: relative;
-
-        &:hover {
-          border-color: #667eea;
-          box-shadow: 0 4px 12px rgba(102, 126, 234, 0.15);
-          transform: translateY(-2px);
-
-          .delete-btn {
-            opacity: 1;
-          }
-        }
-
-        &.active {
-          border-color: #667eea;
-          background-color: #eff6ff;
-        }
-
-        .session-icon {
-          width: 28px;
-          height: 28px;
-          display: flex;
-          align-items: center;
-          justify-content: center;
-          background: #eef4ff;
-          border: 1px solid #e5e7eb;
-          border-radius: 8px;
-          flex-shrink: 0;
-
-          img {
-            width: 18px;
-            height: 18px;
-          }
-        }
-
-        .session-info {
-          flex: 1;
-          min-width: 0;
-
-          .session-title {
-            font-size: 14px;
-            font-weight: 600;
-            color: #1f2937;
-            overflow: hidden;
-            text-overflow: ellipsis;
-            white-space: nowrap;
-            margin-bottom: 4px;
-          }
-
-          .session-time {
-            font-size: 11px;
-            color: #9ca3af;
-          }
-        }
-
-        .delete-btn {
-          position: absolute;
-          top: 8px;
-          right: 8px;
-          width: 24px;
-          height: 24px;
-          padding: 0;
-          background: rgba(255, 255, 255, 0.9);
-          border: 1px solid #e5e7eb;
-          cursor: pointer;
-          border-radius: 4px;
-          transition: all 0.2s ease;
-          font-size: 18px;
-          opacity: 0;
-          display: flex;
-          align-items: center;
-          justify-content: center;
-          color: #6b7280;
-
-          &:hover {
-            background: #fee2e2;
-            color: #dc2626;
-            border-color: #dc2626;
-          }
-
-          &:active {
-            transform: scale(0.95);
-          }
-        }
-      }
-    }
-  }
-
-  .content {
-    flex: 1;
-    min-height: 0;
-    background-color: var(--color-panel);
-    border-radius: 0;
+  p {
     margin: 0;
-    box-shadow: none;
-    border-left: 1px solid #e9ecef;
-    overflow: hidden;
+    font-size: 13px;
+    color: var(--color-ink-2);
+  }
+
+  span {
+    font-size: 11px;
+    color: var(--color-ink-3);
   }
 }
 
-// 动画
-@keyframes spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+.empty-ring {
+  width: 34px;
+  height: 34px;
+  margin-bottom: 6px;
+  border: 1.5px dashed var(--color-edge);
+  border-radius: 50%;
 }
 
-// 下拉菜单样式
-:deep(.el-dropdown-menu) {
-  border: none;
-  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.12);
+.session-item {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+  padding: 9px 10px;
+  margin-bottom: 2px;
   border-radius: 8px;
+  cursor: pointer;
+  transition: background 0.12s ease;
+
+  &:hover {
+    background: var(--color-hover);
+
+    .session-del {
+      opacity: 1;
+    }
+  }
+
+  &.active {
+    background: var(--color-hover);
+    box-shadow: inset 2px 0 0 var(--color-brand);
+  }
+}
+
+.session-meta {
+  min-width: 0;
+}
+
+.session-title {
   overflow: hidden;
-  
-  .el-dropdown-menu__item {
-    padding: 12px 16px;
-    font-size: 14px;
-    
-    &:hover {
-      background-color: var(--color-panel-2);
-      color: #409eff;
-    }
-    
-    .el-icon {
-      margin-right: 8px;
-    }
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  font-size: 13px;
+  color: var(--color-ink);
+}
+
+.session-time {
+  margin-top: 2px;
+  font-size: 11px;
+  color: var(--color-ink-3);
+}
+
+.session-del {
+  flex-shrink: 0;
+  width: 20px;
+  height: 20px;
+  line-height: 18px;
+  padding: 0;
+  text-align: center;
+  font-size: 14px;
+  color: var(--color-ink-3);
+  background: transparent;
+  border: none;
+  border-radius: 5px;
+  opacity: 0;
+  cursor: pointer;
+  transition: all 0.12s ease;
+
+  &:hover {
+    color: var(--color-danger);
+    background: rgba(248, 113, 113, 0.1);
   }
 }
 
-// 响应式设计
-@media (max-width: 768px) {
-  .workspace-nav {
-    .nav-left {
-      .logo-section {
-        .brand-name {
-          display: none;
-        }
-      }
-    }
-  }
-
-  .workspace-main {
-    .sidebar {
-      width: 240px;
-    }
-
-    .content {
-      margin: 0;
-    }
-  }
-}
-
-@media (max-width: 480px) {
-  .workspace-nav {
-    padding: 0 12px;
-  }
-
-  .workspace-main {
-    flex-direction: column;
-
-    .sidebar {
-      width: 100%;
-      height: auto;
-      max-height: 300px;
-    }
-
-    .content {
-      flex: 1;
-      margin: 0;
-    }
-  }
+/* ---------- 内容区 ---------- */
+.content {
+  flex: 1;
+  min-width: 0;
+  overflow-y: auto;
+  background: var(--color-bg);
 }
 </style>
-
