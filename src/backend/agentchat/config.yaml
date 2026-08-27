@@ -88,6 +88,7 @@ tools:
 # RAG (检索增强生成) 配置
 rag:
   enable_summary: False # 是否对知识库片段进行摘要
+  enable_keyword_recall: True # 混合检索：BM25 关键词 + 向量双路召回，RRF 融合
 
   retrival:
     top_k: 5  # 知识库召回的最大数量

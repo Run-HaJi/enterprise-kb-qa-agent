@@ -1,6 +1,7 @@
 from loguru import logger
 from typing import Optional
-from agentchat.services.rag.retrieval import VectorRetrieval
+from agentchat.services.rag.retrieval import HybridRetrieval
+from agentchat.services.rag.keyword_index import keyword_index_manager
 from agentchat.services.rewrite.query_write import query_rewriter
 from agentchat.services.rag.vector_stores import vector_client
 from agentchat.services.rag.rerank import Reranker
@@ -15,12 +16,14 @@ class RagHandler:
 
     @classmethod
     async def index_documents(cls, collection_name, chunks):
-        await vector_client.insert(collection_name, chunks)
+        inserted = await vector_client.insert(collection_name, chunks)
+        if inserted:
+            keyword_index_manager.invalidate(collection_name)  # BM25 语料随写入失效
 
     @classmethod
     async def mix_retrival_documents(cls, query_list, knowledges_id, search_field="summary"):
 
-        all_documents = await VectorRetrieval.retrieve_documents(query_list, knowledges_id, search_field)
+        all_documents = await HybridRetrieval.retrieve_documents(query_list, knowledges_id, search_field)
 
         # 合并并去重，保留分数更高的文档
         documents = []
@@ -135,3 +138,4 @@ class RagHandler:
     @classmethod
     async def delete_documents(cls, file_id, knowledge_id):
         await vector_client.delete_by_file_id(file_id, knowledge_id)
+        keyword_index_manager.invalidate(knowledge_id)

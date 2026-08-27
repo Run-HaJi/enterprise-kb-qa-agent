@@ -37,6 +37,7 @@ class Rag(BaseModel):
         extra = "allow"
     enable_summary: bool = Field(default=False)
     enable_ik_analyzer: bool = Field(default=False)
+    enable_keyword_recall: bool = Field(default=True)
     retrival: dict = Field(default_factory=dict)
     split: dict = Field(default_factory=dict)
     vector_db: dict = Field(default_factory=dict)
