@@ -37,7 +37,6 @@ async def init_agentchat_system():
             await asyncio.gather(
                 _init_default_tools(),
                 _init_default_llms(),
-                _init_system_mcp_server(),
                 upload_user_avatars_storage(),
             )
             await _init_default_agents()
@@ -46,10 +45,7 @@ async def init_agentchat_system():
 
         logger.info(f"Existing system detected ({len(agents)} agents), updating config...")
 
-        await asyncio.gather(
-            _update_exist_llm(),
-            _update_mcp_server_into_mysql(True),
-        )
+        await _update_exist_llm()
         logger.success("agentchat runtime ready")
     except Exception as err:
         logger.error(f" agentchat init failed: {err}")

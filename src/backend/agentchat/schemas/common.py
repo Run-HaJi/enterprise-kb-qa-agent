@@ -38,6 +38,8 @@ class Rag(BaseModel):
     enable_summary: bool = Field(default=False)
     enable_ik_analyzer: bool = Field(default=False)
     enable_keyword_recall: bool = Field(default=True)
+    rerank_mode: str = Field(default="local")
+    local_rerank_model: str = Field(default="BAAI/bge-reranker-base")
     retrival: dict = Field(default_factory=dict)
     split: dict = Field(default_factory=dict)
     vector_db: dict = Field(default_factory=dict)
@@ -64,6 +66,16 @@ class StorageConfig(BaseModel):
     local: dict = Field(default_factory=dict)
     oss: Optional[OSSConfig] = None
     minio: Optional[MinioConfig] = None
+
+    @property
+    def active(self):
+        """当前模式的访问配置；本地模式统一经 /api/files 静态目录对外提供"""
+        from types import SimpleNamespace
+        if self.mode == "local":
+            return SimpleNamespace(base_url="/api/files", **self.local)
+        if self.mode == "minio":
+            return SimpleNamespace(**(self.minio or {}))
+        return SimpleNamespace(**(self.oss or {}))
 
 
 class ServerConfig(BaseModel):

@@ -12,6 +12,7 @@ from agentchat.api.JWT import Settings as AuthJwtSettings
 from agentchat.middleware.trace_id_middleware import TraceIDMiddleware
 from agentchat.middleware.white_list_middleware import WhitelistMiddleware
 from agentchat.settings import init_app_settings
+from agentchat.services.rag.rerank import Reranker
 from agentchat.settings import app_settings
 
 warnings.filterwarnings("ignore")
@@ -66,7 +67,7 @@ def print_logo():
     from pyfiglet import Figlet
 
     f = Figlet(font="slant")
-    print(f.renderText("Agent Chat"))
+    print(f.renderText("KBQA"))
 
 @asynccontextmanager
 async def lifespan(app: FastAPI):
@@ -78,6 +79,7 @@ async def lifespan(app: FastAPI):
     )
 
     await register_router(app)
+    Reranker.preload()  # 预热本地重排模型，避免首次查询承担加载耗时
     register_static_files(app)
     print_logo()
 
