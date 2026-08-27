@@ -17,6 +17,13 @@ from agentchat.settings import app_settings
 warnings.filterwarnings("ignore")
 logging.getLogger("chromadb").setLevel(logging.WARNING)
 
+
+def register_static_files(app: FastAPI):
+    """挂载本地文件存储目录，替代对象存储的签名 URL 访问"""
+    from fastapi.staticfiles import StaticFiles
+    from agentchat.services.storage import storage_client
+    app.mount("/api/files", StaticFiles(directory=storage_client.root), name="files")
+
 async def register_router(app: FastAPI):
     from agentchat.api.router import router
 
@@ -71,6 +78,7 @@ async def lifespan(app: FastAPI):
     )
 
     await register_router(app)
+    register_static_files(app)
     print_logo()
 
     yield

@@ -101,23 +101,11 @@ rag:
   vector_db:
     mode: "chroma"
 
-# 阿里云对象存储 OSS 配置
+# 文件存储配置：本地磁盘（经 /api/files 静态目录对外提供）
 storage:
-  mode: "minio" # or oss
-
-  oss:
-    access_key_id: "LTAI5tL85xWWx9gb*******"
-    access_key_secret: ""
-    endpoint: "oss-cn-beijing.aliyuncs.com"
-    bucket_name: "agentchat" # OSS 存储桶名称
-    base_url: "https://agentchat.oss-cn-beijing.aliyuncs.com" # 访问基础 URL
-
-  minio:
-    access_key_id: "minioadmin"
-    access_key_secret: "minioadmin"
-    endpoint: "127.0.0.1:9000"
-    bucket_name: "agentchat" # minio 存储桶名称
-    base_url: "http://127.0.0.1:9000/agentchat" # 访问基础 URL
+  mode: "local"
+  local:
+    root: "./storage_data"
 
 # 默认配置 (如图标 URL, 资源链接)
 default_config:

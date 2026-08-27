@@ -59,21 +59,11 @@ class MinioConfig(BaseModel):
     base_url: str
 
 class StorageConfig(BaseModel):
-    mode: Literal["oss", "minio"]
+    mode: str = "local"
+    local: dict = Field(default_factory=dict)
     oss: Optional[OSSConfig] = None
     minio: Optional[MinioConfig] = None
 
-    @model_validator(mode="after")
-    def validate_storage(self):
-        if self.mode == "oss" and not self.oss:
-            raise ValueError("mode=oss 时必须提供 aliyun_oss")
-        if self.mode == "minio" and not self.minio:
-            raise ValueError("mode=minio 时必须提供 minio")
-        return self
-
-    @property
-    def active(self):
-        return self.oss if self.mode == "oss" else self.minio
 
 class ServerConfig(BaseModel):
     name: str = "AgentChat"

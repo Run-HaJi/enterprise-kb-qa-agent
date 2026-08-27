@@ -1,11 +1,3 @@
-from agentchat.services.storage.oss import OSSClient
-from agentchat.services.storage.minio import MinioClient
-from agentchat.settings import app_settings
+from agentchat.services.storage.local_disk import LocalDiskClient
 
-if app_settings.storage.mode == "minio":
-    storage_client = MinioClient()
-else:
-    storage_client = OSSClient()
-
-if __name__ == "__main__":
-    storage_client.list_files_in_folder("icons/user/")
+storage_client = LocalDiskClient()
