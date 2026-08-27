@@ -487,7 +487,7 @@ watch(
   display: flex;
   flex-direction: column;
   height: 100%;
-  background-color: #f7f8fa;
+  background-color: var(--color-panel-2);
 }
 
 .chat-conversation {
@@ -514,11 +514,11 @@ watch(
     }
 
     .message-content {
-      background-color: #ffffff;
+      background-color: var(--color-panel);
       border-radius: 18px;
       padding: 12px 18px;
       max-width: 70%;
-      color: #333;
+      color: var(--color-ink);
       box-shadow: 0 2px 8px rgba(0,0,0,0.05);
       word-break: break-word;
     }
@@ -594,7 +594,7 @@ watch(
 .event-info-title { 
   margin-left: 8px; 
   font-weight: 600;
-  color: #333;
+  color: var(--color-ink);
 }
 
 .event-info-status {
@@ -632,7 +632,7 @@ watch(
 
 .event-info-message { 
   margin-top: 8px; 
-  color: #333;
+  color: var(--color-ink);
   padding: 8px;
   background: rgba(255, 255, 255, 0.7);
   border-radius: 4px;
@@ -671,12 +671,12 @@ watch(
   align-items: flex-end;
   padding: 15px 20px;
   border-top: 1px solid #e0e0e0;
-  background-color: #ffffff;
+  background-color: var(--color-panel);
   box-shadow: 0 -2px 10px rgba(0,0,0,0.05);
 
   .action-btn {
     margin-right: 10px;
-    background-color: #f0f2f5;
+    background-color: var(--color-panel-2);
     border: none;
     width: 48px;
     height: 48px;
@@ -768,7 +768,7 @@ watch(
     width: 100%;
     :deep(.el-textarea__inner) {
       border-radius: 20px;
-      background-color: #f0f2f5;
+      background-color: var(--color-panel-2);
       box-shadow: none;
       border: 1px solid transparent;
       padding: 12px 18px;

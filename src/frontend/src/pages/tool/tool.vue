@@ -1356,7 +1356,7 @@ onMounted(() => {
   .tool-controls {
     margin-bottom: 0;
     padding: 0;
-    background: #ffffff;
+    background: var(--color-panel);
     border-radius: 16px 16px 0 0;
     box-shadow: none;
     border: 1px solid #e5e7eb;
@@ -1367,7 +1367,7 @@ onMounted(() => {
       :deep(.el-tabs__header) {
         margin: 0;
         border-bottom: 1px solid #f3f4f6;
-        background: #fafbfc;
+        background: var(--color-panel-2);
       }
       
       :deep(.el-tabs__nav-wrap) {
@@ -1419,7 +1419,7 @@ onMounted(() => {
   }
   
   .tool-container {
-    background: #ffffff;
+    background: var(--color-panel);
     border: 1px solid #e5e7eb;
     border-top: none;
     border-radius: 0 0 16px 16px;
@@ -1748,7 +1748,7 @@ onMounted(() => {
       padding: 20px;
       border-radius: 12px;
       margin: 12px;
-      background: #fafbfc;
+      background: var(--color-panel-2);
       border: 1px solid #e5e7eb;
       
       .col-icon {
@@ -1829,7 +1829,7 @@ onMounted(() => {
   height: 100%;
   width: 800px;
   max-width: 800px;
-  background-color: #ffffff;
+  background-color: var(--color-panel);
   box-shadow: -4px 0 20px rgba(0, 0, 0, 0.1);
   display: flex;
   flex-direction: column;
@@ -1869,7 +1869,7 @@ onMounted(() => {
   overflow-y: auto;
   padding: 1.5rem 0;
   padding-bottom: 10rem;
-  background-color: #fafbfc;
+  background-color: var(--color-panel-2);
 }
 
 .dark .drawer-body {
@@ -2041,7 +2041,7 @@ onMounted(() => {
   width: 100%;
   border-radius: 0.5rem;
   border: 1px solid #e5e7eb;
-  background-color: #ffffff;
+  background-color: var(--color-panel);
   padding: 0.5rem 0.875rem;
   font-size: 0.875rem;
   color: #111827;
@@ -2080,7 +2080,7 @@ onMounted(() => {
   width: 100%;
   border-radius: 0.5rem;
   border: 1px solid #e5e7eb;
-  background-color: #ffffff;
+  background-color: var(--color-panel);
   padding: 0.75rem 0.875rem;
   font-size: 0.875rem;
   color: #111827;
@@ -2168,7 +2168,7 @@ onMounted(() => {
   font-size: 0.8125rem;
   font-weight: 500;
   border: 1px solid #e5e7eb;
-  background-color: #ffffff;
+  background-color: var(--color-panel);
   box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
   height: 2rem;
   padding: 0 0.75rem;
@@ -2199,7 +2199,7 @@ onMounted(() => {
   height: 2.5rem;
   border-radius: 0.5rem;
   border: 1px solid #e5e7eb;
-  background-color: #ffffff;
+  background-color: var(--color-panel);
   padding: 0 0.875rem;
   font-size: 0.875rem;
   box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
@@ -2235,7 +2235,7 @@ onMounted(() => {
   height: 2rem;
   border-radius: 0.375rem;
   border: 1px solid #e5e7eb;
-  background-color: #ffffff;
+  background-color: var(--color-panel);
   padding: 0 0.75rem;
   font-size: 0.8125rem;
   box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
@@ -2266,7 +2266,7 @@ onMounted(() => {
   position: relative;
   border: 1px solid #e5e7eb;
   border-radius: 0.5rem;
-  background-color: #ffffff;
+  background-color: var(--color-panel);
 }
 
 .dark .drawer-table-wrapper {
@@ -2330,7 +2330,7 @@ onMounted(() => {
 
 .drawer-table-cell {
   padding: 0.875rem 1rem;
-  background-color: #ffffff;
+  background-color: var(--color-panel);
   color: #374151;
 }
 
@@ -2341,7 +2341,7 @@ onMounted(() => {
 
 .drawer-table-empty {
   padding: 2rem 1rem;
-  background-color: #ffffff;
+  background-color: var(--color-panel);
   text-align: center;
   color: #9ca3af;
   font-size: 0.875rem;
@@ -2381,7 +2381,7 @@ onMounted(() => {
   width: 100%;
   padding: 1.5rem;
   border-top: 1px solid #e5e7eb;
-  background-color: #ffffff;
+  background-color: var(--color-panel);
   display: flex;
   justify-content: center;
   align-items: center;
@@ -2415,7 +2415,7 @@ onMounted(() => {
 
 .drawer-footer-button-cancel {
   border: 1px solid #e5e7eb;
-  background-color: #ffffff;
+  background-color: var(--color-panel);
   box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
   color: #374151;
 }
@@ -2564,7 +2564,7 @@ onMounted(() => {
 }
 
 .delete-modal {
-  background: #ffffff;
+  background: var(--color-panel);
   border-radius: 16px;
   box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
   max-width: 420px;

@@ -514,7 +514,7 @@ const handleCustomUpload = async (event: Event) => {
 <style lang="scss" scoped>
 .profile-page {
   padding: 24px;
-  background-color: #f5f7fa;
+  background-color: var(--color-panel-2);
   min-height: 100vh;
 
   .profile-header {
@@ -541,7 +541,7 @@ const handleCustomUpload = async (event: Event) => {
     max-width: 800px;
 
     .profile-card {
-      background: white;
+      background: var(--color-panel);
       border-radius: 12px;
       padding: 32px;
       box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
@@ -551,7 +551,7 @@ const handleCustomUpload = async (event: Event) => {
         align-items: center;
         margin-bottom: 32px;
         padding-bottom: 24px;
-        border-bottom: 1px solid #ebeef5;
+        border-bottom: 1px solid var(--color-edge-soft);
 
         .avatar-container {
           margin-right: 24px;
@@ -755,7 +755,7 @@ const handleCustomUpload = async (event: Event) => {
 }
 
 .custom-dialog {
-  background-color: white;
+  background-color: var(--color-panel);
   border-radius: 8px;
   width: 700px;
   max-width: 95%;
@@ -766,7 +766,7 @@ const handleCustomUpload = async (event: Event) => {
 
 .custom-dialog-header {
   padding: 20px;
-  border-bottom: 1px solid #ebeef5;
+  border-bottom: 1px solid var(--color-edge-soft);
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -775,7 +775,7 @@ const handleCustomUpload = async (event: Event) => {
     margin: 0;
     font-size: 18px;
     font-weight: 600;
-    color: #303133;
+    color: var(--color-ink);
   }
   
   .close-button {
@@ -783,7 +783,7 @@ const handleCustomUpload = async (event: Event) => {
     background: none;
     font-size: 24px;
     cursor: pointer;
-    color: #909399;
+    color: var(--color-ink-3);
     
     &:hover {
       color: #409eff;
@@ -803,7 +803,7 @@ const handleCustomUpload = async (event: Event) => {
     h4 {
       margin: 0 0 12px 0;
       font-size: 16px;
-      color: #303133;
+      color: var(--color-ink);
     }
     
     .selected-avatar {
@@ -826,7 +826,7 @@ const handleCustomUpload = async (event: Event) => {
       h4 {
         margin: 0 0 12px 0;
         font-size: 16px;
-        color: #303133;
+        color: var(--color-ink);
       }
       
       .avatar-grid {
@@ -866,7 +866,7 @@ const handleCustomUpload = async (event: Event) => {
       h4 {
         margin: 0 0 12px 0;
         font-size: 16px;
-        color: #303133;
+        color: var(--color-ink);
       }
       
       .upload-area {
@@ -887,7 +887,7 @@ const handleCustomUpload = async (event: Event) => {
         .upload-tip {
           margin-top: 8px;
           font-size: 12px;
-          color: #909399;
+          color: var(--color-ink-3);
         }
       }
     }
@@ -897,7 +897,7 @@ const handleCustomUpload = async (event: Event) => {
 .custom-dialog-footer {
   padding: 15px 20px;
   text-align: right;
-  border-top: 1px solid #ebeef5;
+  border-top: 1px solid var(--color-edge-soft);
   
   button {
     padding: 10px 20px;
@@ -909,9 +909,9 @@ const handleCustomUpload = async (event: Event) => {
   }
   
   .cancel-button {
-    border: 1px solid #dcdfe6;
-    background-color: #fff;
-    color: #606266;
+    border: 1px solid var(--color-edge);
+    background-color: var(--color-panel);
+    color: var(--color-ink-2);
     
     &:hover {
       color: #409eff;

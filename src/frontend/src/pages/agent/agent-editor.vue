@@ -1337,7 +1337,7 @@ defineExpose({ loadAgent })
 
             .toggle-slider {
               transform: translateX(152px);
-              background: white;
+              background: var(--color-panel);
               box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
             }
 
@@ -1507,7 +1507,7 @@ defineExpose({ loadAgent })
 
 // 简化清晰的下拉菜单样式
 :global(.el-select-dropdown) {
-  background: white !important;
+  background: var(--color-panel) !important;
   border: 1px solid #e2e8f0 !important;
   border-radius: 12px !important;
   box-shadow: 0 4px 16px rgba(0, 0, 0, 0.1) !important;

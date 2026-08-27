@@ -649,7 +649,7 @@ onMounted(() => {
         :deep(.el-input__wrapper) {
           border-radius: 8px;
           transition: all 0.3s;
-          border: 1px solid #dcdfe6;
+          border: 1px solid var(--color-edge);
           
           &:hover {
             border-color: #409eff;
@@ -698,7 +698,7 @@ onMounted(() => {
   
   // 列表容器
   .model-container {
-    background: #ffffff;
+    background: var(--color-panel);
     border-radius: 16px;
     border: 1px solid #e5e7eb;
     overflow: hidden;
@@ -1066,7 +1066,7 @@ onMounted(() => {
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
-  background: white;
+  background: var(--color-panel);
   border-radius: 20px;
   box-shadow: 
     0 20px 60px rgba(0, 0, 0, 0.3),
@@ -1086,7 +1086,7 @@ onMounted(() => {
   padding: 36px;
   max-height: 65vh;
   overflow-y: auto;
-  background: #fafbfc;
+  background: var(--color-panel-2);
 }
 
 .form-row {
@@ -1163,7 +1163,7 @@ onMounted(() => {
   font-size: 15px;
   font-weight: 500;
   color: #1f2937;
-  background: white;
+  background: var(--color-panel);
   transition: all 0.3s ease;
   box-sizing: border-box;
 }
@@ -1319,7 +1319,7 @@ onMounted(() => {
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
-  background: white;
+  background: var(--color-panel);
   border-radius: 12px;
   box-shadow: 0 8px 32px rgba(0, 0, 0, 0.15);
   width: 90%;

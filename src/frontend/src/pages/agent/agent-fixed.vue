@@ -324,7 +324,7 @@ onMounted(() => {
     justify-content: space-between;
     align-items: center;
     margin-bottom: 24px;
-    background: white;
+    background: var(--color-panel);
     padding: 20px 24px;
     border-radius: 12px;
     box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
@@ -363,7 +363,7 @@ onMounted(() => {
       gap: 24px;
       
       .agent-card {
-        background: white;
+        background: var(--color-panel);
         border-radius: 16px;
         padding: 24px;
         box-shadow: 0 2px 12px rgba(0, 0, 0, 0.08);
@@ -469,7 +469,7 @@ onMounted(() => {
       text-align: center;
       padding: 80px 20px;
       color: #64748b;
-      background: white;
+      background: var(--color-panel);
       border-radius: 16px;
       box-shadow: 0 2px 12px rgba(0, 0, 0, 0.08);
       

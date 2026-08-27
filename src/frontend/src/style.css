@@ -1,176 +1,169 @@
-*{
-    margin: 0;
-    padding: 0;
-    font-family: "Microsoft YaHei";
+/* ============================================================
+   全局设计系统 · 深色科技风（对标主流 Agent 工作台）
+   设计令牌 + Tailwind v4 + Element Plus 暗色主题覆盖
+   ============================================================ */
+
+@import "tailwindcss";
+
+@theme {
+  /* 画布与面板 */
+  --color-bg: #0b0c0e;
+  --color-panel: #131518;
+  --color-panel-2: #17191d;
+  --color-hover: #1d2025;
+  --color-edge: #26292e;
+  --color-edge-soft: #1f2226;
+
+  /* 文字 */
+  --color-ink: #e8eaed;
+  --color-ink-2: #a3a9b3;
+  --color-ink-3: #6e7681;
+
+  /* 品牌与语义 */
+  --color-brand: #5b9dff;
+  --color-brand-dim: #2d4a75;
+  --color-ok: #34d399;
+  --color-warn: #fbbf24;
+  --color-danger: #f87171;
+
+  /* 字体 */
+  --font-sans: "Inter", -apple-system, "Segoe UI", "PingFang SC", "Microsoft YaHei", sans-serif;
+  --font-mono: ui-monospace, "Cascadia Code", "JetBrains Mono", Consolas, monospace;
 }
 
-.md-editor {
-    background-color:transparent !important;
+:root {
+  font-family: var(--font-sans);
+  color-scheme: dark;
 }
 
-.md-editor-preview-wrapper {
-    padding: 0 !important;
+html,
+body,
+#app {
+  height: 100%;
+  background: var(--color-bg);
+  color: var(--color-ink);
 }
 
-/* 全局确保MessageBox居中显示 */
-.el-overlay {
-    display: flex !important;
-    align-items: center !important;
-    justify-content: center !important;
-    background-color: rgba(0, 0, 0, 0.5) !important;
+/* 细滚动条 */
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+::-webkit-scrollbar-thumb {
+  background: #33373d;
+  border-radius: 3px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: #3f444b;
+}
+::-webkit-scrollbar-track {
+  background: transparent;
 }
 
-.el-message-box {
-    position: relative !important;
-    top: auto !important;
-    left: auto !important;
-    transform: none !important;
-    margin: 0 !important;
-    max-width: 420px !important;
-    min-width: 350px !important;
-    background-color: #ffffff !important;
+/* 统一焦点环 */
+:focus-visible {
+  outline: 2px solid var(--color-brand);
+  outline-offset: 1px;
 }
 
-/* 删除确认对话框样式 */
-.delete-confirm-dialog .el-message-box {
-    border-radius: 12px !important;
-    box-shadow: 0 12px 32px 4px rgba(0, 0, 0, 0.1), 0 8px 20px rgba(0, 0, 0, 0.08) !important;
-    background-color: #ffffff !important;
-    border: 1px solid #e4e7ed !important;
-    position: relative !important;
+/* ============================================================
+   Element Plus 暗色主题令牌覆盖（让 EP 组件融入设计系统）
+   ============================================================ */
+html.dark {
+  --el-color-primary: var(--color-brand);
+  --el-color-primary-light-3: #7ab2ff;
+  --el-color-primary-light-5: #4a6da8;
+  --el-color-primary-light-7: #2c3b52;
+  --el-color-primary-light-8: #232f42;
+  --el-color-primary-light-9: #1a2331;
+  --el-color-primary-dark-2: #8ab6ff;
+
+  --el-color-success: var(--color-ok);
+  --el-color-warning: var(--color-warn);
+  --el-color-danger: var(--color-danger);
+  --el-color-error: var(--color-danger);
+
+  --el-bg-color: var(--color-panel);
+  --el-bg-color-page: var(--color-bg);
+  --el-bg-color-overlay: var(--color-panel-2);
+
+  --el-text-color-primary: var(--color-ink);
+  --el-text-color-regular: var(--color-ink-2);
+  --el-text-color-secondary: var(--color-ink-3);
+  --el-text-color-placeholder: #4d5560;
+
+  --el-border-color: var(--color-edge);
+  --el-border-color-light: var(--color-edge-soft);
+  --el-border-color-lighter: var(--color-edge-soft);
+  --el-border-color-extra-light: #1a1c20;
+
+  --el-fill-color: var(--color-hover);
+  --el-fill-color-light: #191c20;
+  --el-fill-color-lighter: #15171b;
+  --el-fill-color-blank: var(--color-panel);
+
+  --el-border-radius-base: 8px;
+  --el-border-radius-small: 6px;
+
+  --el-box-shadow: 0 8px 28px rgba(0, 0, 0, 0.55);
+  --el-box-shadow-light: 0 4px 16px rgba(0, 0, 0, 0.4);
+
+  --el-font-family: var(--font-sans);
 }
 
-.delete-confirm-dialog .el-message-box__header {
-    padding: 24px 24px 12px !important;
-    text-align: center !important;
-    border-bottom: none !important;
-    background-color: #ffffff !important;
-    position: relative !important;
+/* EP 组件微调：压掉圆角气泡感 */
+html.dark .el-card {
+  border-color: var(--color-edge);
+  border-radius: 12px;
+}
+html.dark .el-dialog {
+  border: 1px solid var(--color-edge);
+  border-radius: 14px;
+}
+html.dark .el-button {
+  font-weight: 500;
+  border-radius: 8px;
+}
+html.dark .el-button--primary {
+  --el-button-bg-color: var(--color-brand);
+  --el-button-border-color: var(--color-brand);
+  --el-button-hover-bg-color: #79b1ff;
+  --el-button-hover-border-color: #79b1ff;
+}
+html.dark .el-input__wrapper,
+html.dark .el-textarea__inner {
+  background-color: var(--color-panel-2);
+  box-shadow: 0 0 0 1px var(--color-edge) inset;
+}
+html.dark .el-input__wrapper.is-focus,
+html.dark .el-textarea__inner:focus {
+  box-shadow: 0 0 0 1px var(--color-brand) inset;
+}
+html.dark .el-menu {
+  border-right: none;
+}
+html.dark .el-table {
+  --el-table-border-color: var(--color-edge-soft);
+  --el-table-header-bg-color: var(--color-panel-2);
+  --el-table-row-hover-bg-color: var(--color-hover);
+  background: var(--color-panel);
+}
+html.dark .el-tag {
+  border-radius: 6px;
 }
 
-/* 修复关闭按钮位置 */
-.delete-confirm-dialog .el-message-box__headerbtn {
-    position: absolute !important;
-    top: 16px !important;
-    right: 16px !important;
-    padding: 0 !important;
-    background: none !important;
-    border: none !important;
-    outline: none !important;
-    cursor: pointer !important;
-    font-size: 16px !important;
-    color: #909399 !important;
-    width: 24px !important;
-    height: 24px !important;
-    display: flex !important;
-    align-items: center !important;
-    justify-content: center !important;
-}
-
-.delete-confirm-dialog .el-message-box__headerbtn:hover {
-    color: #606266 !important;
-}
-
-.delete-confirm-dialog .el-message-box__close {
-    font-size: 16px !important;
-}
-
-.delete-confirm-dialog .el-message-box__title {
-    font-size: 18px !important;
-    font-weight: 600 !important;
-    color: #303133 !important;
-    line-height: 1.4 !important;
-}
-
-.delete-confirm-dialog .el-message-box__content {
-    padding: 12px 24px !important;
-    text-align: center !important;
-    background-color: #ffffff !important;
-}
-
-.delete-confirm-dialog .el-message-box__message {
-    font-size: 16px !important;
-    line-height: 1.5 !important;
-    color: #606266 !important;
-    margin: 0 !important;
-}
-
-.delete-confirm-dialog .el-message-box__btns {
-    padding: 16px 24px 24px !important;
-    text-align: center !important;
-    display: flex !important;
-    justify-content: center !important;
-    gap: 16px !important;
-    background-color: #ffffff !important;
-}
-
-.delete-confirm-dialog .el-message-box__btns .el-button {
-    min-width: 88px !important;
-    height: 40px !important;
-    font-size: 14px !important;
-    border-radius: 8px !important;
-    font-weight: 500 !important;
-}
-
-/* 删除按钮样式 - 红色危险按钮 */
-.delete-confirm-dialog .el-message-box__btns .el-button--primary {
-    background-color: #f56c6c !important;
-    border-color: #f56c6c !important;
-    color: #ffffff !important;
-}
-
-.delete-confirm-dialog .el-message-box__btns .el-button--primary:hover {
-    background-color: #f78989 !important;
-    border-color: #f78989 !important;
-}
-
-/* 取消按钮样式 */
-.delete-confirm-dialog .el-message-box__btns .el-button--default {
-    color: #606266 !important;
-    border-color: #dcdfe6 !important;
-    background-color: #ffffff !important;
-}
-
-.delete-confirm-dialog .el-message-box__btns .el-button--default:hover {
-    color: #409eff !important;
-    border-color: #c6e2ff !important;
-    background-color: #ecf5ff !important;
-}
-
-/* 确保没有意外的遮罩层 */
-.el-loading-mask {
-    z-index: 2000 !important;
-}
-
-/* 确保页面内容可以正常交互 */
-.mcp-server-page {
-    position: relative !important;
-    z-index: 1 !important;
-    pointer-events: auto !important;
-}
-
-/* 修复可能的遮罩问题 */
-body {
-    pointer-events: auto !important;
-}
-
-/* 确保侧边栏可以点击 */
-.ai-main .sidebar-content {
-    pointer-events: auto !important;
-    z-index: 100 !important;
-    position: relative !important;
-}
-
-/* 强制移除所有可能的遮罩层 */
-.el-overlay {
-    display: none !important;
-}
-
-.el-loading-mask.is-fullscreen {
-    display: none !important;
-}
-
-/* 确保主要容器可交互 */
-.ai-body, .ai-main, .ai-nav {
-    pointer-events: auto !important;
+/* 常用工具类补充 */
+@layer utilities {
+  .text-mono {
+    font-family: var(--font-mono);
+  }
+  .panel {
+    background: var(--color-panel);
+    border: 1px solid var(--color-edge);
+    border-radius: 12px;
+  }
+  .glass {
+    background: rgba(19, 21, 24, 0.82);
+    backdrop-filter: blur(14px);
+  }
 }

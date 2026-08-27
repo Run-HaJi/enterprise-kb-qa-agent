@@ -21,7 +21,7 @@ const agentCardStore = useAgentCardStore()
 const userStore = useUserStore()
 const route = useRoute()
 const router = useRouter()
-const itemName = ref("智言平台")
+const itemName = ref("KBQA 企业知识库智能问答")
 const showAppCenterMenu = ref(false)
 let appCenterHoverTimer: any = null
 
@@ -174,7 +174,7 @@ watch(
           <img :src="robotIcon" alt="Logo" class="logo" />
         </div>
         <div class="nav-links">
-          <img src="../assets/agentchat.svg" alt="智言平台" class="brand-logo-img" />
+          <img src="../assets/robot.svg" alt="KBQA" class="brand-logo-img" />
         </div>
       </div>
       <div class="right">
@@ -282,7 +282,7 @@ watch(
           <div class="sidebar-footer">
             <div class="help-links">
               <a
-                href="https://github.com/Shy2593666979/AgentChat"
+                href="https://github.com/Run-HaJi/enterprise-kb-qa-agent"
                 target="_blank"
                 class="help-link"
                 title="GitHub 仓库"
@@ -494,7 +494,7 @@ watch(
           position: absolute;
           top: 48px;
           left: 0;
-          background: #ffffff;
+          background: var(--color-panel);
           border: 1px solid rgba(2, 6, 23, 0.08);
           border-radius: 14px;
           box-shadow: 0 20px 40px rgba(2, 6, 23, 0.18);
@@ -610,7 +610,7 @@ watch(
   .ai-main {
     display: flex;
     height: calc(100vh - 64px);
-    background-color: #f5f7fa;
+    background-color: var(--color-panel-2);
     
     :deep(.el-col-2) {
       display: flex;
@@ -679,7 +679,7 @@ watch(
     .content {
       flex: 1;
       overflow-y: auto;
-      background-color: #ffffff;
+      background-color: var(--color-panel);
       border-radius: 20px 0 0 0;
       margin-left: 4px;
       box-shadow: -4px 0 16px rgba(0, 0, 0, 0.05);
@@ -699,7 +699,7 @@ watch(
     font-size: 14px;
     
     &:hover {
-      background-color: #f5f7fa;
+      background-color: var(--color-panel-2);
       color: #409eff;
     }
     
@@ -766,7 +766,7 @@ watch(
         transform: translateY(3px) !important;
         transition: all 0.35s cubic-bezier(0.4, 0, 0.2, 1);
         font-size: 13px;
-        color: #909399;
+        color: var(--color-ink-3);
         opacity: 0.6;
         font-weight: 600;
       }
@@ -792,7 +792,7 @@ watch(
     
     &.is-active {
       > .el-sub-menu__title {
-        background: #ffffff;
+        background: var(--color-panel);
         color: #6366f1;
         box-shadow: 0 2px 8px rgba(99, 102, 241, 0.1);
         border-color: rgba(99, 102, 241, 0.1);
@@ -879,7 +879,7 @@ watch(
     }
     
     &.is-active {
-      background: #ffffff;
+      background: var(--color-panel);
       color: #6366f1;
       box-shadow: 0 2px 8px rgba(99, 102, 241, 0.1);
       border-color: rgba(99, 102, 241, 0.1);

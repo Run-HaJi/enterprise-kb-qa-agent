@@ -83,7 +83,7 @@ const selectCard = () => {
 <style lang="scss" scoped>
 .history-card {
   position: relative;
-  background-color: #ffffff;
+  background-color: var(--color-panel);
   border: 1px solid #e5e7eb;
   border-radius: 12px;
   padding: 16px;
@@ -170,7 +170,7 @@ const selectCard = () => {
         transition: opacity 0.2s ease;
 
         .delete-icon {
-          color: #909399;
+          color: var(--color-ink-3);
           font-size: 18px;
           font-weight: bold;
           cursor: pointer;

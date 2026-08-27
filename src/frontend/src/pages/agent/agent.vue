@@ -684,7 +684,7 @@ onMounted(() => {
       text-align: center;
       padding: 80px 20px;
       color: #64748b;
-      background: white;
+      background: var(--color-panel);
       border-radius: 16px;
       box-shadow: 0 2px 12px rgba(0, 0, 0, 0.08);
       
@@ -710,7 +710,7 @@ onMounted(() => {
   z-index: 1000;
 
   .confirm-dialog-content {
-    background-color: white;
+    background-color: var(--color-panel);
     border-radius: 12px;
     padding: 24px;
     box-shadow: 0 8px 24px rgba(0, 0, 0, 0.2);
@@ -721,7 +721,7 @@ onMounted(() => {
     .dialog-title {
       font-size: 20px;
       font-weight: 700;
-      color: #333;
+      color: var(--color-ink);
       margin-bottom: 16px;
     }
 
@@ -748,7 +748,7 @@ onMounted(() => {
 
       .btn-cancel {
         background-color: #f5f5f5;
-        color: #333;
+        color: var(--color-ink);
         border: 1px solid #ddd;
         
         &:hover {
@@ -879,14 +879,14 @@ onMounted(() => {
   
   h3 {
     font-size: 20px;
-    color: #303133;
+    color: var(--color-ink);
     margin: 0 0 16px;
   }
   
   p {
     margin: 0 0 20px;
     font-size: 16px;
-    color: #909399;
+    color: var(--color-ink-3);
     max-width: 300px;
   }
   

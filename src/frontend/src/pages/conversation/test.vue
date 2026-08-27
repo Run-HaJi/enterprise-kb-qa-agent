@@ -139,7 +139,7 @@ const testFileUpload = async (event: Event) => {
 
 .test-section h3 {
   margin-bottom: 15px;
-  color: #333;
+  color: var(--color-ink);
 }
 
 .chat-log {
@@ -153,7 +153,7 @@ const testFileUpload = async (event: Event) => {
 .message {
   margin-bottom: 10px;
   padding: 8px;
-  background-color: white;
+  background-color: var(--color-panel);
   border-radius: 4px;
 }
 

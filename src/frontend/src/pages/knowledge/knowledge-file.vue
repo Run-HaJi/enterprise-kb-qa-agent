@@ -805,7 +805,7 @@ onUnmounted(() => {
           .title-text {
             font-size: 18px;
             font-weight: 600;
-            color: #303133;
+            color: var(--color-ink);
           }
         }
       
@@ -818,7 +818,7 @@ onUnmounted(() => {
             display: flex;
             align-items: center;
             gap: 8px;
-            color: #606266;
+            color: var(--color-ink-2);
             transition: all 0.2s ease;
             padding: 8px 14px;
             border-radius: 8px;
@@ -833,10 +833,10 @@ onUnmounted(() => {
             
             &.clickable {
               cursor: pointer;
-              background: #f5f7fa;
+              background: var(--color-panel-2);
               
               &:hover {
-                background: #e4e7ed;
+                background: var(--color-edge);
                 color: #409eff;
               }
             }
@@ -852,7 +852,7 @@ onUnmounted(() => {
             margin: 0 8px;
             
             .separator-icon {
-              color: #909399;
+              color: var(--color-ink-3);
               font-size: 10px;
             }
           }
@@ -874,7 +874,7 @@ onUnmounted(() => {
           align-items: center;
           gap: 10px;
           padding: 10px 16px;
-          background: white;
+          background: var(--color-panel);
           border-radius: 10px;
           box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
           border: 1px solid #e1e5e9;
@@ -911,7 +911,7 @@ onUnmounted(() => {
             
             .stat-label {
               font-size: 11px;
-              color: #909399;
+              color: var(--color-ink-3);
               font-weight: 500;
             }
           }
@@ -1045,15 +1045,15 @@ onUnmounted(() => {
       .custom-table {
         width: 100%;
         border-collapse: collapse;
-        background: white;
+        background: var(--color-panel);
         border-radius: 12px;
         overflow: hidden;
         box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
         border: 1px solid #e1e5e9;
         
         th {
-          background: #f5f7fa;
-          color: #606266;
+          background: var(--color-panel-2);
+          color: var(--color-ink-2);
           font-weight: 600;
           padding: 14px 20px;
           text-align: center;
@@ -1092,7 +1092,7 @@ onUnmounted(() => {
           padding: 16px 20px;
           vertical-align: middle;
           font-size: 14px;
-          color: #606266;
+          color: var(--color-ink-2);
           text-align: center;
         }
         
@@ -1167,7 +1167,7 @@ onUnmounted(() => {
             text-overflow: ellipsis;
             white-space: nowrap;
             font-weight: 600;
-            color: #303133;
+            color: var(--color-ink);
             font-size: 14px;
           }
           
@@ -1221,12 +1221,12 @@ onUnmounted(() => {
         
         .time-icon {
           font-size: 14px;
-          color: #909399;
+          color: var(--color-ink-3);
         }
         
         .time-text {
           font-size: 13px;
-          color: #606266;
+          color: var(--color-ink-2);
         }
       }
       
@@ -1262,8 +1262,8 @@ onUnmounted(() => {
         }
         
         &.status-default {
-          background: #f5f7fa;
-          color: #909399;
+          background: var(--color-panel-2);
+          color: var(--color-ink-3);
         }
       }
       
@@ -1277,7 +1277,7 @@ onUnmounted(() => {
           align-items: center;
           gap: 4px;
           padding: 6px 12px;
-          background: white;
+          background: var(--color-panel);
           color: #f56c6c;
           border: 1px solid #f56c6c;
           border-radius: 8px;
@@ -1320,7 +1320,7 @@ onUnmounted(() => {
       align-items: center;
       justify-content: center;
       height: 500px;
-      background: white;
+      background: var(--color-panel);
       border-radius: 12px;
       box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
       border: 1px solid #e1e5e9;
@@ -1377,7 +1377,7 @@ onUnmounted(() => {
         gap: 8px;
         font-size: 20px;
         font-weight: 600;
-        color: #303133;
+        color: var(--color-ink);
         margin: 0 0 12px 0;
         
         .title-icon {
@@ -1387,7 +1387,7 @@ onUnmounted(() => {
       
       .empty-description {
         font-size: 14px;
-        color: #909399;
+        color: var(--color-ink-3);
         margin: 0 0 24px 0;
         text-align: center;
       }
@@ -1403,7 +1403,7 @@ onUnmounted(() => {
           align-items: center;
           gap: 6px;
           padding: 12px;
-          background: #f5f7fa;
+          background: var(--color-panel-2);
           border-radius: 8px;
           min-width: 90px;
           
@@ -1413,7 +1413,7 @@ onUnmounted(() => {
           
           .feature-text {
             font-size: 12px;
-            color: #606266;
+            color: var(--color-ink-2);
             font-weight: 500;
             text-align: center;
           }
@@ -1482,7 +1482,7 @@ onUnmounted(() => {
   z-index: 1000;
 
   .confirm-dialog-content {
-    background-color: white;
+    background-color: var(--color-panel);
     border-radius: 12px;
     padding: 24px;
     box-shadow: 0 10px 40px rgba(0, 0, 0, 0.2);
@@ -1493,13 +1493,13 @@ onUnmounted(() => {
     .dialog-title {
       font-size: 18px;
       font-weight: 600;
-      color: #303133;
+      color: var(--color-ink);
       margin-bottom: 16px;
     }
 
     .dialog-body {
       font-size: 14px;
-      color: #606266;
+      color: var(--color-ink-2);
       margin-bottom: 24px;
       line-height: 1.6;
     }
@@ -1520,11 +1520,11 @@ onUnmounted(() => {
       }
 
       .btn-cancel {
-        background-color: #f5f7fa;
-        color: #606266;
+        background-color: var(--color-panel-2);
+        color: var(--color-ink-2);
         
         &:hover {
-          background-color: #e4e7ed;
+          background-color: var(--color-edge);
         }
       }
 

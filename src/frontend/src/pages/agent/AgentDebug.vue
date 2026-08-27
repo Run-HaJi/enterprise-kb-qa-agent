@@ -105,7 +105,7 @@ const testAPI = async () => {
     padding: 20px;
     border: 1px solid #e1e8ed;
     border-radius: 8px;
-    background: white;
+    background: var(--color-panel);
     
     h3 {
       margin-top: 0;

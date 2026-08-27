@@ -365,7 +365,7 @@ onMounted(() => {
     justify-content: space-between;
     align-items: center;
     margin-bottom: 32px;
-    background: white;
+    background: var(--color-panel);
     padding: 24px 32px;
     border-radius: 16px;
     box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
@@ -454,7 +454,7 @@ onMounted(() => {
   
   .edit-form-section {
     .form-container {
-      background: white;
+      background: var(--color-panel);
       border-radius: 20px;
       padding: 32px;
       box-shadow: 0 8px 32px rgba(0, 0, 0, 0.08);
@@ -579,7 +579,7 @@ onMounted(() => {
               
               &.is-focus {
                 border-color: #3b82f6;
-                background: white;
+                background: var(--color-panel);
                 box-shadow: 0 0 0 4px rgba(59, 130, 246, 0.1), 0 8px 24px rgba(0, 0, 0, 0.12);
                 transform: translateY(-2px);
                 
@@ -667,7 +667,7 @@ onMounted(() => {
             }
             
             &.cancel-btn {
-              background: white;
+              background: var(--color-panel);
               border-color: #e2e8f0;
               color: #64748b;
               
@@ -701,7 +701,7 @@ onMounted(() => {
     justify-content: center;
     height: 100%;
     text-align: center;
-    background: white;
+    background: var(--color-panel);
     border-radius: 20px;
     padding: 80px 40px;
     box-shadow: 0 8px 32px rgba(0, 0, 0, 0.08);

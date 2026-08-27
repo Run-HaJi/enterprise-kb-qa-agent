@@ -341,11 +341,11 @@ watch(
       <!-- 欢迎区域（有对话时隐藏） -->
       <div v-if="messages.length === 0" class="welcome-section">
         <div class="avatar-wrapper">
-          <img src="../../../assets/robot.svg" alt="智言" class="avatar" />
+          <img src="../../../assets/robot.svg" alt="KBQA" class="avatar" />
         </div>
-        <h1 class="welcome-title">我是智言小助手，很高兴见到你！</h1>
+        <h1 class="welcome-title">企业知识库智能问答，随时为你解答</h1>
         <p class="welcome-subtitle">
-          欢迎体验智言灵寻LingSeek，一位懂得完成复杂任务的Agent助理~
+          基于 RAG 检索增强与 Agent 工具调用，回答附带来源引用
         </p>
       </div>
 
@@ -394,7 +394,7 @@ watch(
         <div class="input-wrapper">
           <textarea
             v-model="inputMessage"
-            placeholder="给智言发消息，让智言帮你完成任务~"
+            placeholder="输入你的问题，例如：员工每月加班上限是多少？"
             class="message-input"
             rows="4"
             @keydown="handleKeydown"
@@ -576,7 +576,7 @@ watch(
   &.chat-active {
     padding: 0;
     overflow: hidden;
-    background-color: #f7f8fa;
+    background-color: var(--color-panel-2);
   }
 }
 
@@ -656,7 +656,7 @@ watch(
     padding: 12px 24px;
     border: 2px solid #e5e7eb;
     border-radius: 24px;
-    background: white;
+    background: var(--color-panel);
     color: #6b7280;
     font-size: 14px;
     cursor: pointer;
@@ -766,7 +766,7 @@ watch(
   &.input-fixed {
     max-width: 100%;
     padding: 10px 20px 20px 20px;
-    background: #f7f8fa;
+    background: var(--color-panel-2);
     animation: none;
 
     .input-wrapper {
@@ -776,7 +776,7 @@ watch(
   }
 
   .input-wrapper {
-    background: #ffffff;
+    background: var(--color-panel);
     border: 2px solid #e5e7eb;
     border-radius: 20px;
     padding: 16px 20px;
@@ -905,7 +905,7 @@ watch(
             bottom: calc(100% + 8px);
             left: 0;
             min-width: 200px;
-            background: white;
+            background: var(--color-panel);
             border: 1px solid #e5e7eb;
             border-radius: 12px;
             box-shadow: 0 -10px 30px rgba(0, 0, 0, 0.15);
@@ -953,7 +953,7 @@ watch(
               .header-count {
                 font-size: 12px;
                 color: #6b7280;
-                background: white;
+                background: var(--color-panel);
                 padding: 2px 8px;
                 border-radius: 10px;
                 border: 1px solid #e5e7eb;
@@ -1021,7 +1021,7 @@ watch(
               transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
               margin-bottom: 4px;
               border: 2px solid transparent;
-              background: #fafafa;
+              background: var(--color-panel-2);
 
               .item-left {
                 display: flex;
@@ -1098,7 +1098,7 @@ watch(
               }
 
               &:hover {
-                background: #f5f7fa;
+                background: var(--color-panel-2);
                 transform: translateX(2px);
                 border-color: #e5e7eb;
 
@@ -1146,7 +1146,7 @@ watch(
 
               .clear-btn {
                 padding: 8px 16px;
-                background: white;
+                background: var(--color-panel);
                 border: 1px solid #e5e7eb;
                 border-radius: 8px;
                 font-size: 13px;
@@ -1284,7 +1284,7 @@ watch(
   padding: 0;
   overflow-y: auto;
   width: 100%;
-  background-color: #f7f8fa;
+  background-color: var(--color-panel-2);
   scroll-behavior: smooth;  // 平滑滚动
   
   .message-group {
@@ -1311,11 +1311,11 @@ watch(
     }
 
     .message-content {
-      background-color: #ffffff;
+      background-color: var(--color-panel);
       border-radius: 18px;
       padding: 12px 18px;
       max-width: 70%;
-      color: #333;
+      color: var(--color-ink);
       box-shadow: 0 2px 8px rgba(0,0,0,0.05);
       word-break: break-word;
 

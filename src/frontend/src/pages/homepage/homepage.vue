@@ -189,7 +189,7 @@ const handleExampleClick = async (example: any, index: number) => {
 <style lang="scss" scoped>
 .homepage {
   min-height: 100vh;
-  background: #ffffff;
+  background: var(--color-panel);
   padding: 10px 15px; /* 进一步减少填充 */
   overflow-y: auto;
   /* 隐藏右侧滚动条，仍保留滚动功能 */
@@ -259,7 +259,7 @@ const handleExampleClick = async (example: any, index: number) => {
   margin: 0 auto 28px; /* 进一步增加搜索框与优秀案例之间的间距 */
   
      .search-container {
-     background: #ffffff;
+     background: var(--color-panel);
      border-radius: 22px; /* 增加圆角 */
      padding: 32px; /* 进一步增加内部填充 */
      box-shadow: 0 12px 40px rgba(0, 0, 0, 0.08); /* 增强阴影效果 */
@@ -292,7 +292,7 @@ const handleExampleClick = async (example: any, index: number) => {
          padding: 12px 18px 45px 18px; /* 进一步增加内边距 */
          font-size: 19px; /* 进一步增加字体大小 */
          outline: none;
-         color: #333;
+         color: var(--color-ink);
          line-height: 1.6; /* 增加行高 */
          resize: none;
          font-family: inherit;
@@ -375,7 +375,7 @@ const handleExampleClick = async (example: any, index: number) => {
     text-align: center;
     font-size: 24px; /* 进一步减小标题字体大小 */
     font-weight: 700;
-    color: #333333;
+    color: var(--color-ink);
     margin-bottom: 5px; /* 进一步减少标题底部间距 */
     
     .section-subtitle {
@@ -394,7 +394,7 @@ const handleExampleClick = async (example: any, index: number) => {
     margin-top: 12px; /* 增加顶部间距 */
     
          .example-card {
-       background: #ffffff;
+       background: var(--color-panel);
        border-radius: 12px; /* 进一步减小圆角 */
        padding: 15px; /* 进一步减少内部填充 */
        cursor: pointer;
@@ -419,7 +419,7 @@ const handleExampleClick = async (example: any, index: number) => {
         .example-title {
           font-size: 16px; /* 减小标题字体大小 */
           font-weight: 600;
-          color: #333;
+          color: var(--color-ink);
           margin: 0;
           flex: 1;
         }
@@ -678,7 +678,7 @@ const handleExampleClick = async (example: any, index: number) => {
               transform: translate(-50%, -50%);
               width: 20px;
               height: 20px;
-              background: white;
+              background: var(--color-panel);
               border-radius: 50%;
               box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
             }

@@ -397,8 +397,8 @@ defineExpose({ open, close })
     .left-panel {
       width: 25%;
       min-width: 300px;
-      background-color: #fafbfc;
-      border-right: 1px solid #e4e7ed;
+      background-color: var(--color-panel-2);
+      border-right: 1px solid var(--color-edge);
       overflow-y: auto;
       flex-shrink: 0;
       padding: 32px 24px;
@@ -419,17 +419,17 @@ defineExpose({ open, close })
     .middle-panel {
       width: 35%;
       min-width: 400px;
-      background-color: #fff;
-      border-right: 1px solid #e4e7ed;
+      background-color: var(--color-panel);
+      border-right: 1px solid var(--color-edge);
       overflow-y: auto;
       flex-shrink: 0;
       padding: 32px 24px;
       .config-sections {
         .config-section {
           margin-bottom: 16px;
-          border: 1px solid #e4e7ed;
+          border: 1px solid var(--color-edge);
           border-radius: 8px;
-          background-color: #fafbfc;
+          background-color: var(--color-panel-2);
           .section-header {
             display: flex;
             align-items: center;
@@ -440,7 +440,7 @@ defineExpose({ open, close })
             font-size: 15px;
             font-weight: 500;
             &:hover {
-              background-color: #f0f2f5;
+              background-color: var(--color-panel-2);
             }
             span {
               flex: 1;
@@ -449,8 +449,8 @@ defineExpose({ open, close })
           }
           .section-content {
             padding: 16px;
-            background-color: #fff;
-            border-top: 1px solid #e4e7ed;
+            background-color: var(--color-panel);
+            border-top: 1px solid var(--color-edge);
             .el-form-item {
               margin-bottom: 16px;
             }
@@ -461,7 +461,7 @@ defineExpose({ open, close })
     .right-panel {
       width: 40%;
       min-width: 400px;
-      background-color: #fafbfc;
+      background-color: var(--color-panel-2);
       overflow-y: auto;
       flex-shrink: 0;
       padding: 32px 24px;
@@ -495,7 +495,7 @@ defineExpose({ open, close })
               display: flex;
               align-items: center;
               justify-content: center;
-              background-color: #f0f2f5;
+              background-color: var(--color-panel-2);
               img {
                 width: 100%;
                 height: 100%;
@@ -504,13 +504,13 @@ defineExpose({ open, close })
             }
             .message-content {
               flex: 1;
-              background-color: #fff;
+              background-color: var(--color-panel);
               padding: 12px;
               border-radius: 8px;
               box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
               p {
                 margin: 0;
-                color: #303133;
+                color: var(--color-ink);
                 font-size: 14px;
                 line-height: 1.5;
               }
@@ -522,16 +522,16 @@ defineExpose({ open, close })
           h4 {
             margin: 0 0 12px 0;
             font-size: 14px;
-            color: #303133;
+            color: var(--color-ink);
           }
           .question-list {
             .question-item {
               padding: 8px 12px;
-              background-color: #f0f2f5;
+              background-color: var(--color-panel-2);
               border-radius: 6px;
               margin-bottom: 8px;
               font-size: 13px;
-              color: #606266;
+              color: var(--color-ink-2);
               cursor: pointer;
               transition: all 0.3s;
               &:hover {
@@ -545,12 +545,12 @@ defineExpose({ open, close })
           .input-wrapper {
             display: flex;
             align-items: center;
-            background-color: #fff;
+            background-color: var(--color-panel);
             border-radius: 8px;
             padding: 12px;
             box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
             .input-icon {
-              color: #909399;
+              color: var(--color-ink-3);
               margin-right: 8px;
             }
             .chat-input-field {
@@ -558,9 +558,9 @@ defineExpose({ open, close })
               border: none;
               outline: none;
               font-size: 14px;
-              color: #303133;
+              color: var(--color-ink);
               &::placeholder {
-                color: #c0c4cc;
+                color: var(--color-ink-3);
               }
             }
             .send-btn {
@@ -573,7 +573,7 @@ defineExpose({ open, close })
             text-align: center;
             margin-top: 8px;
             span {
-              color: #909399;
+              color: var(--color-ink-3);
               font-size: 12px;
             }
           }

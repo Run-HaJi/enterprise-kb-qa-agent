@@ -391,7 +391,7 @@ onMounted(() => {
           </div>
           
           <div class="form-item">
-            <label>知识库描述 <span style="color: #909399; font-size: 12px;">(可选，10-200字符)</span></label>
+            <label>知识库描述 <span style="color: var(--color-ink-3); font-size: 12px;">(可选，10-200字符)</span></label>
             <div class="textarea-with-count">
               <textarea 
                 v-model="createForm.knowledge_desc"
@@ -446,7 +446,7 @@ onMounted(() => {
           </div>
           
           <div class="form-item">
-            <label>知识库描述 <span style="color: #909399; font-size: 12px;">(可选，10-200字符)</span></label>
+            <label>知识库描述 <span style="color: var(--color-ink-3); font-size: 12px;">(可选，10-200字符)</span></label>
             <div class="textarea-with-count">
               <textarea 
                 v-model="editForm.knowledge_desc"
@@ -562,7 +562,7 @@ onMounted(() => {
   }
   
   .knowledge-container {
-    background: white;
+    background: var(--color-panel);
     border-radius: 16px;
     box-shadow: 0 6px 24px rgba(0, 0, 0, 0.06);
     border: 1px solid rgba(226, 232, 240, 0.6);
@@ -577,7 +577,7 @@ onMounted(() => {
       border-bottom: 2px solid #e1e5e9;
       font-weight: 600;
       font-size: 13px;
-      color: #606266;
+      color: var(--color-ink-2);
       text-transform: uppercase;
       letter-spacing: 0.5px;
       
@@ -588,7 +588,7 @@ onMounted(() => {
         
         .el-icon, svg {
           font-size: 14px;
-          color: #909399;
+          color: var(--color-ink-3);
         }
       }
     }
@@ -638,7 +638,7 @@ onMounted(() => {
             .knowledge-name {
               font-size: 15px;
               font-weight: 600;
-              color: #303133;
+              color: var(--color-ink);
               overflow: hidden;
               text-overflow: ellipsis;
               white-space: nowrap;
@@ -649,7 +649,7 @@ onMounted(() => {
         .col-desc {
           .knowledge-desc {
             font-size: 14px;
-            color: #606266;
+            color: var(--color-ink-2);
             overflow: hidden;
             text-overflow: ellipsis;
             white-space: nowrap;
@@ -679,14 +679,14 @@ onMounted(() => {
           .size-text {
             font-size: 14px;
             font-weight: 500;
-            color: #606266;
+            color: var(--color-ink-2);
           }
         }
         
         .col-time {
           .time-text {
             font-size: 13px;
-            color: #909399;
+            color: var(--color-ink-3);
           }
         }
         
@@ -700,13 +700,13 @@ onMounted(() => {
             height: 36px;
             border: 1px solid #e1e5e9;
             border-radius: 8px;
-            background: white;
+            background: var(--color-panel);
             cursor: pointer;
             transition: all 0.2s ease;
             display: flex;
             align-items: center;
             justify-content: center;
-            color: #606266;
+            color: var(--color-ink-2);
             
             .el-icon {
               font-size: 18px;
@@ -756,7 +756,7 @@ onMounted(() => {
 }
 
 .dialog-container {
-  background: white;
+  background: var(--color-panel);
   border-radius: 8px;
   box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
   width: 500px;
@@ -770,20 +770,20 @@ onMounted(() => {
   justify-content: space-between;
   align-items: center;
   padding: 20px 20px 0 20px;
-  border-bottom: 1px solid #e4e7ed;
+  border-bottom: 1px solid var(--color-edge);
   margin-bottom: 20px;
   
   h3 {
     margin: 0;
     font-size: 18px;
-    color: #303133;
+    color: var(--color-ink);
   }
   
   .close-btn {
     background: none;
     border: none;
     font-size: 24px;
-    color: #909399;
+    color: var(--color-ink-3);
     cursor: pointer;
     padding: 0;
     width: 24px;
@@ -805,14 +805,14 @@ onMounted(() => {
       display: block;
       margin-bottom: 8px;
       font-size: 14px;
-      color: #606266;
+      color: var(--color-ink-2);
       font-weight: 500;
     }
     
     input, textarea {
       width: 100%;
       padding: 12px;
-      border: 1px solid #dcdfe6;
+      border: 1px solid var(--color-edge);
       border-radius: 4px;
       font-size: 14px;
       box-sizing: border-box;
@@ -824,7 +824,7 @@ onMounted(() => {
       }
       
       &::placeholder {
-        color: #c0c4cc;
+        color: var(--color-ink-3);
       }
     }
     
@@ -837,14 +837,14 @@ onMounted(() => {
 
 .dialog-footer {
   padding: 20px;
-  border-top: 1px solid #e4e7ed;
+  border-top: 1px solid var(--color-edge);
   display: flex;
   justify-content: flex-end;
   gap: 12px;
   
   button {
     padding: 8px 20px;
-    border: 1px solid #dcdfe6;
+    border: 1px solid var(--color-edge);
     border-radius: 4px;
     font-size: 14px;
     cursor: pointer;
@@ -884,7 +884,7 @@ onMounted(() => {
   .char-count {
     position: absolute;
     font-size: 11px;
-    color: #909399;
+    color: var(--color-ink-3);
     background: rgba(255, 255, 255, 0.9);
     padding: 2px 4px;
     border-radius: 4px;
@@ -943,14 +943,14 @@ onMounted(() => {
   
   h3 {
     font-size: 20px;
-    color: #303133;
+    color: var(--color-ink);
     margin: 0 0 16px;
   }
   
   p {
     margin: 0 0 20px;
     font-size: 16px;
-    color: #909399;
+    color: var(--color-ink-3);
     max-width: 300px;
   }
   
@@ -962,7 +962,7 @@ onMounted(() => {
 
 /* 删除确认对话框样式 */
 .delete-dialog-container {
-  background: white;
+  background: var(--color-panel);
   border-radius: 12px;
   box-shadow: 0 10px 40px rgba(0, 0, 0, 0.2);
   width: 400px;
@@ -976,7 +976,7 @@ onMounted(() => {
   p {
     margin: 0;
     font-size: 16px;
-    color: #303133;
+    color: var(--color-ink);
     line-height: 1.6;
     
     strong {
@@ -992,7 +992,7 @@ onMounted(() => {
   gap: 12px;
   padding: 20px 30px;
   background: #f8fafc;
-  border-top: 1px solid #e4e7ed;
+  border-top: 1px solid var(--color-edge);
 }
 
 .delete-dialog-btn {
@@ -1010,11 +1010,11 @@ onMounted(() => {
   }
   
   &.cancel-btn {
-    background: #f5f7fa;
-    color: #606266;
+    background: var(--color-panel-2);
+    color: var(--color-ink-2);
     
     &:hover:not(:disabled) {
-      background: #e4e7ed;
+      background: var(--color-edge);
     }
   }
   

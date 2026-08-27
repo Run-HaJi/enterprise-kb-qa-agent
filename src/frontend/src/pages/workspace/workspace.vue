@@ -233,7 +233,7 @@ onMounted(async () => {
           <img src="../../assets/robot.svg" alt="Logo" class="logo" />
         </div>
         <div class="nav-links">
-          <img src="../../assets/agentchat.svg" alt="智言平台" class="brand-logo-img" />
+          <img src="../../assets/robot.svg" alt="KBQA" class="brand-logo-img" />
         </div>
       </div>
       <div class="nav-right">
@@ -497,7 +497,7 @@ onMounted(async () => {
         position: absolute;
         top: 48px;
         left: 0;
-        background: #ffffff;
+        background: var(--color-panel);
         border: 1px solid rgba(2, 6, 23, 0.08);
         border-radius: 14px;
         box-shadow: 0 20px 40px rgba(2, 6, 23, 0.18);
@@ -608,12 +608,12 @@ onMounted(async () => {
   display: flex;
   flex: 1;
   height: calc(100vh - 64px);
-  background-color: #ffffff;
+  background-color: var(--color-panel);
 
   .sidebar {
     height: 100%;
     width: 280px;
-    background-color: #ffffff;
+    background-color: var(--color-panel);
     border-right: 1px solid #e9ecef;
     display: flex;
     flex-direction: column;
@@ -628,7 +628,7 @@ onMounted(async () => {
         border-radius: 8px;
         font-weight: 600;
         transition: all 0.3s ease;
-        background: white;
+        background: var(--color-panel);
         color: #3b82f6;
         border: 2px solid #3b82f6;
         cursor: pointer;
@@ -725,7 +725,7 @@ onMounted(async () => {
         gap: 12px;
         padding: 16px;
         margin-bottom: 8px;
-        background: white;
+        background: var(--color-panel);
         border: 1px solid #e5e7eb;
         border-radius: 12px;
         cursor: pointer;
@@ -820,7 +820,7 @@ onMounted(async () => {
   .content {
     flex: 1;
     min-height: 0;
-    background-color: #ffffff;
+    background-color: var(--color-panel);
     border-radius: 0;
     margin: 0;
     box-shadow: none;
@@ -851,7 +851,7 @@ onMounted(async () => {
     font-size: 14px;
     
     &:hover {
-      background-color: #f5f7fa;
+      background-color: var(--color-panel-2);
       color: #409eff;
     }
     

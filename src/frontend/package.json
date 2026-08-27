@@ -27,10 +27,12 @@
     "vue-router": "^4.3.0"
   },
   "devDependencies": {
+    "@tailwindcss/vite": "^4.3.3",
     "@types/lodash": "^4.17.0",
     "@types/node": "^20.12.0",
     "@vitejs/plugin-vue": "^5.0.4",
     "sass": "^1.72.0",
+    "tailwindcss": "^4.3.3",
     "typescript": "^5.4.3",
     "unplugin-auto-import": "^0.17.5",
     "unplugin-vue-components": "^0.26.0",

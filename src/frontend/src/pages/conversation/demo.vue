@@ -452,7 +452,7 @@ const clearSearch = () => {
         }
 
         .dialog-card {
-          background: white;
+          background: var(--color-panel);
           border: 1px solid #e5e7eb;
           border-radius: 12px;
           padding: 16px;

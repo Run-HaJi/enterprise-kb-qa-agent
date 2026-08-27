@@ -540,12 +540,12 @@ const closeCreateDialog = () => {
 .conversation-main {
   display: flex;
   height: calc(100vh - 60px);
-  background-color: #ffffff;
+  background-color: var(--color-panel);
 
   .sidebar {
     height: 100%;
     width: 280px;
-    background-color: #ffffff;
+    background-color: var(--color-panel);
     border-right: 1px solid #e9ecef;
     display: flex;
     flex-direction: column;
@@ -619,7 +619,7 @@ const closeCreateDialog = () => {
           &:focus {
             outline: none;
             border-color: #667eea;
-            background: white;
+            background: var(--color-panel);
             box-shadow: 0 0 0 2px rgba(102, 126, 234, 0.1);
           }
 
@@ -698,7 +698,7 @@ const closeCreateDialog = () => {
       }
 
       .dialog-card {
-        background: white;
+        background: var(--color-panel);
         border: 1px solid #e5e7eb;
         border-radius: 12px;
         padding: 16px;
@@ -802,7 +802,7 @@ const closeCreateDialog = () => {
 
   .content {
     flex: 1;
-    background-color: #ffffff;
+    background-color: var(--color-panel);
     border-radius: 0;
     margin: 0;
     box-shadow: none;
@@ -1039,7 +1039,7 @@ const closeCreateDialog = () => {
   top: 50% !important;
   left: 50% !important;
   transform: translate(-50%, -50%) !important;
-  background: white !important;
+  background: var(--color-panel) !important;
   border-radius: 8px !important;
   box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2) !important;
 }
@@ -1071,7 +1071,7 @@ const closeCreateDialog = () => {
 }
 
 .create-dialog {
-  background: white;
+  background: var(--color-panel);
   border-radius: 24px;
   width: 85vw;
   max-width: 1200px;
@@ -1131,14 +1131,14 @@ const closeCreateDialog = () => {
           border-radius: 14px;
           font-size: 15px;
           transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
-          background: white;
+          background: var(--color-panel);
           color: #1e40af;
           font-weight: 500;
 
           &:focus {
             outline: none;
             border-color: #3b82f6;
-            background: white;
+            background: var(--color-panel);
             box-shadow: 0 0 0 4px rgba(59, 130, 246, 0.15);
           }
 
@@ -1194,7 +1194,7 @@ const closeCreateDialog = () => {
           .count {
             font-size: 14px;
             color: #3b82f6;
-            background: white;
+            background: var(--color-panel);
             padding: 5px 12px;
             border-radius: 20px;
             font-weight: 600;
@@ -1283,7 +1283,7 @@ const closeCreateDialog = () => {
           cursor: pointer;
           transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
           position: relative;
-          background: white;
+          background: var(--color-panel);
           overflow: hidden;
           aspect-ratio: 1;
           display: flex;
@@ -1366,7 +1366,7 @@ const closeCreateDialog = () => {
               right: -8px;
               width: 32px;
               height: 32px;
-              background: white;
+              background: var(--color-panel);
               border-radius: 50%;
               display: flex;
               align-items: center;
@@ -1453,7 +1453,7 @@ const closeCreateDialog = () => {
       padding: 13px 28px;
       border: 2px solid #93c5fd;
       border-radius: 12px;
-      background: white;
+      background: var(--color-panel);
       color: #3b82f6;
       cursor: pointer;
       font-size: 15px;

@@ -599,7 +599,7 @@ defineExpose({ open, close })
     justify-content: space-between;
     align-items: center;
     padding: 20px 24px;
-    border-bottom: 1px solid #e4e7ed;
+    border-bottom: 1px solid var(--color-edge);
 
     .header-left {
       display: flex;
@@ -624,8 +624,8 @@ defineExpose({ open, close })
     .left-panel {
       width: 50%;
       padding: 24px;
-      background-color: #fafbfc;
-      border-right: 1px solid #e4e7ed;
+      background-color: var(--color-panel-2);
+      border-right: 1px solid var(--color-edge);
       overflow-y: auto;
 
       .assistant-preview {
@@ -658,12 +658,12 @@ defineExpose({ open, close })
             h3 {
               margin: 0 0 8px 0;
               font-size: 18px;
-              color: #303133;
+              color: var(--color-ink);
             }
 
             p {
               margin: 0;
-              color: #606266;
+              color: var(--color-ink-2);
               font-size: 14px;
             }
           }
@@ -676,13 +676,13 @@ defineExpose({ open, close })
             h4 {
               margin: 0 0 12px 0;
               font-size: 16px;
-              color: #303133;
+              color: var(--color-ink);
               font-weight: 600;
             }
 
             p {
               margin: 0 0 8px 0;
-              color: #606266;
+              color: var(--color-ink-2);
               line-height: 1.6;
               font-size: 14px;
             }
@@ -699,7 +699,7 @@ defineExpose({ open, close })
       .config-form {
         .config-section {
           margin-bottom: 16px;
-          border: 1px solid #e4e7ed;
+          border: 1px solid var(--color-edge);
           border-radius: 8px;
 
           .section-header {
@@ -707,7 +707,7 @@ defineExpose({ open, close })
             align-items: center;
             gap: 8px;
             padding: 12px 16px;
-            background-color: #f5f7fa;
+            background-color: var(--color-panel-2);
             cursor: pointer;
             user-select: none;
 
@@ -752,7 +752,7 @@ defineExpose({ open, close })
           justify-content: center;
           cursor: pointer;
           transition: all 0.3s ease;
-          background: #fafafa;
+          background: var(--color-panel-2);
           position: relative;
           
           &:hover:not(.uploading) {
@@ -848,22 +848,22 @@ defineExpose({ open, close })
       .recommended-questions {
         margin-top: 24px;
         padding-top: 24px;
-        border-top: 1px solid #e4e7ed;
+        border-top: 1px solid var(--color-edge);
 
         h4 {
           margin: 0 0 16px 0;
           font-size: 16px;
-          color: #303133;
+          color: var(--color-ink);
         }
 
         .question-list {
           .question-item {
             padding: 12px 16px;
-            background-color: #f0f2f5;
+            background-color: var(--color-panel-2);
             border-radius: 8px;
             margin-bottom: 8px;
             font-size: 14px;
-            color: #606266;
+            color: var(--color-ink-2);
             cursor: pointer;
             transition: all 0.3s;
 
@@ -880,7 +880,7 @@ defineExpose({ open, close })
         justify-content: flex-end;
         gap: 12px;
         padding-top: 24px;
-        border-top: 1px solid #e4e7ed;
+        border-top: 1px solid var(--color-edge);
         margin-top: 24px;
       }
     }
