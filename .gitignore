@@ -17,3 +17,17 @@ node_modules/
 .env
 .env.*
 *.local.yaml
+
+# Python
+.venv/
+__pycache__/
+*.pyc
+
+# Node
+node_modules/
+
+# 运行时产物
+chroma_data/
+storage/
+logs/
+*.log

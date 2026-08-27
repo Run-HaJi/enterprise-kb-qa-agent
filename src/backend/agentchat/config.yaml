@@ -20,39 +20,39 @@ redis:
 multi_models:
   # 对话模型配置
   conversation_model:
-    api_key: ""
+    api_key: "sk-local-placeholder"
     base_url: "https://dashscope.aliyuncs.com/compatible-mode/v1"
     model_name: "qwen-plus"
   # 工具调用/Function Call 模型配置
   tool_call_model:
-    api_key: ""
+    api_key: "sk-local-placeholder"
     base_url: "https://dashscope.aliyuncs.com/compatible-mode/v1"
     model_name: "qwen-plus"
   # 复杂推理模型配置
   reasoning_model:
-    api_key: ""
+    api_key: "sk-local-placeholder"
     base_url: "https://api.deepseek.com/v1"
     model_name: "deepseek-reasoner"
   # 文生图模型配置
   text2image:
-    api_key: ""
+    api_key: "sk-local-placeholder"
     base_url: "https://dashscope.aliyuncs.com/api/v1/services/aigc/text2image/image-synthesis"
     model_name: "wanx2.0-t2i-turbo"
   # 多模态 (视觉) 模型配置
   qwen_vl:
-    api_key: ""
+    api_key: "sk-local-placeholder"
     base_url: "https://dashscope.aliyuncs.com/compatible-mode/v1"
     model_name: "qwen-vl-plus"
 
   # Embedding 模型配置 (用于向量化)
   embedding:
-    api_key: ""
+    api_key: "sk-local-placeholder"
     base_url: "https://dashscope.aliyuncs.com/compatible-mode/v1"
     model_name: "text-embedding-v4"
 
   # Rerank 模型配置 (用于重排序召回结果)
   rerank:
-    api_key: ""
+    api_key: "sk-local-placeholder"
     base_url: "https://dashscope.aliyuncs.com/api/v1/services/rerank/text-rerank/text-rerank"
     model_name: "gte-rerank-v2"
 
@@ -61,28 +61,28 @@ multi_models:
 tools:
   # 高德地图天气 API 配置
   weather:
-    api_key: ""
+    api_key: "sk-local-placeholder"
     endpoint: "https://restapi.amap.com/v3/weather/weatherInfo?parameters"
   # Tavily 联网搜索 API 配置 (注意配额限制)
   tavily:
-    api_key: ""
+    api_key: "sk-local-placeholder"
   # SerpApi 上的 Google Search API 配置
   google:
-    api_key: ""
+    api_key: "sk-local-placeholder"
   # 阿里云快递查询 API 配置
   delivery:
-    api_key: ""
+    api_key: "sk-local-placeholder"
     endpoint: "https://qyexpress.market.alicloudapi.com/composite/queryexpress"
   # BoCha 联网搜索 API 配置
   bocha:
-    api_key: ""
+    api_key: "sk-local-placeholder"
     endpoint: "https://api.bochaai.com/v1/web-search"
   # Serply 联网搜索 API 配置（获取 API 密钥: https://serply.io，文档: https://serply.io/docs）
   serply:
-    api_key: ""
+    api_key: "sk-local-placeholder"
   # You.com Search & Research API 配置（获取 API 密钥: https://ydc-index.io/docs）
   youcom:
-    api_key: ""
+    api_key: "sk-local-placeholder"
     endpoint: "https://ydc-index.io/v1/search"
 
 # RAG (检索增强生成) 配置
