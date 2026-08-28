@@ -513,7 +513,7 @@ onMounted(() => {
           .section-title {
             font-size: 18px;
             font-weight: 600;
-            color: #334155;
+            color: var(--color-ink-2);
             margin: 0 0 20px 0;
             padding-bottom: 12px;
             border-bottom: 1px solid var(--color-edge);
@@ -591,7 +591,7 @@ onMounted(() => {
             
             .el-input__inner {
               font-size: 15px;
-              color: #1e293b;
+              color: var(--color-ink);
               font-weight: 500;
               
               &::placeholder {
@@ -609,7 +609,7 @@ onMounted(() => {
           
           .el-form-item__label {
             font-weight: 700;
-            color: #334155;
+            color: var(--color-ink-2);
             font-size: 15px;
             position: relative;
             
@@ -674,7 +674,7 @@ onMounted(() => {
               &:hover {
                 border-color: #cbd5e1;
                 background: var(--color-panel-2);
-                color: #475569;
+                color: var(--color-ink-2);
               }
             }
             
@@ -716,7 +716,7 @@ onMounted(() => {
       margin: 0 0 12px 0;
       font-size: 24px;
       font-weight: 600;
-      color: #475569;
+      color: var(--color-ink-2);
     }
     
     p {

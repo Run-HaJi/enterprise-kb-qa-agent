@@ -9,9 +9,9 @@ export interface UnifiedResponse<T = any> {
 
 // 知识库文件状态枚举
 export enum KnowledgeFileStatus {
-  FAIL = "❌ 失败",
-  PROCESS = "🚀 进行中", 
-  SUCCESS = "✅ 完成"
+  FAIL = "失败",
+  PROCESS = "进行中", 
+  SUCCESS = "完成"
 }
 
 // 知识库文件响应类型

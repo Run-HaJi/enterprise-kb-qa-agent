@@ -950,7 +950,7 @@ defineExpose({ loadAgent })
           .panel-title {
             font-size: 16px;
             font-weight: 700;
-            color: #1e293b;
+            color: var(--color-ink);
             letter-spacing: -0.025em;
           }
         }
@@ -1096,7 +1096,7 @@ defineExpose({ loadAgent })
               .field-label {
                 font-size: 13px;
                 font-weight: 600;
-                color: #475569;
+                color: var(--color-ink-2);
                 white-space: nowrap;
                 width: 36px;
                 text-align: right;
@@ -1121,7 +1121,7 @@ defineExpose({ loadAgent })
               :deep(.el-input__inner) {
                 font-size: 15px;
                 font-weight: 600;
-                color: #1e293b;
+                color: var(--color-ink);
               }
             }
           }
@@ -1132,7 +1132,7 @@ defineExpose({ loadAgent })
         .prompt-label {
           font-size: 13px;
           font-weight: 600;
-          color: #475569;
+          color: var(--color-ink-2);
           margin-bottom: 8px;
         }
 
@@ -1195,7 +1195,7 @@ defineExpose({ loadAgent })
 
             .info-value {
               font-size: 14px;
-              color: #1e293b;
+              color: var(--color-ink);
               font-weight: 600;
             }
           }
@@ -1271,7 +1271,7 @@ defineExpose({ loadAgent })
 
               span {
                 font-weight: 700;
-                color: #1e293b;
+                color: var(--color-ink);
                 font-size: 16px;
                 letter-spacing: -0.025em;
               }
@@ -1428,7 +1428,7 @@ defineExpose({ loadAgent })
         :deep(.el-input__inner) {
           font-size: 14px;
           font-weight: 500;
-          color: #1e293b;
+          color: var(--color-ink);
           padding: 0 16px;
         }
         

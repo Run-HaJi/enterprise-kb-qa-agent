@@ -77,8 +77,16 @@ async def load_json(path: str):
         return json.loads(await f.read())
 
 async def _init_default_tools():
-    """初始化默认工具"""
+    """初始化默认工具（按工具名查重，避免重复播种）"""
     tools = await load_json("./agentchat/config/tool.json")
+
+    existing = await ToolService.get_tools_data()
+    existing_names = {t.get("name") for t in (existing or [])}
+
+    pending = [t for t in tools if t.get("name") not in existing_names]
+    if not pending:
+        logger.info("Default tools already seeded, skip")
+        return
 
     await asyncio.gather(*[
         ToolService.create_default_tool(
@@ -88,7 +96,7 @@ async def _init_default_tools():
                 is_user_defined=False
             )
         )
-        for tool in tools
+        for tool in pending
     ])
 
     logger.success("Default tools initialized")
@@ -168,9 +176,14 @@ async def _init_default_agents():
     llm = await LLMService.get_one_llm()
     tools = await ToolService.get_tools_data()
 
+    existing_agents = await AgentService.get_agent()
+    existing_names = {a.name if not isinstance(a, dict) else a.get("name") for a in (existing_agents or [])}
+
     tasks = []
 
     for tool in tools:
+        if tool["name"] in existing_names:
+            continue
         tool["name"] = tool["display_name"] + "助手"
 
         agent = AgentTable(

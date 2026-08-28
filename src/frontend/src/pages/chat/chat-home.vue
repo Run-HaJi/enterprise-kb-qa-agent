@@ -43,13 +43,7 @@ const handleAvatarError = (event: Event) => {
   }
 }
 
-const modes = [
-  {
-    id: 'normal',
-    label: '日常模式',
-    icon: '💬'
-  }
-]
+
 
 // 从接口加载模型
 const fetchModels = async () => {
@@ -88,11 +82,6 @@ const fetchPlugins = async () => {
   } catch (error) {
     console.error('获取插件列表出错:', error)
   }
-}
-
-// 选择模式
-const selectMode = (modeId: string) => {
-  selectedMode.value = modeId
 }
 
 // 选择模型

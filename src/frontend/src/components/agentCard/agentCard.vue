@@ -146,7 +146,7 @@ const editAgent = () => {
         span {
           font-size: 15px;
           font-weight: 600;
-          color: #1e293b;
+          color: var(--color-ink);
           font-family: 'PingFang SC', 'Microsoft YaHei', 'Helvetica Neue', Arial, sans-serif;
           line-height: 1.3;
           overflow: hidden;

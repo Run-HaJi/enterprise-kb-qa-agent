@@ -344,7 +344,6 @@ onMounted(() => {
     <!-- 页面头部 -->
     <div class="page-header">
       <div class="header-title">
-        <img :src="modelIcon" alt="模型" class="title-icon" />
         <h2>模型管理</h2>
       </div>
       <div class="header-actions">
@@ -454,7 +453,13 @@ onMounted(() => {
       <!-- 空状态 -->
       <div v-if="models.length === 0 && !loading" class="empty-state">
         <div class="empty-icon">
-          <span class="empty-emoji">🤖</span>
+          <svg width="56" height="56" viewBox="0 0 64 64" fill="none"
+  stroke="var(--color-ink-3)" stroke-width="2" stroke-linecap="round">
+  <rect x="10" y="14" width="44" height="36" rx="8"/>
+  <line x1="22" y1="28" x2="26" y2="28"/>
+  <line x1="38" y1="28" x2="42" y2="28"/>
+  <line x1="22" y1="38" x2="42" y2="38"/>
+</svg>
         </div>
         <h3>暂无模型</h3>
         <p>点击上方按钮添加您的第一个AI模型</p>
@@ -551,7 +556,7 @@ onMounted(() => {
             class="dialog-btn cancel-btn" 
             @click.stop="createDialogVisible = false"
           >
-            <span class="btn-icon">❌</span>
+            <span class="btn-icon">×</span>
             <span class="btn-text">取消</span>
           </button>
           <button 
@@ -669,8 +674,8 @@ onMounted(() => {
           
           &.refresh-btn {
             &:hover {
-              background-color: #67c23a;
-              border-color: #67c23a;
+              background-color: var(--color-ink-2);
+              border-color: var(--color-ink-2);
               color: white;
             }
           }
@@ -773,14 +778,14 @@ onMounted(() => {
                 background: linear-gradient(135deg, #67c23a 0%, #529b2e 100%);
               }
               &.rerank {
-                background: linear-gradient(135deg, #e6a23c 0%, #d9b55b 100%);
+                background: var(--color-panel-2);
               }
             }
 
             .model-name {
               font-size: 15px;
               font-weight: 600;
-              color: #1e293b;
+              color: var(--color-ink);
               white-space: nowrap;
               overflow: hidden;
               text-overflow: ellipsis;
@@ -790,8 +795,8 @@ onMounted(() => {
               font-size: 11px;
               font-weight: 600;
               color: #e6a23c;
-              background: #fef6e4;
-              border: 1px solid #f8d4a5;
+              background: var(--color-panel-2);
+              border: 1px solid var(--color-edge);
               border-radius: 20px;
               padding: 2px 8px;
               flex-shrink: 0;
@@ -837,7 +842,7 @@ onMounted(() => {
             }
             &.embedding {
               background: rgba(103, 194, 58, 0.1);
-              color: #67c23a;
+              color: var(--color-ink-2);
             }
             &.rerank {
               background: rgba(230, 162, 60, 0.1);
@@ -932,7 +937,7 @@ onMounted(() => {
       h3 {
         font-size: 18px;
         font-weight: 600;
-        color: #475569;
+        color: var(--color-ink-2);
         margin-bottom: 8px;
       }
 
@@ -1233,7 +1238,7 @@ onMounted(() => {
 
 .cancel-btn:hover {
   background: var(--color-panel-2);
-  color: #475569;
+  color: var(--color-ink-2);
   transform: translateY(-2px);
   box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
 }
@@ -1246,7 +1251,7 @@ onMounted(() => {
 
 .confirm-btn:hover:not(.disabled) {
   background: var(--color-panel-2);
-  color: #475569;
+  color: var(--color-ink-2);
   transform: translateY(-2px);
   box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
 }
@@ -1364,7 +1369,7 @@ onMounted(() => {
 }
 
 .delete-dialog-btn.cancel-btn:hover:not(:disabled) {
-  background: #f3f4f6;
+  background: var(--color-panel-2);
   color: var(--color-ink-2);
 }
 

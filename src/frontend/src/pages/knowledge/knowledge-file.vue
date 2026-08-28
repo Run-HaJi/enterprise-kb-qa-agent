@@ -50,7 +50,7 @@ const sortOrder = ref('desc') // 默认降序（最新的在前）
 // 检查是否有进行中的文件
 const hasProcessingFiles = computed(() => {
   return files.value.some(file => 
-    String(file.status).includes('🚀') ||
+    String(file.status).includes('进行中') ||
     String(file.status).includes('进行')
   )
 })
@@ -75,9 +75,9 @@ const sortedFiles = computed(() => {
       case 'status':
         // 按状态排序：进行中 > 完成 > 失败
         const statusOrder = { 
-          '🚀 进行中': 3, 
-          '✅ 完成': 2, 
-          '❌ 失败': 1 
+          '进行中': 3, 
+          '完成': 2, 
+          '失败': 1 
         }
         const aOrder = Object.entries(statusOrder).find(([key]) => String(a.status).includes(key.split(' ')[0]))?.[1] || 0
         const bOrder = Object.entries(statusOrder).find(([key]) => String(b.status).includes(key.split(' ')[0]))?.[1] || 0
@@ -437,36 +437,23 @@ const isTempFile = (file: KnowledgeFileResponse) => {
 // 状态映射函数 - 将后端英文状态转换为前端显示状态
 const mapStatusToDisplay = (backendStatus: string) => {
   const statusMap: { [key: string]: string } = {
-    'success': KnowledgeFileStatus.SUCCESS, // '✅ 完成'
-    'fail': KnowledgeFileStatus.FAIL,       // '❌ 失败'
-    'process': KnowledgeFileStatus.PROCESS  // '🚀 进行中'
+    'success': KnowledgeFileStatus.SUCCESS, // 完成
+    'fail': KnowledgeFileStatus.FAIL,       // 失败
+    'process': KnowledgeFileStatus.PROCESS  // 进行中
   }
   return statusMap[backendStatus] || `❓ ${backendStatus}`
 }
 
-// 获取文件图标
+// 获取文件类型徽章文本（线性风格：字母缩写）
 const getFileIcon = (fileName: string) => {
-  const ext = fileName.split('.').pop()?.toLowerCase()
-  const iconMap: { [key: string]: string } = {
-    pdf: '📄',
-    doc: '📝',
-    docx: '📝',
-    txt: '📃',
-    md: '📋',
-    xls: '📊',
-    xlsx: '📊',
-    ppt: '📊',
-    pptx: '📊',
-    jpg: '🖼️',
-    jpeg: '🖼️',
-    png: '🖼️',
-    gif: '🖼️',
-    bmp: '🖼️',
-    zip: '🗜️',
-    rar: '🗜️',
-    '7z': '🗜️'
+  const ext = fileName.split('.').pop()?.toLowerCase() || ''
+  const badgeMap: { [key: string]: string } = {
+    pdf: 'PDF', doc: 'DOC', docx: 'DOC', txt: 'TXT', md: 'MD',
+    xls: 'XLS', xlsx: 'XLS', ppt: 'PPT', pptx: 'PPT',
+    jpg: 'IMG', jpeg: 'IMG', png: 'IMG', gif: 'IMG', bmp: 'IMG',
+    zip: 'ZIP', rar: 'ZIP', '7z': 'ZIP'
   }
-  return iconMap[ext || ''] || '📁'
+  return badgeMap[ext] || ext.slice(0, 3).toUpperCase() || 'FILE'
 }
 
 // 获取文件大小颜色
@@ -505,19 +492,19 @@ onUnmounted(() => {
         <!-- 导航面包屑 -->
         <div class="navigation-section">
           <div class="nav-title">
-            <span class="title-icon">🗂️</span>
+            
             <span class="title-text">文件管理</span>
           </div>
           <div class="breadcrumb">
             <span class="breadcrumb-item clickable" @click="goBack">
-              <span class="breadcrumb-icon">📚</span>
+              
               <span class="breadcrumb-text">知识库管理</span>
             </span>
             <span class="breadcrumb-separator">
               <span class="separator-icon">▶</span>
             </span>
             <span class="breadcrumb-item clickable current" @click="refreshCurrentPage">
-              <span class="breadcrumb-icon">📂</span>
+              
               <span class="breadcrumb-text">{{ knowledgeName }}</span>
             </span>
           </div>
@@ -530,7 +517,7 @@ onUnmounted(() => {
           <!-- 文件统计卡片 -->
           <div class="stat-card total">
             <div class="stat-icon-wrapper">
-              <span class="stat-icon">📊</span>
+              <span class="stat-icon">Σ</span>
             </div>
             <div class="stat-content">
               <div class="stat-number">{{ files.length }}</div>
@@ -540,20 +527,20 @@ onUnmounted(() => {
           
           <div class="stat-card processing">
             <div class="stat-icon-wrapper">
-              <span class="stat-icon processing-icon">🚀</span>
+              <span class="stat-icon">…</span>
             </div>
             <div class="stat-content">
-              <div class="stat-number">{{ files.filter((f: KnowledgeFileResponse) => String(f.status).includes('🚀')).length }}</div>
+              <div class="stat-number">{{ files.filter((f: KnowledgeFileResponse) => String(f.status).includes('进行中')).length }}</div>
               <div class="stat-label">处理中</div>
             </div>
           </div>
           
           <div class="stat-card success">
             <div class="stat-icon-wrapper">
-              <span class="stat-icon">✅</span>
+              <span class="stat-icon">✓</span>
             </div>
             <div class="stat-content">
-              <div class="stat-number">{{ files.filter((f: KnowledgeFileResponse) => String(f.status).includes('✅')).length }}</div>
+              <div class="stat-number">{{ files.filter((f: KnowledgeFileResponse) => String(f.status).includes('完成')).length }}</div>
               <div class="stat-label">已完成</div>
             </div>
           </div>
@@ -701,14 +688,14 @@ onUnmounted(() => {
           <div class="empty-cloud">
             <span class="cloud-icon">☁️</span>
             <div class="cloud-files">
-              <span class="file-float">📄</span>
-              <span class="file-float">📊</span>
-              <span class="file-float">🖼️</span>
+              <span class="file-float">DOC</span>
+              <span class="file-float">DOC</span>
+              <span class="file-float">DOC</span>
             </div>
           </div>
         </div>
         <h3 class="empty-title">
-          <span class="title-icon">📁</span>
+          
           知识库暂无文件
         </h3>
         <p class="empty-description">
@@ -716,15 +703,15 @@ onUnmounted(() => {
         </p>
         <div class="empty-features">
           <div class="feature-item">
-            <span class="feature-icon">📝</span>
+            <span class="feature-icon">◆</span>
             <span class="feature-text">支持 Word、PDF</span>
           </div>
           <div class="feature-item">
-            <span class="feature-icon">📊</span>
+            <span class="feature-icon">◆</span>
             <span class="feature-text">支持 Excel、PPT</span>
           </div>
           <div class="feature-item">
-            <span class="feature-icon">🖼️</span>
+            <span class="feature-icon">◆</span>
             <span class="feature-text">支持图片格式</span>
           </div>
         </div>
@@ -740,7 +727,7 @@ onUnmounted(() => {
           :headers="{ Authorization: `Bearer ${getToken()}` }"
         >
           <el-button type="primary" size="large" class="empty-upload-btn">
-            <span class="btn-icon">🚀</span>
+            <span class="btn-icon">↑</span>
             立即上传文件
           </el-button>
         </el-upload>
@@ -877,7 +864,7 @@ onUnmounted(() => {
           background: var(--color-panel);
           border-radius: 10px;
           box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
-          border: 1px solid #e1e5e9;
+          border: 1px solid var(--color-edge);
           transition: all 0.2s ease;
           min-width: 90px;
             
@@ -918,7 +905,7 @@ onUnmounted(() => {
             
           &.total {
             .stat-icon-wrapper {
-              background: #e3f2fd;
+              background: var(--color-panel-2);
             }
             .stat-number {
               color: #1976d2;
@@ -927,7 +914,7 @@ onUnmounted(() => {
           
           &.processing {
             .stat-icon-wrapper {
-              background: #fff3e0;
+              background: var(--color-panel-2);
             }
             .stat-number {
               color: #f57c00;
@@ -936,7 +923,7 @@ onUnmounted(() => {
           
           &.success {
             .stat-icon-wrapper {
-              background: #e8f5e9;
+              background: var(--color-panel-2);
             }
             .stat-number {
               color: #388e3c;
@@ -1049,7 +1036,7 @@ onUnmounted(() => {
         border-radius: 12px;
         overflow: hidden;
         box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
-        border: 1px solid #e1e5e9;
+        border: 1px solid var(--color-edge);
         
         th {
           background: var(--color-panel-2);
@@ -1057,7 +1044,7 @@ onUnmounted(() => {
           font-weight: 600;
           padding: 14px 20px;
           text-align: center;
-          border-bottom: 2px solid #e1e5e9;
+          border: 1px solid var(--color-edge);
           font-size: 13px;
           text-transform: uppercase;
           letter-spacing: 0.5px;
@@ -1075,7 +1062,7 @@ onUnmounted(() => {
           transition: all 0.2s ease;
           
           &:hover {
-            background: #f8f9fa;
+            background: var(--color-panel-2);
           }
           
           &:last-child {
@@ -1126,7 +1113,7 @@ onUnmounted(() => {
           justify-content: center;
           width: 36px;
           height: 36px;
-          background: #e3f2fd;
+          background: var(--color-panel-2);
           border-radius: 8px;
           
           .file-icon {
@@ -1193,7 +1180,7 @@ onUnmounted(() => {
       .type-tag {
         display: inline-block;
         padding: 4px 10px;
-        background: #e3f2fd;
+        background: var(--color-panel-2);
         color: #1976d2;
         border-radius: 12px;
         font-size: 12px;
@@ -1247,17 +1234,17 @@ onUnmounted(() => {
         }
         
         &.status-success {
-          background: #e8f5e9;
+          background: var(--color-panel-2);
           color: #388e3c;
         }
         
         &.status-process {
-          background: #fff3e0;
+          background: var(--color-panel-2);
           color: #f57c00;
         }
         
         &.status-fail {
-          background: #ffebee;
+          background: var(--color-panel-2);
           color: #d32f2f;
         }
         
@@ -1323,7 +1310,7 @@ onUnmounted(() => {
       background: var(--color-panel);
       border-radius: 12px;
       box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
-      border: 1px solid #e1e5e9;
+      border: 1px solid var(--color-edge);
       padding: 40px;
       
       .empty-illustration {

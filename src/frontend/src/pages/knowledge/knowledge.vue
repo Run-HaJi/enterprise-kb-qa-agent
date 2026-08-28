@@ -257,7 +257,6 @@ onMounted(() => {
   <div class="knowledge-page">
     <div class="page-header">
       <div class="header-title">
-        <img :src="knowledgeIcon" alt="知识库" class="title-icon" />
         <h2>知识库管理</h2>
       </div>
       <div class="header-actions">
@@ -355,7 +354,7 @@ onMounted(() => {
       
       <div v-if="knowledges.length === 0 && !loading" class="empty-state">
         <div class="empty-icon">
-          <img :src="knowledgeIcon" alt="知识库" class="empty-icon-img" />
+          <svg width="64" height="64" viewBox="0 0 64 64" fill="none" stroke="var(--color-ink-3)" stroke-width="2" stroke-linecap="round"><rect x="12" y="8" width="40" height="48" rx="6"/><line x1="22" y1="22" x2="42" y2="22"/><line x1="22" y1="32" x2="42" y2="32"/><line x1="22" y1="42" x2="34" y2="42"/></svg>
         </div>
         <h3>暂无知识库</h3>
         <p>您可以创建知识库来存储和管理您的文档资料</p>
@@ -567,8 +566,8 @@ onMounted(() => {
       grid-template-columns: 2fr 3fr 1fr 1fr 1.2fr 1.5fr;
       gap: 16px;
       padding: 16px 24px;
-      background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
-      border-bottom: 2px solid #e1e5e9;
+      background: var(--color-panel-2);
+      border: 1px solid var(--color-edge);
       font-weight: 600;
       font-size: 13px;
       color: var(--color-ink-2);
@@ -599,7 +598,7 @@ onMounted(() => {
         align-items: center;
         
         &:hover {
-          background: linear-gradient(135deg, #f8f9fa 0%, #f1f3f5 100%);
+          background: var(--color-panel-2);
           box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
         }
         
@@ -617,7 +616,7 @@ onMounted(() => {
               width: 40px;
               height: 40px;
               border-radius: 10px;
-              background: linear-gradient(135deg, #e3f2fd 0%, #bbdefb 100%);
+              background: var(--color-panel-2);
               display: flex;
               align-items: center;
               justify-content: center;
@@ -657,7 +656,7 @@ onMounted(() => {
             align-items: center;
             gap: 6px;
             padding: 6px 12px;
-            background: linear-gradient(135deg, #e3f2fd 0%, #bbdefb 100%);
+            background: var(--color-panel-2);
             border-radius: 8px;
             font-size: 13px;
             font-weight: 600;
@@ -692,7 +691,7 @@ onMounted(() => {
           .action-btn {
             width: 36px;
             height: 36px;
-            border: 1px solid #e1e5e9;
+            border: 1px solid var(--color-edge);
             border-radius: 8px;
             background: var(--color-panel);
             cursor: pointer;
@@ -719,7 +718,7 @@ onMounted(() => {
             
             &.edit-btn:hover {
               background: #67c23a;
-              border-color: #67c23a;
+              border-color: var(--color-ink-2);
               color: white;
             }
             
@@ -861,7 +860,7 @@ onMounted(() => {
     
     &:hover:not(:disabled) {
       background: #66b1ff;
-      border-color: #66b1ff;
+      border-color: var(--color-ink-2);
     }
   }
 }

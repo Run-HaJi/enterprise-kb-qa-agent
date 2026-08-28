@@ -657,7 +657,6 @@ onMounted(() => {
     <!-- 页面头部 -->
     <div class="page-header">
       <div class="header-title">
-        <img :src="pluginIcon" alt="工具" class="title-icon" />
         <h2>工具管理</h2>
       </div>
       <div class="header-actions">
@@ -783,7 +782,7 @@ onMounted(() => {
       <div v-if="tools.length === 0 && !loading" class="empty-state">
         <div class="empty-visual">
           <div class="empty-icon-wrapper">
-            <img :src="pluginIcon" alt="No Tools" class="empty-icon" />
+            <svg width="64" height="64" viewBox="0 0 64 64" fill="none" stroke="var(--color-ink-3)" stroke-width="2" stroke-linecap="round"><rect x="12" y="8" width="40" height="48" rx="6"/><line x1="22" y1="22" x2="42" y2="22"/><line x1="22" y1="32" x2="42" y2="32"/><line x1="22" y1="42" x2="34" y2="42"/></svg>
           </div>
         </div>
         <div class="empty-content">
@@ -1461,7 +1460,7 @@ onMounted(() => {
         }
         
         .tool-name {
-          color: #667eea;
+          color: var(--color-ink-2);
         }
       }
       
@@ -1533,7 +1532,7 @@ onMounted(() => {
           
           &.custom {
             background: rgba(102, 126, 234, 0.1);
-            color: #667eea;
+            color: var(--color-ink-2);
             border: 1px solid rgba(102, 126, 234, 0.2);
           }
           
@@ -1579,7 +1578,7 @@ onMounted(() => {
           }
           
           &.delete-btn {
-            background: linear-gradient(135deg, #f56565 0%, #e53e3e 100%);
+            background: var(--color-panel-2);
             color: white;
             
             &:hover {
@@ -1923,7 +1922,7 @@ onMounted(() => {
 
 .logo-preview:hover {
   border-color: var(--color-ink);
-  background-color: #eff6ff;
+  background-color: rgba(91, 157, 255, 0.10);
 }
 
 .dark .logo-preview {
@@ -2116,7 +2115,7 @@ onMounted(() => {
   min-height: 13rem;
   border-radius: 0.5rem;
   border: 1px solid var(--color-edge);
-  background-color: #f8f9fa;
+  background-color: var(--color-panel-2);
   padding: 0.875rem;
   font-size: 0.8125rem;
   color: #111827;
@@ -2362,7 +2361,7 @@ onMounted(() => {
   font-size: 0.75rem;
   font-weight: 600;
   border-radius: 0.375rem;
-  background-color: #dbeafe;
+  background-color: rgba(91, 157, 255, 0.16);
   color: #1e40af;
   letter-spacing: 0.025em;
 }
@@ -2460,7 +2459,7 @@ onMounted(() => {
 
 .drawer-close:hover {
   opacity: 1;
-  background-color: #f3f4f6;
+  background-color: var(--color-hover);
 }
 
 .dark .drawer-close:hover {
@@ -2653,7 +2652,7 @@ onMounted(() => {
 }
 
 .delete-modal-button-cancel {
-  background-color: #f3f4f6;
+  background-color: var(--color-hover);
   color: var(--color-ink-2);
   border: 1px solid var(--color-edge);
 }
@@ -2675,7 +2674,7 @@ onMounted(() => {
 }
 
 .delete-modal-button-confirm {
-  background: linear-gradient(135deg, #ef4444 0%, #dc2626 100%);
+  background: var(--color-panel-2);
   color: #ffffff;
   box-shadow: 0 4px 16px rgba(239, 68, 68, 0.3);
 }

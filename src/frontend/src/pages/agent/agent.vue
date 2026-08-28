@@ -239,7 +239,6 @@ onMounted(() => {
   <div class="agent-page">
     <div class="page-header">
       <div class="header-title">
-        <img :src="robotIcon" alt="智能体" class="title-icon" />
         <h2>智能体管理</h2>
       </div>
       <div class="header-actions">
@@ -247,7 +246,7 @@ onMounted(() => {
           <div class="search-input-wrapper">
             <el-input
               v-model="searchKeyword"
-              placeholder="🔍 搜索智能体名称..."
+              placeholder="搜索智能体名称..."
               @keyup.enter="searchAgents"
               @clear="clearSearch"
               clearable
@@ -310,11 +309,7 @@ onMounted(() => {
           <div v-if="agent.is_custom === false" class="official-badge">官方</div>
           
           <div class="agent-avatar">
-            <img 
-              :src="agent.logo_url || '/src/assets/robot.svg'" 
-              :alt="agent.name"
-              @error="handleImageError"
-            />
+            <div class="agent-avatar-mark">{{ (agent.name || "A").slice(0, 1) }}</div>
           </div>
           
           <div class="agent-info">
@@ -347,7 +342,15 @@ onMounted(() => {
       
       <div v-else-if="!loading" class="empty-state">
         <div class="empty-icon">
-          <i class="empty-icon-symbol">🤖</i>
+          <svg width="64" height="64" viewBox="0 0 64 64" fill="none"
+               stroke="var(--color-ink-3)" stroke-width="2" stroke-linecap="round">
+            <rect x="14" y="20" width="36" height="30" rx="8"/>
+            <line x1="24" y1="33" x2="28" y2="33"/>
+            <line x1="36" y1="33" x2="40" y2="33"/>
+            <line x1="24" y1="41" x2="40" y2="41"/>
+            <line x1="32" y1="12" x2="32" y2="20"/>
+            <circle cx="32" cy="10" r="2.5"/>
+          </svg>
         </div>
         <h3 v-if="searchKeyword">未找到智能体</h3>
         <h3 v-else>暂无智能体</h3>
@@ -453,7 +456,7 @@ onMounted(() => {
               .el-input__inner {
                 font-size: 15px;
                 font-weight: 500;
-                color: #1e293b;
+                color: var(--color-ink);
                 
                 &::placeholder {
                   color: var(--color-ink-3);
@@ -518,20 +521,16 @@ onMounted(() => {
         // 系统智能体样式
         &.official-agent {
           background: var(--color-panel);
-          border: 1px solid rgba(255, 152, 0, 0.3);
-          
+          border: 1px solid var(--color-edge);
+
           &:hover {
-            box-shadow: 0 8px 24px rgba(255, 152, 0, 0.15);
+            box-shadow: 0 8px 24px rgba(0, 0, 0, 0.35);
           }
-          
-          .agent-name {
-            color: #d87300 !important;
-          }
-          
+
           .agent-meta {
             .meta-item {
               background: rgba(91, 157, 255, 0.08);
-              border: 1px solid rgba(255, 152, 0, 0.1);
+              border: 1px solid var(--color-edge);
             }
           }
         }
@@ -566,8 +565,9 @@ onMounted(() => {
           position: absolute;
           top: 10px;
           right: 10px;
-          background-color: #ff9800;
-          color: white;
+          background-color: rgba(91, 157, 255, 0.12);
+          color: var(--color-brand);
+          border: 1px solid rgba(91, 157, 255, 0.3);
           padding: 4px 8px;
           border-radius: 8px;
           font-size: 12px;
@@ -891,5 +891,20 @@ onMounted(() => {
     display: flex;
     gap: 12px;
   }
+}
+
+.agent-avatar-mark {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  height: 100%;
+  background: rgba(91, 157, 255, 0.10);
+  border: 1px solid rgba(91, 157, 255, 0.25);
+  border-radius: 12px;
+  font-family: var(--font-mono);
+  font-size: 20px;
+  font-weight: 700;
+  color: var(--color-brand);
 }
 </style> 
