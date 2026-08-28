@@ -3,7 +3,6 @@ import os
 import base64
 import asyncio
 from loguru import logger
-from urllib.parse import urljoin
 
 from agentchat.core.models.manager import ModelManager
 from agentchat.settings import app_settings
@@ -104,7 +103,7 @@ class MarkdownRewrite:
             image_oss_object_name = image_oss_dict.get(os.path.basename(image_url))
             image_desc = image_desc_dict.get(os.path.basename(image_url))
 
-            return f'![{image_desc}]({urljoin(app_settings.storage.active.base_url, image_oss_object_name)})'
+            return f'![{image_desc}]({f"{app_settings.storage.active.base_url}/{image_oss_object_name}"})'
 
         # 使用re.sub进行替换
         result = re.sub(pattern, replace_image, markdown_text)

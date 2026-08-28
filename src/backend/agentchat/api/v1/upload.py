@@ -1,5 +1,4 @@
 from loguru import logger
-from urllib.parse import urljoin
 from fastapi import APIRouter, UploadFile, File, Depends
 
 from agentchat.api.services.user import UserPayload, get_login_user
@@ -20,7 +19,7 @@ async def upload_file(
         file_content = await file.read()
 
         oss_object_name = get_object_storage_base_path(file.filename)
-        sign_url = urljoin(app_settings.storage.active.base_url, oss_object_name)
+        sign_url = f"{app_settings.storage.active.base_url}/{oss_object_name}"
 
         storage_client.sign_url_for_get(sign_url)
         storage_client.upload_file(oss_object_name, file_content)
