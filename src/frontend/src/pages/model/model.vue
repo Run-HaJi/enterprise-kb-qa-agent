@@ -611,11 +611,8 @@ onMounted(() => {
     justify-content: space-between;
     align-items: center;
     margin-bottom: 24px;
-    background: var(--color-hover);
-    padding: 20px 28px;
-    border-radius: 16px;
-    box-shadow: 0 6px 24px rgba(0, 0, 0, 0.06);
-    border: 1px solid rgba(226, 232, 240, 0.6);
+    padding: 8px 0 18px;
+    border-bottom: 1px solid var(--color-edge-soft);
     
     .header-title {
       display: flex;
@@ -631,10 +628,7 @@ onMounted(() => {
         margin: 0;
         font-size: 24px;
         font-weight: 600;
-        background: linear-gradient(90deg, #409eff, #3a7be2);
-        -webkit-background-clip: text;
-        -webkit-text-fill-color: transparent;
-        background-clip: text;
+        color: var(--color-ink);
       }
     }
     
@@ -714,7 +708,7 @@ onMounted(() => {
       border-bottom: 1px solid var(--color-edge);
       font-size: 12px;
       font-weight: 600;
-      color: #64748b;
+      color: var(--color-ink-3);
       text-transform: uppercase;
       letter-spacing: 0.5px;
 
@@ -812,7 +806,7 @@ onMounted(() => {
           .provider-name {
             font-size: 14px;
             font-weight: 500;
-            color: #64748b;
+            color: var(--color-ink-3);
             white-space: nowrap;
             overflow: hidden;
             text-overflow: ellipsis;
@@ -860,7 +854,7 @@ onMounted(() => {
 
           .url-text {
             font-size: 13px;
-            color: #64748b;
+            color: var(--color-ink-3);
             font-family: 'Menlo', 'Monaco', 'Courier New', monospace;
             white-space: nowrap;
             overflow: hidden;
@@ -944,7 +938,7 @@ onMounted(() => {
 
       p {
         font-size: 14px;
-        color: #94a3b8;
+        color: var(--color-ink-3);
         margin-bottom: 24px;
       }
 
@@ -1107,7 +1101,7 @@ onMounted(() => {
   margin-bottom: 12px;
   font-size: 15px;
   font-weight: 600;
-  color: #2d3748;
+  color: var(--color-ink);
 }
 
 .label-text {
@@ -1196,7 +1190,7 @@ onMounted(() => {
   gap: 16px;
   padding: 20px 36px;
   background: var(--color-panel-2);
-  border-top: 1px solid #e2e8f0;
+  border-top: 1px solid var(--color-edge);
 }
 
 .dialog-btn {
@@ -1233,12 +1227,12 @@ onMounted(() => {
 
 .cancel-btn {
   background: var(--color-hover);
-  color: #64748b;
-  border: 2px solid #e2e8f0;
+  color: var(--color-ink-3);
+  border: 2px solid var(--color-edge);
 }
 
 .cancel-btn:hover {
-  background: #e2e8f0;
+  background: var(--color-panel-2);
   color: #475569;
   transform: translateY(-2px);
   box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
@@ -1246,12 +1240,12 @@ onMounted(() => {
 
 .confirm-btn {
   background: var(--color-hover);
-  color: #64748b;
-  border: 2px solid #e2e8f0;
+  color: var(--color-ink-3);
+  border: 2px solid var(--color-edge);
 }
 
 .confirm-btn:hover:not(.disabled) {
-  background: #e2e8f0;
+  background: var(--color-panel-2);
   color: #475569;
   transform: translateY(-2px);
   box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
@@ -1382,7 +1376,7 @@ onMounted(() => {
 
 .delete-dialog-btn.confirm-btn:hover:not(:disabled) {
   background: #2563eb;
-  border-color: #2563eb;
+  border-color: var(--color-ink);
 }
 
 .delete-dialog-btn:disabled {

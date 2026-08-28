@@ -58,34 +58,7 @@ multi_models:
 
 
 # 外部工具 (Tool) 配置
-tools:
-  # 高德地图天气 API 配置
-  weather:
-    api_key: "sk-local-placeholder"
-    endpoint: "https://restapi.amap.com/v3/weather/weatherInfo?parameters"
-  # Tavily 联网搜索 API 配置 (注意配额限制)
-  tavily:
-    api_key: "sk-local-placeholder"
-  # SerpApi 上的 Google Search API 配置
-  google:
-    api_key: "sk-local-placeholder"
-  # 阿里云快递查询 API 配置
-  delivery:
-    api_key: "sk-local-placeholder"
-    endpoint: "https://qyexpress.market.alicloudapi.com/composite/queryexpress"
-  # BoCha 联网搜索 API 配置
-  bocha:
-    api_key: "sk-local-placeholder"
-    endpoint: "https://api.bochaai.com/v1/web-search"
-  # Serply 联网搜索 API 配置（获取 API 密钥: https://serply.io，文档: https://serply.io/docs）
-  serply:
-    api_key: "sk-local-placeholder"
-  # You.com Search & Research API 配置（获取 API 密钥: https://ydc-index.io/docs）
-  youcom:
-    api_key: "sk-local-placeholder"
-    endpoint: "https://ydc-index.io/v1/search"
-
-# RAG (检索增强生成) 配置
+tools: {} # 外部工具已裁剪，预留段位
 rag:
   enable_summary: False # 是否对知识库片段进行摘要
   enable_keyword_recall: True # 混合检索：BM25 关键词 + 向量双路召回，RRF 融合

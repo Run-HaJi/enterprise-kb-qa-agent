@@ -1307,11 +1307,8 @@ onMounted(() => {
     justify-content: space-between;
     align-items: center;
     margin-bottom: 24px;
-    background: var(--color-hover);
-    padding: 20px 28px;
-    border-radius: 16px;
-    box-shadow: 0 6px 24px rgba(0, 0, 0, 0.06);
-    border: 1px solid rgba(226, 232, 240, 0.6);
+    padding: 8px 0 18px;
+    border-bottom: 1px solid var(--color-edge-soft);
     
     .header-title {
       display: flex;
@@ -1327,10 +1324,7 @@ onMounted(() => {
         margin: 0;
         font-size: 24px;
         font-weight: 600;
-        background: linear-gradient(90deg, #1B7CE4, #409eff);
-        -webkit-background-clip: text;
-        -webkit-text-fill-color: transparent;
-        background-clip: text;
+        color: var(--color-ink);
       }
     }
     
@@ -1366,7 +1360,7 @@ onMounted(() => {
     .tool-tabs {
       :deep(.el-tabs__header) {
         margin: 0;
-        border-bottom: 1px solid #f3f4f6;
+        border-bottom: 1px solid var(--color-edge-soft);
         background: var(--color-panel-2);
       }
       
@@ -1392,12 +1386,12 @@ onMounted(() => {
         border: none;
         
         &.is-active {
-          color: #3b82f6;
+          color: var(--color-ink);
           font-weight: 600;
         }
         
         &:hover {
-          color: #3b82f6;
+          color: var(--color-ink);
           background: rgba(59, 130, 246, 0.05);
         }
       }
@@ -1432,7 +1426,7 @@ onMounted(() => {
     grid-template-columns: 60px 1.5fr 2fr 120px 140px 120px;
     gap: 16px;
     padding: 16px 24px;
-    background: linear-gradient(to bottom, var(--color-panel-2), #f3f4f6);
+    background: var(--color-panel-2);
     font-weight: 600;
     font-size: 13px;
     color: var(--color-ink-3);
@@ -1451,7 +1445,7 @@ onMounted(() => {
       grid-template-columns: 60px 1.5fr 2fr 120px 140px 120px;
       gap: 16px;
       padding: 16px 24px;
-      border-bottom: 1px solid #f3f4f6;
+      border-bottom: 1px solid var(--color-edge-soft);
       transition: all 0.2s ease;
       cursor: default;
       
@@ -1500,7 +1494,7 @@ onMounted(() => {
         .tool-name {
           font-size: 15px;
           font-weight: 600;
-          color: #1a202c;
+          color: var(--color-ink);
           transition: color 0.2s;
           white-space: nowrap;
           overflow: hidden;
@@ -1511,7 +1505,7 @@ onMounted(() => {
       .col-desc {
         .tool-desc {
           font-size: 13px;
-          color: #718096;
+          color: var(--color-ink-2);
           line-height: 1.5;
           display: -webkit-box;
           -webkit-line-clamp: 2;
@@ -1660,7 +1654,7 @@ onMounted(() => {
     h3 {
       font-size: 20px;
       font-weight: 600;
-      color: #2d3748;
+      color: var(--color-ink);
       margin: 0 0 8px;
       letter-spacing: -0.3px;
     }
@@ -1668,7 +1662,7 @@ onMounted(() => {
     p {
       margin: 0 0 24px;
       font-size: 14px;
-      color: #718096;
+      color: var(--color-ink-2);
       max-width: 400px;
       line-height: 1.6;
     }
@@ -1928,7 +1922,7 @@ onMounted(() => {
 }
 
 .logo-preview:hover {
-  border-color: #3b82f6;
+  border-color: var(--color-ink);
   background-color: #eff6ff;
 }
 
@@ -1938,7 +1932,7 @@ onMounted(() => {
 }
 
 .dark .logo-preview:hover {
-  border-color: #3b82f6;
+  border-color: var(--color-ink);
   background-color: rgb(23, 37, 84);
 }
 
@@ -2000,7 +1994,7 @@ onMounted(() => {
   width: 32px;
   height: 32px;
   border: 3px solid var(--color-edge);
-  border-top-color: #3b82f6;
+  border-top-color: var(--color-ink);
   border-radius: 50%;
   animation: spin 0.8s linear infinite;
 }
@@ -2056,7 +2050,7 @@ onMounted(() => {
 
 .drawer-input:focus {
   outline: none;
-  border-color: #3b82f6;
+  border-color: var(--color-ink);
   box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1);
 }
 
@@ -2071,7 +2065,7 @@ onMounted(() => {
 }
 
 .dark .drawer-input:focus {
-  border-color: #3b82f6;
+  border-color: var(--color-ink);
   box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.2);
 }
 
@@ -2097,7 +2091,7 @@ onMounted(() => {
 
 .drawer-textarea:focus {
   outline: none;
-  border-color: #3b82f6;
+  border-color: var(--color-ink);
   box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1);
 }
 
@@ -2112,7 +2106,7 @@ onMounted(() => {
 }
 
 .dark .drawer-textarea:focus {
-  border-color: #3b82f6;
+  border-color: var(--color-ink);
   box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.2);
 }
 
@@ -2140,7 +2134,7 @@ onMounted(() => {
 
 .drawer-code-textarea:focus {
   outline: none;
-  border-color: #3b82f6;
+  border-color: var(--color-ink);
   box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1);
 }
 
@@ -2155,7 +2149,7 @@ onMounted(() => {
 }
 
 .dark .drawer-code-textarea:focus {
-  border-color: #3b82f6;
+  border-color: var(--color-ink);
   box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.2);
 }
 
@@ -2211,7 +2205,7 @@ onMounted(() => {
 
 .drawer-select:focus {
   outline: none;
-  border-color: #3b82f6;
+  border-color: var(--color-ink);
   box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1);
 }
 
@@ -2226,7 +2220,7 @@ onMounted(() => {
 }
 
 .dark .drawer-select:focus {
-  border-color: #3b82f6;
+  border-color: var(--color-ink);
   box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.2);
 }
 
@@ -2247,7 +2241,7 @@ onMounted(() => {
 
 .drawer-select-small:focus {
   outline: none;
-  border-color: #3b82f6;
+  border-color: var(--color-ink);
 }
 
 .drawer-select-small:hover {
@@ -2309,7 +2303,7 @@ onMounted(() => {
 
 .drawer-table-row {
   transition: background-color 0.2s;
-  border-bottom: 1px solid #f3f4f6;
+  border-bottom: 1px solid var(--color-edge-soft);
 }
 
 .dark .drawer-table-row {
@@ -2599,7 +2593,7 @@ onMounted(() => {
 .delete-modal-title {
   font-size: 20px;
   font-weight: 700;
-  color: #1a202c;
+  color: var(--color-ink);
   margin: 0 0 16px;
   letter-spacing: -0.3px;
 }
@@ -2610,12 +2604,12 @@ onMounted(() => {
 
 .delete-modal-content {
   font-size: 15px;
-  color: #4a5568;
+  color: var(--color-ink-2);
   line-height: 1.6;
   margin: 0 0 28px;
   
   strong {
-    color: #1a202c;
+    color: var(--color-ink);
     font-weight: 600;
   }
   

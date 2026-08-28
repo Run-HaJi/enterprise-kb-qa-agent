@@ -962,7 +962,7 @@ defineExpose({ loadAgent })
 
           .cancel-btn {
             border: 1px solid rgba(226, 232, 240, 0.8);
-            color: #64748b;
+            color: var(--color-ink-3);
             background: rgba(255, 255, 255, 0.9);
             transition: all 0.3s ease;
             border-radius: 10px;
@@ -1067,7 +1067,7 @@ defineExpose({ loadAgent })
 
                 .avatar-text {
                   font-size: 11px;
-                  color: #94a3b8;
+                  color: var(--color-ink-3);
                   font-weight: 500;
                 }
               }
@@ -1189,7 +1189,7 @@ defineExpose({ loadAgent })
 
             .info-label {
               font-size: 12px;
-              color: #64748b;
+              color: var(--color-ink-3);
               font-weight: 500;
             }
 
@@ -1311,7 +1311,7 @@ defineExpose({ loadAgent })
           height: 48px;
           border: none;
           border-radius: 24px;
-          background: linear-gradient(135deg, #f1f5f9 0%, #e2e8f0 100%);
+          background: linear-gradient(135deg, #f1f5f9 0%, var(--color-edge) 100%);
           cursor: pointer;
           transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
           display: flex;
@@ -1363,7 +1363,7 @@ defineExpose({ loadAgent })
           .toggle-text {
             font-size: 14px;
             font-weight: 500;
-            color: #64748b;
+            color: var(--color-ink-3);
             transition: all 0.4s ease;
             margin: 0 16px;
             z-index: 1;
@@ -1373,7 +1373,7 @@ defineExpose({ loadAgent })
 
         .memory-description {
           font-size: 12px;
-          color: #64748b;
+          color: var(--color-ink-3);
           line-height: 1.4;
           padding: 8px 12px;
           background: rgba(248, 250, 252, 0.6);
@@ -1508,7 +1508,7 @@ defineExpose({ loadAgent })
 // 简化清晰的下拉菜单样式
 :global(.el-select-dropdown) {
   background: var(--color-panel) !important;
-  border: 1px solid #e2e8f0 !important;
+  border: 1px solid var(--color-edge) !important;
   border-radius: 12px !important;
   box-shadow: 0 4px 16px rgba(0, 0, 0, 0.1) !important;
   padding: 6px !important;

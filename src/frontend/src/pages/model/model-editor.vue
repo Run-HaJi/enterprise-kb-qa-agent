@@ -381,7 +381,7 @@ onMounted(() => {
           align-items: center;
           gap: 12px;
           font-size: 15px;
-          color: #94a3b8;
+          color: var(--color-ink-3);
           
           .breadcrumb-item {
             transition: all 0.3s ease;
@@ -391,7 +391,7 @@ onMounted(() => {
             
             &.clickable {
               cursor: pointer;
-              color: #64748b;
+              color: var(--color-ink-3);
               font-weight: 500;
               
               &:hover {
@@ -499,7 +499,7 @@ onMounted(() => {
             p {
               margin: 0;
               font-size: 16px;
-              color: #64748b;
+              color: var(--color-ink-3);
               line-height: 1.6;
               font-weight: 500;
             }
@@ -516,7 +516,7 @@ onMounted(() => {
             color: #334155;
             margin: 0 0 20px 0;
             padding-bottom: 12px;
-            border-bottom: 1px solid #e2e8f0;
+            border-bottom: 1px solid var(--color-edge);
             position: relative;
             
             &::before {
@@ -550,7 +550,7 @@ onMounted(() => {
           .form-select {
             .el-input__wrapper {
               background: var(--color-panel-2);
-              border: 2px solid #e2e8f0;
+              border: 2px solid var(--color-edge);
               border-radius: 16px;
               padding: 16px 20px;
               transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
@@ -595,13 +595,13 @@ onMounted(() => {
               font-weight: 500;
               
               &::placeholder {
-                color: #94a3b8;
+                color: var(--color-ink-3);
                 font-weight: 400;
               }
             }
             
             .el-input__count {
-              color: #64748b;
+              color: var(--color-ink-3);
               font-weight: 500;
               font-size: 13px;
             }
@@ -668,8 +668,8 @@ onMounted(() => {
             
             &.cancel-btn {
               background: var(--color-panel);
-              border-color: #e2e8f0;
-              color: #64748b;
+              border-color: var(--color-edge);
+              color: var(--color-ink-3);
               
               &:hover {
                 border-color: #cbd5e1;
@@ -721,7 +721,7 @@ onMounted(() => {
     
     p {
       margin: 0 0 32px 0;
-      color: #64748b;
+      color: var(--color-ink-3);
       font-size: 16px;
     }
   }

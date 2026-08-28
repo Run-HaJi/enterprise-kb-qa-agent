@@ -424,10 +424,7 @@ onMounted(() => {
         margin: 0;
         font-size: 24px;
         font-weight: 600;
-        background: linear-gradient(90deg, #1B7CE4, #409eff); // 与robot.svg图标颜色匹配
-        -webkit-background-clip: text;
-        -webkit-text-fill-color: transparent;
-        background-clip: text;
+        color: var(--color-ink);
       }
     }
     
@@ -440,7 +437,7 @@ onMounted(() => {
         .search-input-wrapper {
           display: flex;
           align-items: center;
-          background: rgba(255, 255, 255, 0.8);
+          background: var(--color-panel-2);
           padding: 8px;
           border-radius: 16px;
           border: 1px solid rgba(59, 130, 246, 0.2);
@@ -459,7 +456,7 @@ onMounted(() => {
                 color: #1e293b;
                 
                 &::placeholder {
-                  color: #64748b;
+                  color: var(--color-ink-3);
                   font-weight: 400;
                 }
               }
@@ -604,7 +601,7 @@ onMounted(() => {
           .agent-name {
             font-size: 16px;
             font-weight: 600;
-            color: #2c3e50;
+            color: var(--color-ink);
             margin: 0 0 6px 0;
             overflow: hidden;
             text-overflow: ellipsis;
@@ -612,7 +609,7 @@ onMounted(() => {
           }
           
           .agent-description {
-            color: #64748b;
+            color: var(--color-ink-3);
             font-size: 14px;
             line-height: 1.4;
             margin: 0 0 10px 0;
@@ -633,12 +630,12 @@ onMounted(() => {
             
             .meta-item {
               font-size: 11px;
-              color: #64748b;
+              color: var(--color-ink-3);
               display: flex;
               align-items: center;
               justify-content: center;
               gap: 2px;
-              background: rgba(255, 255, 255, 0.3); /* 半透明背景 */
+              background: var(--color-panel-2); /* 半透明背景 */
               padding: 4px 5px;
               border-radius: 6px;
               min-width: 38px;
@@ -683,7 +680,7 @@ onMounted(() => {
     .empty-state {
       text-align: center;
       padding: 80px 20px;
-      color: #64748b;
+      color: var(--color-ink-3);
       background: var(--color-panel);
       border-radius: 16px;
       box-shadow: 0 2px 12px rgba(0, 0, 0, 0.08);

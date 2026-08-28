@@ -164,7 +164,7 @@ const editAgent = () => {
         font-size: 12px;
         font-weight: 400;
         line-height: 1.4;
-        color: #64748b;
+        color: var(--color-ink-3);
         margin-bottom: 10px;
         flex: 1;
         font-family: 'PingFang SC', 'Microsoft YaHei', 'Helvetica Neue', Arial, sans-serif;
@@ -200,7 +200,7 @@ const editAgent = () => {
           .stat-label {
             font-size: 9px;
             font-weight: 500;
-            color: #64748b;
+            color: var(--color-ink-3);
             white-space: nowrap;
           }
           

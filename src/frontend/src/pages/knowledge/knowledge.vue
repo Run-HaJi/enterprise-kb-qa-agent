@@ -518,11 +518,8 @@ onMounted(() => {
     justify-content: space-between;
     align-items: center;
     margin-bottom: 24px;
-    background: var(--color-hover);
-    padding: 20px 28px;
-    border-radius: 16px;
-    box-shadow: 0 6px 24px rgba(0, 0, 0, 0.06);
-    border: 1px solid rgba(226, 232, 240, 0.6);
+    padding: 8px 0 18px;
+    border-bottom: 1px solid var(--color-edge-soft);
 
     .header-title {
       display: flex;
@@ -538,10 +535,7 @@ onMounted(() => {
         margin: 0;
         font-size: 24px;
         font-weight: 600;
-        background: linear-gradient(90deg, #1B7CE4, #409eff);
-        -webkit-background-clip: text;
-        -webkit-text-fill-color: transparent;
-        background-clip: text;
+        color: var(--color-ink);
       }
     }
 
@@ -885,7 +879,7 @@ onMounted(() => {
     position: absolute;
     font-size: 11px;
     color: var(--color-ink-3);
-    background: rgba(255, 255, 255, 0.9);
+    background: var(--color-panel-2);
     padding: 2px 4px;
     border-radius: 4px;
     font-weight: 500;
