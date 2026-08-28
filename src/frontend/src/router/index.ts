@@ -1,12 +1,8 @@
 // router/index.ts
 import { createRouter, createWebHistory } from 'vue-router';
-import ChatPage from '../pages/conversation/chatPage/chatPage.vue';
 import NotFound from '../pages/notFound/index';
 import Index from '../pages/index.vue'
-import conversation from '../pages/conversation/conversation.vue';
-import DefaultPage from '../pages/conversation/defaultPage/defaultPage.vue';
-import Construct from '../pages/construct';
-import Configuration from '../pages/configuration'
+import ChatHome from '../pages/chat/chat-home.vue';
 import Login from '../pages/login'
 import { Register } from '../pages/login'
 import Agent from '../pages/agent'
@@ -17,9 +13,6 @@ import Tool from '../pages/tool'
 import Model from '../pages/model'
 import ModelEditor from '../pages/model/model-editor.vue'
 import Profile from '../pages/profile'
-import Homepage from '../pages/homepage'
-import Workspace from '../pages/workspace/workspace.vue'
-import WorkspaceDefaultPage from '../pages/workspace/defaultPage/defaultPage.vue'
 import type { RouteRecordRaw } from 'vue-router'
 
 const routes: RouteRecordRaw[] = [
@@ -40,75 +33,24 @@ const routes: RouteRecordRaw[] = [
     }
   },
   {
-    path: '/workspace',
-    name: 'workspace',
-    component: Workspace,
-    meta: {
-      requiresAuth: true
-    },
-    children: [
-      {
-        path: '',
-        name: 'workspaceDefaultPage',
-        component: WorkspaceDefaultPage,
-      },
-    ]
-  },
-  {
+    // 统一应用壳：侧边栏（品牌/新建对话/模块导航/会话历史/账号）
     path: '/',
-    redirect: '/workspace',
-    name: 'index',
+    name: 'shell',
     component: Index,
     meta: {
       requiresAuth: true
     },
     children: [
       {
-        path: '/homepage',
-        name: 'homepage',
-        component: Homepage,
+        path: '',
+        name: 'chat',
+        component: ChatHome,
         meta: {
-          current: 'homepage'
+          current: 'chat'
         }
       },
       {
-        path: '/conversation',
-        name: 'conversation',
-        component: conversation,
-        meta: {
-          current: 'conversation'
-        },
-        children: [
-          {
-            path: '/conversation/',
-            name: 'defaultPage',
-            component: DefaultPage,
-          },
-          {
-            path: '/conversation/chatPage',
-            name: 'chatPage',
-            component: ChatPage,
-          }
-        ]
-      },
-      {
-        path: '/construct',
-        name: 'construct',
-        meta: {
-          current: 'construct'
-        },
-        component: Construct,
-      },
-      {
-        path: '/configuration',
-        name: 'configuration',
-        meta: {
-          current: 'configuration'
-        },
-        component: Configuration,
-      },
-      {
-        path: '/agent',
+        path: 'agent',
         name: 'agent',
         meta: {
           current: 'agent'
@@ -116,7 +58,7 @@ const routes: RouteRecordRaw[] = [
         component: Agent,
       },
       {
-        path: '/agent/editor',
+        path: 'agent/editor',
         name: 'agent-editor',
         meta: {
           current: 'agent'
@@ -124,7 +66,7 @@ const routes: RouteRecordRaw[] = [
         component: AgentEditor,
       },
       {
-        path: '/knowledge',
+        path: 'knowledge',
         name: 'knowledge',
         meta: {
           current: 'knowledge'
@@ -132,7 +74,7 @@ const routes: RouteRecordRaw[] = [
         component: Knowledge,
       },
       {
-        path: '/knowledge/:knowledgeId/files',
+        path: 'knowledge/:knowledgeId/files',
         name: 'knowledge-file',
         meta: {
           current: 'knowledge'
@@ -140,7 +82,7 @@ const routes: RouteRecordRaw[] = [
         component: KnowledgeFile,
       },
       {
-        path: '/tool',
+        path: 'tool',
         name: 'tool',
         meta: {
           current: 'tool'
@@ -148,7 +90,7 @@ const routes: RouteRecordRaw[] = [
         component: Tool,
       },
       {
-        path: '/model',
+        path: 'model',
         name: 'model',
         meta: {
           current: 'model'
@@ -156,7 +98,7 @@ const routes: RouteRecordRaw[] = [
         component: Model,
       },
       {
-        path: '/model/editor',
+        path: 'model/editor',
         name: 'model-editor',
         meta: {
           current: 'model'
@@ -164,7 +106,7 @@ const routes: RouteRecordRaw[] = [
         component: ModelEditor,
       },
       {
-        path: '/profile',
+        path: 'profile',
         name: 'profile',
         meta: {
           current: 'profile'
@@ -172,6 +114,11 @@ const routes: RouteRecordRaw[] = [
         component: Profile,
       },
     ]
+  },
+  {
+    // 兼容旧地址
+    path: '/workspace',
+    redirect: '/',
   },
   {
     path: '/:catchAll(.*)',
@@ -188,7 +135,7 @@ const router = createRouter({
 // 路由守卫
 router.beforeEach((to, from, next) => {
   const token = localStorage.getItem('token');
-  
+
   // 如果目标路由需要认证
   if (to.meta.requiresAuth) {
     if (token) {

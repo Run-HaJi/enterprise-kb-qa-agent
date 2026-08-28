@@ -769,7 +769,7 @@ onUnmounted(() => {
   height: 100%;
   display: flex;
   flex-direction: column;
-  background: linear-gradient(135deg, #f8fafc 0%, #f1f5f9 100%);
+  background: var(--color-panel-2);
   min-height: 100vh;
   
   .page-header {
@@ -778,7 +778,7 @@ onUnmounted(() => {
     align-items: center;
     margin-bottom: 24px;
     padding: 20px 28px;
-    background: linear-gradient(135deg, #ffffff 0%, #f8fafc 100%);
+    background: var(--color-hover);
     border-radius: 16px;
     box-shadow: 0 6px 24px rgba(0, 0, 0, 0.06);
     border: 1px solid rgba(226, 232, 240, 0.6);

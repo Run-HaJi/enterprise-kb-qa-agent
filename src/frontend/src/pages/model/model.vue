@@ -604,14 +604,14 @@ onMounted(() => {
 .model-page {
   padding: 32px;
   min-height: 100vh;
-  background: linear-gradient(135deg, #f8fafc 0%, #f1f5f9 100%);
+  background: var(--color-panel-2);
   
   .page-header {
     display: flex;
     justify-content: space-between;
     align-items: center;
     margin-bottom: 24px;
-    background: linear-gradient(135deg, #ffffff 0%, #f8fafc 100%);
+    background: var(--color-hover);
     padding: 20px 28px;
     border-radius: 16px;
     box-shadow: 0 6px 24px rgba(0, 0, 0, 0.06);
@@ -700,7 +700,7 @@ onMounted(() => {
   .model-container {
     background: var(--color-panel);
     border-radius: 16px;
-    border: 1px solid #e5e7eb;
+    border: 1px solid var(--color-edge);
     overflow: hidden;
     box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.02);
     min-height: 300px;
@@ -710,8 +710,8 @@ onMounted(() => {
       display: flex;
       align-items: center;
       padding: 14px 24px;
-      background: #f8fafc;
-      border-bottom: 1px solid #e5e7eb;
+      background: var(--color-panel-2);
+      border-bottom: 1px solid var(--color-edge);
       font-size: 12px;
       font-weight: 600;
       color: #64748b;
@@ -731,7 +731,7 @@ onMounted(() => {
         display: flex;
         align-items: center;
         padding: 16px 24px;
-        border-bottom: 1px solid #f1f5f9;
+        border-bottom: 1px solid var(--color-edge-soft);
         transition: all 0.2s ease;
 
         &:last-child {
@@ -739,7 +739,7 @@ onMounted(() => {
         }
 
         &:hover {
-          background: #f8fafc;
+          background: var(--color-panel-2);
 
           .col-name .name-info .provider-avatar {
             transform: scale(1.05);
@@ -1111,7 +1111,7 @@ onMounted(() => {
 }
 
 .label-text {
-  color: #374151;
+  color: var(--color-ink-2);
 }
 
 .required-mark {
@@ -1158,11 +1158,11 @@ onMounted(() => {
 .form-input {
   width: 100%;
   padding: 16px 20px;
-  border: 2px solid #e5e7eb;
+  border: 2px solid var(--color-edge);
   border-radius: 12px;
   font-size: 15px;
   font-weight: 500;
-  color: #1f2937;
+  color: var(--color-ink);
   background: var(--color-panel);
   transition: all 0.3s ease;
   box-sizing: border-box;
@@ -1185,7 +1185,7 @@ onMounted(() => {
   right: 16px;
   bottom: -24px;
   font-size: 12px;
-  color: #6b7280;
+  color: var(--color-ink-3);
   font-weight: 500;
 }
 
@@ -1195,7 +1195,7 @@ onMounted(() => {
   justify-content: flex-end;
   gap: 16px;
   padding: 20px 36px;
-  background: #f8fafc;
+  background: var(--color-panel-2);
   border-top: 1px solid #e2e8f0;
 }
 
@@ -1232,7 +1232,7 @@ onMounted(() => {
 }
 
 .cancel-btn {
-  background: #f1f5f9;
+  background: var(--color-hover);
   color: #64748b;
   border: 2px solid #e2e8f0;
 }
@@ -1245,7 +1245,7 @@ onMounted(() => {
 }
 
 .confirm-btn {
-  background: #f1f5f9;
+  background: var(--color-hover);
   color: #64748b;
   border: 2px solid #e2e8f0;
 }
@@ -1326,7 +1326,7 @@ onMounted(() => {
   max-width: 400px;
   overflow: hidden;
   animation: slideIn 0.3s ease-out;
-  border: 1px solid #e5e7eb;
+  border: 1px solid var(--color-edge);
 }
 
 .delete-dialog-body {
@@ -1336,11 +1336,11 @@ onMounted(() => {
   p {
     margin: 0;
     font-size: 16px;
-    color: #374151;
+    color: var(--color-ink-2);
     line-height: 1.5;
     
     strong {
-      color: #1f2937;
+      color: var(--color-ink);
       font-weight: 600;
     }
   }
@@ -1364,14 +1364,14 @@ onMounted(() => {
 }
 
 .delete-dialog-btn.cancel-btn {
-  background: #f9fafb;
-  color: #6b7280;
+  background: var(--color-panel-2);
+  color: var(--color-ink-3);
   border: 1px solid #d1d5db;
 }
 
 .delete-dialog-btn.cancel-btn:hover:not(:disabled) {
   background: #f3f4f6;
-  color: #374151;
+  color: var(--color-ink-2);
 }
 
 .delete-dialog-btn.confirm-btn {

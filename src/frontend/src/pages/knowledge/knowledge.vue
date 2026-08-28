@@ -511,14 +511,14 @@ onMounted(() => {
 .knowledge-page {
   padding: 32px;
   min-height: 100vh;
-  background: linear-gradient(135deg, #f8fafc 0%, #f1f5f9 100%);
+  background: var(--color-panel-2);
   
   .page-header {
     display: flex;
     justify-content: space-between;
     align-items: center;
     margin-bottom: 24px;
-    background: linear-gradient(135deg, #ffffff 0%, #f8fafc 100%);
+    background: var(--color-hover);
     padding: 20px 28px;
     border-radius: 16px;
     box-shadow: 0 6px 24px rgba(0, 0, 0, 0.06);
@@ -991,7 +991,7 @@ onMounted(() => {
   justify-content: flex-end;
   gap: 12px;
   padding: 20px 30px;
-  background: #f8fafc;
+  background: var(--color-panel-2);
   border-top: 1px solid var(--color-edge);
 }
 

@@ -1300,14 +1300,14 @@ onMounted(() => {
 .tool-page {
   padding: 32px;
   min-height: 100vh;
-  background: linear-gradient(135deg, #f8fafc 0%, #f1f5f9 100%);
+  background: var(--color-panel-2);
   
   .page-header {
     display: flex;
     justify-content: space-between;
     align-items: center;
     margin-bottom: 24px;
-    background: linear-gradient(135deg, #ffffff 0%, #f8fafc 100%);
+    background: var(--color-hover);
     padding: 20px 28px;
     border-radius: 16px;
     box-shadow: 0 6px 24px rgba(0, 0, 0, 0.06);
@@ -1359,7 +1359,7 @@ onMounted(() => {
     background: var(--color-panel);
     border-radius: 16px 16px 0 0;
     box-shadow: none;
-    border: 1px solid #e5e7eb;
+    border: 1px solid var(--color-edge);
     border-bottom: none;
     overflow: hidden;
     
@@ -1387,7 +1387,7 @@ onMounted(() => {
         padding: 0 20px;
         height: 48px;
         line-height: 48px;
-        color: #6b7280;
+        color: var(--color-ink-3);
         transition: all 0.3s;
         border: none;
         
@@ -1420,7 +1420,7 @@ onMounted(() => {
   
   .tool-container {
     background: var(--color-panel);
-    border: 1px solid #e5e7eb;
+    border: 1px solid var(--color-edge);
     border-top: none;
     border-radius: 0 0 16px 16px;
     overflow: hidden;
@@ -1432,10 +1432,10 @@ onMounted(() => {
     grid-template-columns: 60px 1.5fr 2fr 120px 140px 120px;
     gap: 16px;
     padding: 16px 24px;
-    background: linear-gradient(to bottom, #fafbfc, #f3f4f6);
+    background: linear-gradient(to bottom, var(--color-panel-2), #f3f4f6);
     font-weight: 600;
     font-size: 13px;
-    color: #6b7280;
+    color: var(--color-ink-3);
     text-transform: uppercase;
     letter-spacing: 0.5px;
     
@@ -1595,7 +1595,7 @@ onMounted(() => {
           }
           
           &.view-btn {
-            background: #e5e7eb;
+            background: var(--color-edge);
             color: #9ca3af;
             cursor: not-allowed;
             
@@ -1749,7 +1749,7 @@ onMounted(() => {
       border-radius: 12px;
       margin: 12px;
       background: var(--color-panel-2);
-      border: 1px solid #e5e7eb;
+      border: 1px solid var(--color-edge);
       
       .col-icon {
         justify-content: center;
@@ -1842,9 +1842,9 @@ onMounted(() => {
 
 .drawer-header {
   padding: 1.75rem 1.5rem;
-  border-bottom: 1px solid #e5e7eb;
+  border-bottom: 1px solid var(--color-edge);
   flex-shrink: 0;
-  background: linear-gradient(to bottom, #ffffff, #fafbfc);
+  background: var(--color-panel);
 }
 
 .dark .drawer-header {
@@ -1886,7 +1886,7 @@ onMounted(() => {
   margin-bottom: 0.5rem;
   font-size: 0.875rem;
   font-weight: 600;
-  color: #374151;
+  color: var(--color-ink-2);
 }
 
 .dark .drawer-label {
@@ -1896,7 +1896,7 @@ onMounted(() => {
 .drawer-hint {
   margin-top: 0.5rem;
   font-size: 0.75rem;
-  color: #6b7280;
+  color: var(--color-ink-3);
   line-height: 1.4;
 }
 
@@ -1915,7 +1915,7 @@ onMounted(() => {
 .logo-preview {
   width: 120px;
   height: 120px;
-  border: 2px dashed #e5e7eb;
+  border: 2px dashed var(--color-edge);
   border-radius: 0.75rem;
   display: flex;
   align-items: center;
@@ -1924,7 +1924,7 @@ onMounted(() => {
   overflow: hidden;
   position: relative;
   transition: all 0.3s;
-  background-color: #f9fafb;
+  background-color: var(--color-panel-2);
 }
 
 .logo-preview:hover {
@@ -1999,7 +1999,7 @@ onMounted(() => {
 .spinner {
   width: 32px;
   height: 32px;
-  border: 3px solid #e5e7eb;
+  border: 3px solid var(--color-edge);
   border-top-color: #3b82f6;
   border-radius: 50%;
   animation: spin 0.8s linear infinite;
@@ -2014,7 +2014,7 @@ onMounted(() => {
 .logo-hint {
   margin: 0;
   font-size: 0.75rem;
-  color: #6b7280;
+  color: var(--color-ink-3);
   text-align: center;
 }
 
@@ -2040,7 +2040,7 @@ onMounted(() => {
   height: 2.5rem;
   width: 100%;
   border-radius: 0.5rem;
-  border: 1px solid #e5e7eb;
+  border: 1px solid var(--color-edge);
   background-color: var(--color-panel);
   padding: 0.5rem 0.875rem;
   font-size: 0.875rem;
@@ -2079,7 +2079,7 @@ onMounted(() => {
   display: block;
   width: 100%;
   border-radius: 0.5rem;
-  border: 1px solid #e5e7eb;
+  border: 1px solid var(--color-edge);
   background-color: var(--color-panel);
   padding: 0.75rem 0.875rem;
   font-size: 0.875rem;
@@ -2121,7 +2121,7 @@ onMounted(() => {
   width: 100%;
   min-height: 13rem;
   border-radius: 0.5rem;
-  border: 1px solid #e5e7eb;
+  border: 1px solid var(--color-edge);
   background-color: #f8f9fa;
   padding: 0.875rem;
   font-size: 0.8125rem;
@@ -2167,7 +2167,7 @@ onMounted(() => {
   border-radius: 0.375rem;
   font-size: 0.8125rem;
   font-weight: 500;
-  border: 1px solid #e5e7eb;
+  border: 1px solid var(--color-edge);
   background-color: var(--color-panel);
   box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
   height: 2rem;
@@ -2175,11 +2175,11 @@ onMounted(() => {
   cursor: pointer;
   transition: all 0.2s;
   gap: 0.375rem;
-  color: #374151;
+  color: var(--color-ink-2);
 }
 
 .drawer-action-btn:hover {
-  background-color: #f9fafb;
+  background-color: var(--color-panel-2);
   border-color: #d1d5db;
 }
 
@@ -2198,7 +2198,7 @@ onMounted(() => {
   width: 100%;
   height: 2.5rem;
   border-radius: 0.5rem;
-  border: 1px solid #e5e7eb;
+  border: 1px solid var(--color-edge);
   background-color: var(--color-panel);
   padding: 0 0.875rem;
   font-size: 0.875rem;
@@ -2234,7 +2234,7 @@ onMounted(() => {
   display: block;
   height: 2rem;
   border-radius: 0.375rem;
-  border: 1px solid #e5e7eb;
+  border: 1px solid var(--color-edge);
   background-color: var(--color-panel);
   padding: 0 0.75rem;
   font-size: 0.8125rem;
@@ -2242,7 +2242,7 @@ onMounted(() => {
   cursor: pointer;
   outline: none;
   transition: all 0.2s;
-  color: #374151;
+  color: var(--color-ink-2);
 }
 
 .drawer-select-small:focus {
@@ -2264,7 +2264,7 @@ onMounted(() => {
   width: 100%;
   overflow: auto;
   position: relative;
-  border: 1px solid #e5e7eb;
+  border: 1px solid var(--color-edge);
   border-radius: 0.5rem;
   background-color: var(--color-panel);
 }
@@ -2282,8 +2282,8 @@ onMounted(() => {
 }
 
 .drawer-table-header tr {
-  background-color: #f9fafb;
-  border-bottom: 1px solid #e5e7eb;
+  background-color: var(--color-panel-2);
+  border-bottom: 1px solid var(--color-edge);
 }
 
 .dark .drawer-table-header tr {
@@ -2296,7 +2296,7 @@ onMounted(() => {
   padding: 0.75rem 1rem;
   text-align: left;
   font-weight: 600;
-  color: #374151;
+  color: var(--color-ink-2);
   font-size: 0.8125rem;
 }
 
@@ -2321,7 +2321,7 @@ onMounted(() => {
 }
 
 .drawer-table-row:hover .drawer-table-cell {
-  background-color: #f9fafb;
+  background-color: var(--color-panel-2);
 }
 
 .dark .drawer-table-row:hover .drawer-table-cell {
@@ -2331,7 +2331,7 @@ onMounted(() => {
 .drawer-table-cell {
   padding: 0.875rem 1rem;
   background-color: var(--color-panel);
-  color: #374151;
+  color: var(--color-ink-2);
 }
 
 .dark .drawer-table-cell {
@@ -2355,7 +2355,7 @@ onMounted(() => {
 .drawer-table-path {
   font-family: 'Monaco', 'Menlo', 'Ubuntu Mono', 'Courier New', monospace;
   font-size: 0.75rem;
-  color: #6b7280;
+  color: var(--color-ink-3);
 }
 
 .dark .drawer-table-path {
@@ -2380,7 +2380,7 @@ onMounted(() => {
   right: 0;
   width: 100%;
   padding: 1.5rem;
-  border-top: 1px solid #e5e7eb;
+  border-top: 1px solid var(--color-edge);
   background-color: var(--color-panel);
   display: flex;
   justify-content: center;
@@ -2414,14 +2414,14 @@ onMounted(() => {
 }
 
 .drawer-footer-button-cancel {
-  border: 1px solid #e5e7eb;
+  border: 1px solid var(--color-edge);
   background-color: var(--color-panel);
   box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
-  color: #374151;
+  color: var(--color-ink-2);
 }
 
 .drawer-footer-button-cancel:hover {
-  background-color: #f9fafb;
+  background-color: var(--color-panel-2);
   border-color: #d1d5db;
 }
 
@@ -2481,7 +2481,7 @@ onMounted(() => {
 .drawer-close-icon {
   width: 1.125rem;
   height: 1.125rem;
-  color: #6b7280;
+  color: var(--color-ink-3);
 }
 
 .dark .drawer-close-icon {
@@ -2660,12 +2660,12 @@ onMounted(() => {
 
 .delete-modal-button-cancel {
   background-color: #f3f4f6;
-  color: #374151;
-  border: 1px solid #e5e7eb;
+  color: var(--color-ink-2);
+  border: 1px solid var(--color-edge);
 }
 
 .delete-modal-button-cancel:hover {
-  background-color: #e5e7eb;
+  background-color: var(--color-edge);
   transform: translateY(-1px);
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
 }

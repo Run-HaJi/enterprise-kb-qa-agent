@@ -357,7 +357,7 @@ onMounted(() => {
 .model-editor-page {
   padding: 24px;
   height: 100%;
-  background: linear-gradient(135deg, #f8fafc 0%, #f1f5f9 100%);
+  background: var(--color-panel-2);
   min-height: 100vh;
   
   .page-header {
@@ -466,7 +466,7 @@ onMounted(() => {
         gap: 20px;
         margin-bottom: 32px;
         padding-bottom: 24px;
-        border-bottom: 2px solid #f1f5f9;
+        border-bottom: 2px solid var(--color-edge-soft);
         
         .form-icon {
           width: 56px;
@@ -549,7 +549,7 @@ onMounted(() => {
           .form-input,
           .form-select {
             .el-input__wrapper {
-              background: linear-gradient(135deg, #f8fafc 0%, #f1f5f9 100%);
+              background: var(--color-panel-2);
               border: 2px solid #e2e8f0;
               border-radius: 16px;
               padding: 16px 20px;
@@ -572,7 +572,7 @@ onMounted(() => {
               
               &:hover {
                 border-color: #cbd5e1;
-                background: linear-gradient(135deg, #f1f5f9 0%, #e2e8f0 100%);
+                background: var(--color-hover);
                 box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
                 transform: translateY(-1px);
               }
@@ -629,7 +629,7 @@ onMounted(() => {
           gap: 20px;
           margin-top: 40px;
           padding-top: 32px;
-          border-top: 2px solid #f1f5f9;
+          border-top: 2px solid var(--color-edge-soft);
           
           .action-btn {
             padding: 16px 32px;
@@ -673,7 +673,7 @@ onMounted(() => {
               
               &:hover {
                 border-color: #cbd5e1;
-                background: #f8fafc;
+                background: var(--color-panel-2);
                 color: #475569;
               }
             }

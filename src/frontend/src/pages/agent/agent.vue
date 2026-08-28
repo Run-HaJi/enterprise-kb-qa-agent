@@ -397,14 +397,14 @@ onMounted(() => {
 .agent-page {
   padding: 32px;
   min-height: 100vh;
-  background: linear-gradient(135deg, #f8fafc 0%, #f1f5f9 100%);
+  background: var(--color-panel-2);
   
   .page-header {
     display: flex;
     justify-content: space-between;
     align-items: center;
     margin-bottom: 24px; // 减小了margin-bottom
-    background: linear-gradient(135deg, #ffffff 0%, #f8fafc 100%);
+    background: var(--color-hover);
     padding: 20px 28px; // 减小了padding
     border-radius: 16px; // 减小了border-radius
     box-shadow: 0 6px 24px rgba(0, 0, 0, 0.06); // 减小了阴影
@@ -496,7 +496,7 @@ onMounted(() => {
       gap: 16px;
       
       .agent-card {
-        background: linear-gradient(145deg, #ffffff 0%, #f8fafc 100%);
+        background: var(--color-hover);
         border-radius: 20px;
         padding: 16px;
         height: 200px;
@@ -520,7 +520,7 @@ onMounted(() => {
         
         // 系统智能体样式
         &.official-agent {
-          background: linear-gradient(145deg, #fffaf0 0%, #fff8e5 100%);
+          background: var(--color-panel);
           border: 1px solid rgba(255, 152, 0, 0.3);
           
           &:hover {
@@ -533,7 +533,7 @@ onMounted(() => {
           
           .agent-meta {
             .meta-item {
-              background: rgba(255, 243, 224, 0.5);
+              background: rgba(91, 157, 255, 0.08);
               border: 1px solid rgba(255, 152, 0, 0.1);
             }
           }

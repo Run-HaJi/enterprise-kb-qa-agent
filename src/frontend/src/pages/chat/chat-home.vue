@@ -4,9 +4,9 @@ import { useRouter, useRoute } from 'vue-router'
 import { ElMessage } from 'element-plus'
 import { MdPreview } from "md-editor-v3"
 import "md-editor-v3/lib/style.css"
-import { getWorkspacePluginsAPI, workspaceSimpleChatStreamAPI, type WorkSpaceSimpleTask } from '../../../apis/workspace'
-import { getVisibleLLMsAPI, type LLMResponse } from '../../../apis/llm'
-import { useUserStore } from '../../../store/user'
+import { getWorkspacePluginsAPI, workspaceSimpleChatStreamAPI, type WorkSpaceSimpleTask } from '../../apis/workspace'
+import { getVisibleLLMsAPI, type LLMResponse } from '../../apis/llm'
+import { useUserStore } from '../../store/user'
 
 const userStore = useUserStore()
 
@@ -239,6 +239,7 @@ const handleSend = async () => {
         () => {
           console.log('日常模式流式结束')
           isGenerating.value = false  // 完成时解除生成状态
+          window.dispatchEvent(new CustomEvent('kbqa:refresh-sessions'))  // 通知侧栏刷新会话历史
         }
       )
     } catch (e) {
@@ -265,7 +266,7 @@ const handleKeydown = (event: KeyboardEvent) => {
 const loadSessionHistory = async (sessionId: string) => {
   try {
     // 导入 API
-    const { getWorkspaceSessionsAPI } = await import('../../../apis/workspace')
+    const { getWorkspaceSessionsAPI } = await import('../../apis/workspace')
     const response = await getWorkspaceSessionsAPI()
     
     if (response.data.status_code === 200) {
@@ -392,7 +393,7 @@ watch(
                   :class="['selector-item', { open: showModelSelector }]"
                   @click="showModelSelector = !showModelSelector"
                 >
-                  <img src="../../../assets/model.svg" alt="模型" class="selector-icon-img" />
+                  <img src="../../assets/model.svg" alt="模型" class="selector-icon-img" />
                   <span class="selector-text">{{ selectedModel || (modelsLoading ? '加载中...' : '选择模型') }}</span>
                   <span class="selector-arrow">▲</span>
                 </div>
@@ -405,7 +406,7 @@ watch(
                       <span class="empty-text">正在加载模型...</span>
                     </div>
                     <div v-else-if="modelOptions.length === 0" class="dropdown-empty">
-                      <img src="../../../assets/model.svg" alt="模型" class="empty-icon-img" />
+                      <img src="../../assets/model.svg" alt="模型" class="empty-icon-img" />
                       <span class="empty-text">暂无可用模型</span>
                     </div>
                     <div
@@ -416,7 +417,7 @@ watch(
                     >
                       <div class="item-left">
                         <div class="item-icon-wrapper">
-                          <img src="../../../assets/model.svg" alt="模型" class="item-icon-img" />
+                          <img src="../../assets/model.svg" alt="模型" class="item-icon-img" />
                         </div>
                         <div class="item-content">
                           <div class="item-text">{{ m.model }}</div>
@@ -437,7 +438,7 @@ watch(
                   class="selector-item"
                   @click="showToolSelector = !showToolSelector"
                 >
-                  <img src="../../../assets/plugin.svg" alt="工具" class="selector-icon-img" />
+                  <img src="../../assets/plugin.svg" alt="工具" class="selector-icon-img" />
                   <span class="selector-text">
                     {{ selectedTools.length > 0 ? `已选 ${selectedTools.length} 个` : '选择工具' }}
                   </span>
@@ -456,7 +457,7 @@ watch(
                     <!-- 工具列表 -->
                     <div class="dropdown-list">
                       <div v-if="plugins.length === 0" class="dropdown-empty">
-                        <img src="../../../assets/plugin.svg" alt="工具" class="empty-icon-img" />
+                        <img src="../../assets/plugin.svg" alt="工具" class="empty-icon-img" />
                         <span class="empty-text">暂无可用工具</span>
                       </div>
                       <div
@@ -473,7 +474,7 @@ watch(
                               :alt="plugin.display_name"
                               class="item-icon-img"
                             />
-                            <img v-else src="../../../assets/plugin.svg" alt="工具" class="item-icon-img" />
+                            <img v-else src="../../assets/plugin.svg" alt="工具" class="item-icon-img" />
                           </div>
                           <div class="item-content">
                             <div class="item-text">{{ plugin.display_name }}</div>
@@ -511,7 +512,7 @@ watch(
             <div class="footer-right">
               <!-- 附件按钮 -->
               <button class="icon-btn" title="上传附件" @click="triggerFileInput">
-                <img src="../../../assets/upload.svg" alt="上传" class="upload-icon" />
+                <img src="../../assets/upload.svg" alt="上传" class="upload-icon" />
               </button>
               <input
                 type="file"

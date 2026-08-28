@@ -9,7 +9,11 @@ import 'element-plus/dist/index.css'
 import 'element-plus/theme-chalk/dark/css-vars.css'
 import './style.css'
 
+
 const app = createApp(App)
+app.config.errorHandler = (err: any, _inst, info) => {
+  document.title = 'VUEERR: ' + (err?.message || String(err)) + ' @' + info
+}
 const pinia = createPinia();
 pinia.use(persistState);
 
