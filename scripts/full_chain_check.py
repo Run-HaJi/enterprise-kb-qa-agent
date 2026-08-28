@@ -47,7 +47,7 @@ if dialog_id:
                 try:
                     evt = json.loads(payload)
                     data = evt.get("data", {})
-                    text = data.get("message") or data.get("text") or ""
+                    text = data.get("chunk") or data.get("message") or data.get("text") or ""
                     if text and not chunks:
                         first_tok = time.time()
                     if text:
