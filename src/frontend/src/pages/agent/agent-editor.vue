@@ -118,7 +118,7 @@ const loadAgent = (agent?: Agent) => {
     
     console.log('✅ 表单数据已更新:', formData)
     console.log('🔧 当前工具选项:', toolOptions.value.map(t => ({ id: t.tool_id, name: t.name })))
-    console.log('📚 当前知识库选项:', knowledgeOptions.value.map(k => ({ id: k.knowledge_id, name: k.name })))
+    console.log('当前知识库选项:', knowledgeOptions.value.map(k => ({ id: k.knowledge_id, name: k.name })))
     console.log('🧠 当前大模型选项:', llmOptions.value.map(l => ({ id: l.llm_id, name: l.name })))
     
     // 延迟验证ID匹配性，确保选择器已渲染
@@ -304,7 +304,7 @@ const loadLLMOptions = async () => {
     
     if (response.data.status_code === 200) {
       const rawData = response.data.data
-      console.log('📦 原始大模型数据:', rawData)
+      console.log('原始大模型数据:', rawData)
       
       // 处理数据结构：可能是 Record<string, LLMResponse[]> 或直接的 LLMResponse[]
       let llmArray: LLMResponse[] = []
@@ -358,7 +358,7 @@ const loadToolOptions = async () => {
     
     if (response.data.status_code === 200) {
       const rawData = response.data.data
-      console.log('📦 原始工具数据:', rawData)
+      console.log('原始工具数据:', rawData)
       
       toolOptions.value = rawData.map(tool => ({
         ...tool,
@@ -406,22 +406,9 @@ const loadKnowledgeOptions = async () => {
 
 
 
-// 获取知识库图标
+// 获取知识库名首字（线性风格：字母徽章）
 const getKnowledgeIcon = (knowledgeName: string): string => {
-  const iconMap: { [key: string]: string } = {
-    '文档': '📚',
-    '手册': '📖',
-    '问题': '❓',
-    '技术': '⚙️',
-    '产品': '📦'
-  }
-  
-  for (const [key, icon] of Object.entries(iconMap)) {
-    if (knowledgeName.includes(key)) {
-      return icon
-    }
-  }
-  return '📄'
+  return (knowledgeName || 'K').slice(0, 1).toUpperCase()
 }
 
 // 验证ID匹配性

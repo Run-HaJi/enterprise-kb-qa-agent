@@ -32,3 +32,5 @@ chroma_data/
 *.log
 docker/data/
 src/backend/storage_data/
+scripts/shot/node_modules/
+scripts/shot/*.png

@@ -565,8 +565,6 @@ onMounted(() => {
             :disabled="!createForm.model || !createForm.api_key || !createForm.base_url || !createForm.provider || createLoading"
             @click.stop="handleCreate"
           >
-            <span v-if="createLoading" class="btn-icon loading">⏳</span>
-            <span v-else class="btn-icon">✅</span>
             <span class="btn-text">{{ createLoading ? '创建中...' : '确定创建' }}</span>
           </button>
         </div>

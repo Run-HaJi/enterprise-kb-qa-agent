@@ -68,17 +68,17 @@ const editAgent = () => {
       
       <div class="agent-stats">
         <div class="stat-item" :title="`工具数量: ${props.item.tool_ids?.length || 0}`">
-          <div class="stat-icon">🔧</div>
+          <div class="stat-icon">T</div>
           <span class="stat-label">工具</span>
           <span class="stat-value">{{ props.item.tool_ids?.length || 0 }}</span>
         </div>
         <div class="stat-item" :title="`知识库数量: ${props.item.knowledge_ids?.length || 0}`">
-          <div class="stat-icon">📚</div>
+          <div class="stat-icon">K</div>
           <span class="stat-label">知识库</span>
           <span class="stat-value">{{ props.item.knowledge_ids?.length || 0 }}</span>
         </div>
         <div class="stat-item" :title="`MCP数量: ${props.item.mcp_ids?.length || 0}`">
-          <div class="stat-icon">🤖</div>
+          <div class="stat-icon">A</div>
           <span class="stat-label">MCP</span>
           <span class="stat-value">{{ props.item.mcp_ids?.length || 0 }}</span>
         </div>

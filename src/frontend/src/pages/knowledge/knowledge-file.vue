@@ -441,7 +441,7 @@ const mapStatusToDisplay = (backendStatus: string) => {
     'fail': KnowledgeFileStatus.FAIL,       // 失败
     'process': KnowledgeFileStatus.PROCESS  // 进行中
   }
-  return statusMap[backendStatus] || `❓ ${backendStatus}`
+  return statusMap[backendStatus] || backendStatus
 }
 
 // 获取文件类型徽章文本（线性风格：字母缩写）
@@ -568,8 +568,7 @@ onUnmounted(() => {
             <div class="upload-button-wrapper">
               <button class="upload-btn-custom" :class="{ 'uploading': uploading }">
                 <div class="btn-icon-wrapper">
-                  <span v-if="!uploading" class="btn-icon">📤</span>
-                  <div v-else class="loading-spinner"></div>
+                  <div v-if="uploading" class="loading-spinner"></div>
                 </div>
                 <div class="btn-text-wrapper">
                   <span class="btn-main-text">{{ uploading ? '上传中...' : '上传文件' }}</span>
@@ -632,7 +631,7 @@ onUnmounted(() => {
                   <div class="file-details">
                     <span class="file-name">{{ file.file_name }}</span>
                     <span v-if="isTempFile(file)" class="temp-badge">
-                      <span class="badge-icon">⬆️</span>
+                      <span class="badge-icon">⬆</span>
                       上传中
                     </span>
                   </div>
@@ -653,7 +652,7 @@ onUnmounted(() => {
               </td>
               <td class="col-time">
                 <div class="time-info">
-                  <span class="time-icon">📅</span>
+                  
                   <span class="time-text">{{ formatTime(file.create_time) }}</span>
                 </div>
               </td>
@@ -665,7 +664,7 @@ onUnmounted(() => {
                     @click="handleDelete(file)"
                     title="删除文件"
                   >
-                    <span class="btn-icon">🗑️</span>
+                    
                     <span class="btn-text">删除</span>
                   </button>
                   <div v-else class="uploading-indicator">
@@ -683,7 +682,7 @@ onUnmounted(() => {
       <div v-else-if="!loading" class="empty-state">
         <div class="empty-illustration">
           <div class="empty-cloud">
-            <span class="cloud-icon">☁️</span>
+            
             <div class="cloud-files">
               <span class="file-float">TXT</span>
               <span class="file-float">PDF</span>
@@ -828,7 +827,7 @@ onUnmounted(() => {
             &.current {
               color: var(--color-brand);
               font-weight: 600;
-              background: rgba(64, 158, 255, 0.1);
+              background: rgba(91, 157, 255, 0.10);
             }
           }
           
@@ -915,9 +914,9 @@ onUnmounted(() => {
           align-items: center;
           gap: 8px;
           padding: 8px 12px;
-          background: rgba(64, 158, 255, 0.1);
+          background: rgba(91, 157, 255, 0.10);
           border-radius: 8px;
-          border: 1px solid rgba(64, 158, 255, 0.2);
+          border: 1px solid rgba(91, 157, 255, 0.18);
           
           .sync-animation {
             display: flex;
@@ -1049,7 +1048,7 @@ onUnmounted(() => {
           }
           
           &.temp-file {
-            background: rgba(64, 158, 255, 0.05);
+            background: rgba(91, 157, 255, 0.06);
             border-left: 3px solid var(--color-brand);
           }
         }
@@ -1105,7 +1104,7 @@ onUnmounted(() => {
             left: 0;
             right: 0;
             bottom: 0;
-            background: rgba(64, 158, 255, 0.8);
+            background: var(--color-brand);
             border-radius: 8px;
             display: flex;
             align-items: center;
@@ -1245,21 +1244,27 @@ onUnmounted(() => {
           gap: 4px;
           padding: 6px 12px;
           background: var(--color-panel);
-          color: var(--color-danger);
-          border: 1px solid var(--color-danger);
+          color: var(--color-ink-2);
+          border: 1px solid var(--color-edge);
           border-radius: 8px;
           cursor: pointer;
           font-size: 12px;
           font-weight: 600;
           transition: all 0.2s ease;
-          
+
+          &:hover {
+            color: var(--color-danger);
+            border-color: var(--color-danger);
+          }
+
           .btn-icon {
             font-size: 14px;
           }
           
           &:hover {
-            background: var(--color-danger);
-            color: white;
+            background: var(--color-panel);
+            color: var(--color-danger);
+            border-color: var(--color-danger);
           }
         }
         
@@ -1268,7 +1273,7 @@ onUnmounted(() => {
           align-items: center;
           gap: 4px;
           padding: 6px 12px;
-          background: rgba(64, 158, 255, 0.1);
+          background: rgba(91, 157, 255, 0.10);
           color: var(--color-brand);
           border-radius: 8px;
           font-size: 12px;
