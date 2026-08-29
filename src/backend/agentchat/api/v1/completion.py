@@ -1,6 +1,7 @@
 import json
 from typing import List, Callable
-from fastapi import APIRouter, Depends
+from fastapi import APIRouter, Depends, HTTPException
+from agentchat.api.services.llm import LLMService
 from langchain_core.messages import HumanMessage, SystemMessage, BaseMessage
 
 from agentchat.core.agents.general_agent import GeneralAgent, AgentConfig
@@ -29,6 +30,14 @@ async def completion(
 
     # Agent 初始化
     db_config = await DialogService.get_agent_by_dialog_id(req.dialog_id)
+
+    # Agent 绑定的模型可能已被删除，回退到系统默认模型，避免悬空引用导致 500
+    if not await LLMService.get_llm_by_id(db_config.get("llm_id", "")):
+        fallback = await LLMService.get_one_llm()
+        if not fallback:
+            raise HTTPException(status_code=500, detail="系统未配置任何可用模型，请先在模型管理中添加")
+        db_config["llm_id"] = fallback["llm_id"]
+
     agent_config = AgentConfig(**db_config)
     agent_config.user_id = login_user.user_id
 

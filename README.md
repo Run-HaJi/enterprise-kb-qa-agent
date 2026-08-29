@@ -1,5 +1,7 @@
 # KBQA · 企业知识库智能问答 Agent 平台
 
+[![CI](https://github.com/Run-HaJi/enterprise-kb-qa-agent/actions/workflows/ci.yml/badge.svg)](https://github.com/Run-HaJi/enterprise-kb-qa-agent/actions/workflows/ci.yml)
+
 基于 **FastAPI + LangChain/LangGraph + ChromaDB + Vue 3** 的多 Agent 知识库问答系统：
 文档上传 → 解析分块 → 本地向量化 → 检索重排 → 流式回答，答案附带来源引用。
 
