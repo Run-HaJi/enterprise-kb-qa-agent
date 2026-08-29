@@ -876,7 +876,7 @@ defineExpose({ loadAgent })
     left: 0;
     right: 0;
     height: 300px;
-    background: linear-gradient(135deg, #6366f1 0%, #8b5cf6 50%, #06b6d4 100%);
+    background: var(--color-brand);
     opacity: 0.03;
     z-index: 0;
   }
@@ -941,7 +941,7 @@ defineExpose({ loadAgent })
           gap: 10px;
 
           .panel-icon {
-            color: #6366f1;
+            color: var(--color-brand);
             font-size: 20px;
             filter: drop-shadow(0 2px 4px rgba(99, 102, 241, 0.15));
             flex-shrink: 0;
@@ -972,13 +972,13 @@ defineExpose({ loadAgent })
             font-size: 13px;
 
             &:hover {
-              border-color: #6366f1;
-              color: #6366f1;
+              border-color: var(--color-brand);
+              color: var(--color-brand);
             }
           }
 
           .save-btn {
-            background: linear-gradient(135deg, #38bdf8 0%, #0ea5e9 100%);
+            background: var(--color-brand);
             border: none;
             font-weight: 600;
             transition: all 0.3s ease;
@@ -1034,7 +1034,7 @@ defineExpose({ loadAgent })
               background: linear-gradient(135deg, rgba(248, 250, 252, 0.9) 0%, rgba(241, 245, 249, 0.9) 100%);
 
               &:hover {
-                border-color: #6366f1;
+                border-color: var(--color-brand);
                 background: rgba(239, 246, 255, 0.9);
                 transform: scale(1.03);
               }
@@ -1062,7 +1062,7 @@ defineExpose({ loadAgent })
 
                 .avatar-icon {
                   font-size: 20px;
-                  color: #6366f1;
+                  color: var(--color-brand);
                 }
 
                 .avatar-text {
@@ -1104,7 +1104,7 @@ defineExpose({ loadAgent })
                 position: relative;
 
                 .required-mark {
-                  color: #ef4444;
+                  color: var(--color-danger);
                   position: absolute;
                   left: -10px;
                   top: 0;
@@ -1153,7 +1153,7 @@ defineExpose({ loadAgent })
               inset 0 1px 0 rgba(255, 255, 255, 0.5);
             
             &:focus {
-              border-color: #6366f1;
+              border-color: var(--color-brand);
               background: rgba(255, 255, 255, 0.95);
               box-shadow: 
                 0 0 0 4px rgba(99, 102, 241, 0.1),
@@ -1263,7 +1263,7 @@ defineExpose({ loadAgent })
               gap: 12px;
 
               .section-icon {
-                color: #6366f1;
+                color: var(--color-brand);
                 font-size: 18px;
                 filter: drop-shadow(0 1px 2px rgba(99, 102, 241, 0.2));
                 transition: all 0.3s ease;
@@ -1330,7 +1330,7 @@ defineExpose({ loadAgent })
           }
 
           &.active {
-            background: linear-gradient(135deg, #6366f1 0%, #8b5cf6 100%);
+            background: var(--color-brand);
             box-shadow: 
               0 4px 16px rgba(99, 102, 241, 0.3),
               inset 0 1px 0 rgba(255, 255, 255, 0.2);
@@ -1407,7 +1407,7 @@ defineExpose({ loadAgent })
           }
 
           &.is-focus {
-            border-color: #6366f1;
+            border-color: var(--color-brand);
             background: rgba(255, 255, 255, 0.95);
             box-shadow: 
               0 0 0 4px rgba(99, 102, 241, 0.1),
@@ -1437,7 +1437,7 @@ defineExpose({ loadAgent })
           right: 12px;
           
           .el-select__caret {
-            color: #6366f1;
+            color: var(--color-brand);
             font-size: 16px;
             transition: all 0.3s ease;
             

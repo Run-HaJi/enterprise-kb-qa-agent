@@ -395,7 +395,7 @@ onMounted(() => {
               font-weight: 500;
               
               &:hover {
-                color: #3b82f6;
+                color: var(--color-brand);
                 background: rgba(59, 130, 246, 0.1);
                 transform: translateY(-1px);
               }
@@ -406,7 +406,7 @@ onMounted(() => {
             }
             
             &.active {
-              color: #3b82f6;
+              color: var(--color-brand);
               font-weight: 600;
               background: rgba(59, 130, 246, 0.05);
             }
@@ -427,7 +427,7 @@ onMounted(() => {
       .title-icon {
         width: 48px;
         height: 48px;
-        background: linear-gradient(135deg, #3b82f6 0%, #8b5cf6 100%);
+        background: var(--color-brand);
         border-radius: 12px;
         display: flex;
         align-items: center;
@@ -526,7 +526,7 @@ onMounted(() => {
               left: 0;
               width: 40px;
               height: 2px;
-              background: linear-gradient(135deg, #3b82f6 0%, #8b5cf6 100%);
+              background: var(--color-brand);
               border-radius: 1px;
             }
           }
@@ -565,7 +565,7 @@ onMounted(() => {
                 left: 0;
                 right: 0;
                 height: 2px;
-                background: linear-gradient(135deg, #3b82f6 0%, #8b5cf6 100%);
+                background: var(--color-brand);
                 transform: scaleX(0);
                 transition: transform 0.3s ease;
               }
@@ -578,7 +578,7 @@ onMounted(() => {
               }
               
               &.is-focus {
-                border-color: #3b82f6;
+                border-color: var(--color-brand);
                 background: var(--color-panel);
                 box-shadow: 0 0 0 4px rgba(59, 130, 246, 0.1), 0 8px 24px rgba(0, 0, 0, 0.12);
                 transform: translateY(-2px);
@@ -615,7 +615,7 @@ onMounted(() => {
             
             &::before {
               content: '*';
-              color: #ef4444;
+              color: var(--color-danger);
               margin-right: 4px;
               font-weight: 800;
             }
@@ -679,12 +679,12 @@ onMounted(() => {
             }
             
             &.primary-btn {
-              background: linear-gradient(135deg, #3b82f6 0%, #8b5cf6 100%);
+              background: var(--color-brand);
               border-color: transparent;
               color: white;
               
               &:hover {
-                background: linear-gradient(135deg, #2563eb 0%, #7c3aed 100%);
+                background: linear-gradient(135deg, #2563eb 0%, var(--color-brand) 100%);
                 box-shadow: 0 12px 28px rgba(59, 130, 246, 0.4);
               }
             }

@@ -660,7 +660,7 @@ onMounted(() => {
             border-radius: 8px;
             font-size: 13px;
             font-weight: 600;
-            color: #1976d2;
+            color: var(--color-brand);
             
             .el-icon {
               font-size: 14px;
@@ -711,20 +711,20 @@ onMounted(() => {
             }
             
             &.view-btn:hover {
-              background: #409eff;
-              border-color: #409eff;
+              background: var(--color-brand);
+              border-color: var(--color-brand);
               color: white;
             }
             
             &.edit-btn:hover {
-              background: #67c23a;
+              background: var(--color-ok);
               border-color: var(--color-ink-2);
               color: white;
             }
             
             &.delete-btn:hover {
-              background: #f56c6c;
-              border-color: #f56c6c;
+              background: var(--color-danger);
+              border-color: var(--color-danger);
               color: white;
             }
           }
@@ -783,7 +783,7 @@ onMounted(() => {
     height: 24px;
     
     &:hover {
-      color: #f56c6c;
+      color: var(--color-danger);
     }
   }
 }
@@ -813,7 +813,7 @@ onMounted(() => {
       
       &:focus {
         outline: none;
-        border-color: #409eff;
+        border-color: var(--color-brand);
       }
       
       &::placeholder {
@@ -854,12 +854,12 @@ onMounted(() => {
   }
   
   .primary-btn {
-    background: #409eff;
+    background: var(--color-brand);
     color: white;
-    border-color: #409eff;
+    border-color: var(--color-brand);
     
     &:hover:not(:disabled) {
-      background: #66b1ff;
+      background: var(--color-brand);
       border-color: var(--color-ink-2);
     }
   }
@@ -870,7 +870,7 @@ onMounted(() => {
   position: relative;
   
   input.error, textarea.error {
-    border-color: #f56c6c !important;
+    border-color: var(--color-danger) !important;
     box-shadow: 0 0 0 2px rgba(245, 108, 108, 0.2);
   }
   
@@ -884,7 +884,7 @@ onMounted(() => {
     font-weight: 500;
     
     &.error {
-      color: #f56c6c;
+      color: var(--color-danger);
       background: rgba(245, 108, 108, 0.1);
     }
   }
@@ -973,7 +973,7 @@ onMounted(() => {
     line-height: 1.6;
     
     strong {
-      color: #f56c6c;
+      color: var(--color-danger);
       font-weight: 600;
     }
   }
@@ -1012,7 +1012,7 @@ onMounted(() => {
   }
   
   &.confirm-btn {
-    background: #f56c6c;
+    background: var(--color-danger);
     color: white;
     
     &:hover:not(:disabled) {

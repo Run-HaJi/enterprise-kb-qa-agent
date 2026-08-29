@@ -19,12 +19,12 @@
   --color-ink-2: #a3a9b3;
   --color-ink-3: #6e7681;
 
-  /* 品牌与语义 */
+  /* 品牌与语义（语义色统一低饱和灰调，避免纯色刺眼） */
   --color-brand: #5b9dff;
   --color-brand-dim: #2d4a75;
-  --color-ok: #34d399;
-  --color-warn: #fbbf24;
-  --color-danger: #f87171;
+  --color-ok: #8fae9b;
+  --color-warn: #c4a97a;
+  --color-danger: #c98a8a;
 
   /* 字体 */
   --font-sans: "Inter", -apple-system, "Segoe UI", "PingFang SC", "Microsoft YaHei", sans-serif;

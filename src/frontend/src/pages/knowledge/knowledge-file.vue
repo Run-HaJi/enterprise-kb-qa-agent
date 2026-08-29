@@ -456,11 +456,9 @@ const getFileIcon = (fileName: string) => {
   return badgeMap[ext] || ext.slice(0, 3).toUpperCase() || 'FILE'
 }
 
-// 获取文件大小颜色
-const getFileSizeColor = (size: number) => {
-  if (size < 1024 * 1024) return '#67c23a' // 绿色 < 1MB
-  if (size < 10 * 1024 * 1024) return '#e6a23c' // 橙色 < 10MB  
-  return '#f56c6c' // 红色 >= 10MB
+// 文件大小统一中性色（不再彩色分级）
+const getFileSizeColor = (_size: number) => {
+  return 'var(--color-ink-2)'
 }
 
 onMounted(() => {
@@ -645,7 +643,6 @@ onUnmounted(() => {
               </td>
               <td class="col-size">
                 <span class="size-tag" :style="{ color: getFileSizeColor(file.file_size) }">
-                  <span class="size-icon">💾</span>
                   {{ formatFileSize(file.file_size) }}
                 </span>
               </td>
@@ -688,8 +685,8 @@ onUnmounted(() => {
           <div class="empty-cloud">
             <span class="cloud-icon">☁️</span>
             <div class="cloud-files">
-              <span class="file-float">DOC</span>
-              <span class="file-float">DOC</span>
+              <span class="file-float">TXT</span>
+              <span class="file-float">PDF</span>
               <span class="file-float">DOC</span>
             </div>
           </div>
@@ -824,12 +821,12 @@ onUnmounted(() => {
               
               &:hover {
                 background: var(--color-edge);
-                color: #409eff;
+                color: var(--color-brand);
               }
             }
             
             &.current {
-              color: #409eff;
+              color: var(--color-brand);
               font-weight: 600;
               background: rgba(64, 158, 255, 0.1);
             }
@@ -903,30 +900,12 @@ onUnmounted(() => {
             }
           }
             
-          &.total {
+          &.total, &.processing, &.success {
             .stat-icon-wrapper {
               background: var(--color-panel-2);
             }
             .stat-number {
-              color: #1976d2;
-            }
-          }
-          
-          &.processing {
-            .stat-icon-wrapper {
-              background: var(--color-panel-2);
-            }
-            .stat-number {
-              color: #f57c00;
-            }
-          }
-          
-          &.success {
-            .stat-icon-wrapper {
-              background: var(--color-panel-2);
-            }
-            .stat-number {
-              color: #388e3c;
+              color: var(--color-ink);
             }
           }
         }
@@ -947,7 +926,7 @@ onUnmounted(() => {
             .sync-dot {
               width: 4px;
               height: 4px;
-              background: #409eff;
+              background: var(--color-brand);
               border-radius: 50%;
               animation: syncWave 1.5s infinite ease-in-out;
               
@@ -959,7 +938,7 @@ onUnmounted(() => {
           
           .sync-text {
             font-size: 12px;
-            color: #409eff;
+            color: var(--color-brand);
             font-weight: 500;
           }
         }
@@ -970,7 +949,7 @@ onUnmounted(() => {
             align-items: center;
             gap: 8px;
             padding: 10px 20px;
-            background: #409eff;
+            background: var(--color-brand);
             border: none;
             border-radius: 10px;
             color: white;
@@ -980,7 +959,7 @@ onUnmounted(() => {
             font-size: 14px;
             
             &:hover {
-              background: #66b1ff;
+              background: var(--color-brand);
             }
             
             .btn-icon-wrapper {
@@ -1071,7 +1050,7 @@ onUnmounted(() => {
           
           &.temp-file {
             background: rgba(64, 158, 255, 0.05);
-            border-left: 3px solid #409eff;
+            border-left: 3px solid var(--color-brand);
           }
         }
         
@@ -1162,7 +1141,7 @@ onUnmounted(() => {
             display: flex;
             align-items: center;
             gap: 4px;
-            background: #409eff;
+            background: var(--color-brand);
             color: white;
             padding: 2px 8px;
             border-radius: 10px;
@@ -1181,7 +1160,8 @@ onUnmounted(() => {
         display: inline-block;
         padding: 4px 10px;
         background: var(--color-panel-2);
-        color: #1976d2;
+        border: 1px solid var(--color-edge);
+        color: var(--color-ink-2);
         border-radius: 12px;
         font-size: 12px;
         font-weight: 600;
@@ -1235,17 +1215,17 @@ onUnmounted(() => {
         
         &.status-success {
           background: var(--color-panel-2);
-          color: #388e3c;
+          color: var(--color-ok);
         }
         
         &.status-process {
           background: var(--color-panel-2);
-          color: #f57c00;
+          color: var(--color-warn);
         }
         
         &.status-fail {
           background: var(--color-panel-2);
-          color: #d32f2f;
+          color: var(--color-danger);
         }
         
         &.status-default {
@@ -1265,8 +1245,8 @@ onUnmounted(() => {
           gap: 4px;
           padding: 6px 12px;
           background: var(--color-panel);
-          color: #f56c6c;
-          border: 1px solid #f56c6c;
+          color: var(--color-danger);
+          border: 1px solid var(--color-danger);
           border-radius: 8px;
           cursor: pointer;
           font-size: 12px;
@@ -1278,7 +1258,7 @@ onUnmounted(() => {
           }
           
           &:hover {
-            background: #f56c6c;
+            background: var(--color-danger);
             color: white;
           }
         }
@@ -1289,7 +1269,7 @@ onUnmounted(() => {
           gap: 4px;
           padding: 6px 12px;
           background: rgba(64, 158, 255, 0.1);
-          color: #409eff;
+          color: var(--color-brand);
           border-radius: 8px;
           font-size: 12px;
           font-weight: 600;
@@ -1516,7 +1496,7 @@ onUnmounted(() => {
       }
 
       .btn-confirm {
-        background-color: #f56c6c;
+        background-color: var(--color-danger);
         color: white;
         
         &:hover {

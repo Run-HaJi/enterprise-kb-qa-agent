@@ -92,7 +92,7 @@ const selectCard = () => {
   margin-bottom: 8px;
 
   &:hover {
-    border-color: #3b82f6;
+    border-color: var(--color-brand);
     box-shadow: 0 4px 12px rgba(59, 130, 246, 0.15);
     transform: translateY(-2px);
   }
@@ -192,9 +192,9 @@ const selectCard = () => {
 
 // 激活状态
 .history-card.active {
-  border-color: #3b82f6;
+  border-color: var(--color-brand);
   background-color: #eff6ff;
-  box-shadow: 0 0 0 1px #3b82f6;
+  box-shadow: 0 0 0 1px var(--color-brand);
 
   .card-left .content .title {
     color: #1d4ed8;

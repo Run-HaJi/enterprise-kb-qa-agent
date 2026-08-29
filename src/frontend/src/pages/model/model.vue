@@ -651,7 +651,7 @@ onMounted(() => {
           border: 1px solid var(--color-edge);
           
           &:hover {
-            border-color: #409eff;
+            border-color: var(--color-brand);
             box-shadow: 0 0 0 1px rgba(64, 158, 255, 0.2);
           }
         }
@@ -681,12 +681,12 @@ onMounted(() => {
           }
           
           &.add-btn {
-            background: linear-gradient(135deg, #409eff 0%, #3a7be2 100%);
+            background: var(--color-brand);
             border: none;
             box-shadow: 0 4px 12px rgba(64, 158, 255, 0.2);
             
             &:hover {
-              background: linear-gradient(135deg, #66b1ff 0%, #409eff 100%);
+              background: var(--color-brand);
               box-shadow: 0 6px 16px rgba(64, 158, 255, 0.3);
             }
           }
@@ -772,10 +772,10 @@ onMounted(() => {
               font-weight: 700;
 
               &.llm {
-                background: linear-gradient(135deg, #409eff 0%, #3a7be2 100%);
+                background: var(--color-brand);
               }
               &.embedding {
-                background: linear-gradient(135deg, #67c23a 0%, #529b2e 100%);
+                background: linear-gradient(135deg, var(--color-ok) 0%, #529b2e 100%);
               }
               &.rerank {
                 background: var(--color-panel-2);
@@ -794,7 +794,7 @@ onMounted(() => {
             .official-tag {
               font-size: 11px;
               font-weight: 600;
-              color: #e6a23c;
+              color: var(--color-warn);
               background: var(--color-panel-2);
               border: 1px solid var(--color-edge);
               border-radius: 20px;
@@ -838,7 +838,7 @@ onMounted(() => {
 
             &.llm {
               background: rgba(64, 158, 255, 0.1);
-              color: #409eff;
+              color: var(--color-brand);
             }
             &.embedding {
               background: rgba(103, 194, 58, 0.1);
@@ -846,7 +846,7 @@ onMounted(() => {
             }
             &.rerank {
               background: rgba(230, 162, 60, 0.1);
-              color: #e6a23c;
+              color: var(--color-warn);
             }
           }
         }
@@ -892,7 +892,7 @@ onMounted(() => {
             }
 
             &.edit-btn {
-              color: #409eff;
+              color: var(--color-brand);
 
               &:hover:not(.disabled) {
                 background: rgba(64, 158, 255, 0.1);
@@ -902,7 +902,7 @@ onMounted(() => {
             }
 
             &.delete-btn {
-              color: #f56c6c;
+              color: var(--color-danger);
 
               &:hover:not(.disabled) {
                 background: rgba(245, 108, 108, 0.1);
@@ -949,7 +949,7 @@ onMounted(() => {
 
       .el-button {
         border-radius: 8px;
-        background: linear-gradient(135deg, #409eff 0%, #3a7be2 100%);
+        background: var(--color-brand);
         border: none;
         box-shadow: 0 4px 12px rgba(64, 158, 255, 0.2);
         transition: all 0.3s;
@@ -957,7 +957,7 @@ onMounted(() => {
         &:hover {
           transform: translateY(-2px);
           box-shadow: 0 6px 16px rgba(64, 158, 255, 0.3);
-          background: linear-gradient(135deg, #66b1ff 0%, #409eff 100%);
+          background: var(--color-brand);
         }
       }
     }
@@ -1114,7 +1114,7 @@ onMounted(() => {
 }
 
 .required-mark {
-  color: #ef4444;
+  color: var(--color-danger);
   font-weight: 700;
   font-size: 16px;
 }
@@ -1374,9 +1374,9 @@ onMounted(() => {
 }
 
 .delete-dialog-btn.confirm-btn {
-  background: #3b82f6;
+  background: var(--color-brand);
   color: white;
-  border: 1px solid #3b82f6;
+  border: 1px solid var(--color-brand);
 }
 
 .delete-dialog-btn.confirm-btn:hover:not(:disabled) {

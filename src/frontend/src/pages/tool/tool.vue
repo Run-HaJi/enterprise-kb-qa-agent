@@ -1370,7 +1370,7 @@ onMounted(() => {
       
       :deep(.el-tabs__active-bar) {
         height: 3px;
-        background: linear-gradient(90deg, #3b82f6, #2563eb);
+        background: linear-gradient(90deg, var(--color-brand), #2563eb);
         bottom: 0;
       }
       
@@ -1526,7 +1526,7 @@ onMounted(() => {
           
           &.system {
             background: rgba(14, 165, 233, 0.1);
-            color: #0ea5e9;
+            color: var(--color-brand);
             border: 1px solid rgba(14, 165, 233, 0.2);
           }
           
@@ -1568,7 +1568,7 @@ onMounted(() => {
           opacity: 1;
           
           &.edit-btn {
-            background: linear-gradient(135deg, #3b82f6 0%, #2563eb 100%);
+            background: linear-gradient(135deg, var(--color-brand) 0%, #2563eb 100%);
             color: white;
             
             &:hover {
@@ -2430,7 +2430,7 @@ onMounted(() => {
 
 .drawer-footer-button-save {
   border: none;
-  background: linear-gradient(135deg, #3b82f6 0%, #2563eb 100%);
+  background: linear-gradient(135deg, var(--color-brand) 0%, #2563eb 100%);
   box-shadow: 0 2px 8px rgba(59, 130, 246, 0.3);
   color: #ffffff;
 }
@@ -2468,7 +2468,7 @@ onMounted(() => {
 
 .drawer-close:focus {
   outline: none;
-  box-shadow: 0 0 0 2px #3b82f6;
+  box-shadow: 0 0 0 2px var(--color-brand);
 }
 
 .drawer-close-icon {
@@ -2581,7 +2581,7 @@ onMounted(() => {
   justify-content: center;
   background: linear-gradient(135deg, rgba(239, 68, 68, 0.1) 0%, rgba(220, 38, 38, 0.1) 100%);
   border-radius: 50%;
-  color: #ef4444;
+  color: var(--color-danger);
   
   svg {
     width: 48px;
@@ -2616,7 +2616,7 @@ onMounted(() => {
     display: block;
     margin-top: 8px;
     font-size: 13px;
-    color: #ef4444;
+    color: var(--color-danger);
     font-weight: 500;
   }
 }

@@ -280,7 +280,7 @@ onMounted(() => {
             :icon="Plus" 
             @click="createAgent"
             size="large"
-            style="border-radius: 12px; background: linear-gradient(135deg, #3b82f6 0%, #8b5cf6 100%); border: none;"
+            style="border-radius: 12px; background: var(--color-brand); border: none;"
           >
             创建智能体
           </el-button>
@@ -539,7 +539,7 @@ onMounted(() => {
           position: absolute;
           top: 10px;
           right: 10px;
-          background-color: #f56c6c;
+          background-color: var(--color-danger);
           color: white;
           border-radius: 50%;
           width: 24px;
@@ -754,7 +754,7 @@ onMounted(() => {
       }
 
       .btn-confirm {
-        background-color: #f56c6c;
+        background-color: var(--color-danger);
         color: white;
         border: none;
         

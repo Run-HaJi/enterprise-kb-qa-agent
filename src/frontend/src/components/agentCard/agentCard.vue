@@ -118,7 +118,7 @@ const editAgent = () => {
     left: 0;
     right: 0;
     height: 4px;
-    background: linear-gradient(90deg, #3b82f6 0%, #8b5cf6 50%, #06b6d4 100%);
+    background: var(--color-brand);
     border-radius: 20px 20px 0 0;
   }
 
@@ -207,7 +207,7 @@ const editAgent = () => {
           .stat-value {
             font-size: 10px;
             font-weight: 600;
-            color: #3b82f6;
+            color: var(--color-brand);
             background: rgba(59, 130, 246, 0.1);
             padding: 1px 4px;
             border-radius: 4px;
@@ -294,7 +294,7 @@ const editAgent = () => {
         }
         
         span {
-          color: #3b82f6;
+          color: var(--color-brand);
         }
       }
       

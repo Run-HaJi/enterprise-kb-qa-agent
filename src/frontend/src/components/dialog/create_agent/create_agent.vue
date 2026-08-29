@@ -473,9 +473,9 @@ defineExpose({ open, close })
           text-align: center;
           margin-bottom: 20px;
           .status-text {
-            color: #67c23a;
+            color: var(--color-ok);
             font-size: 12px;
-            border: 1px dashed #67c23a;
+            border: 1px dashed var(--color-ok);
             padding: 4px 12px;
             border-radius: 4px;
             background-color: #f0f9ff;
@@ -536,7 +536,7 @@ defineExpose({ open, close })
               transition: all 0.3s;
               &:hover {
                 background-color: #e6f7ff;
-                color: #409eff;
+                color: var(--color-brand);
               }
             }
           }
