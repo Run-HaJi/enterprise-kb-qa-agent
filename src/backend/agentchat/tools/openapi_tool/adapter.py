@@ -125,7 +125,9 @@ class OpenAPIToolAdapter:
         body = spec.get("requestBody", {})
         content = body.get("content", {})
 
-        json_schema = content.get("application/json", {}).get("schemas")
+        # 兼容标准 OpenAPI 3.1 (schema) 与历史格式 (schemas)
+        app_json = content.get("application/json", {})
+        json_schema = app_json.get("schemas") or app_json.get("schema")
 
         if json_schema:
             cleaned = self._clean_schema(json_schema)
@@ -145,6 +147,20 @@ class OpenAPIToolAdapter:
             "properties": properties,
             "required": list(set(required)),
         }
+
+    @staticmethod
+    def _body_param_names(spec: Dict[str, Any]) -> set:
+        """从 OpenAPI spec 提取 requestBody(application/json) 的属性名集合。
+
+        _build_parameters_schema 会把 body 的 properties 平铺进工具参数，
+        执行时依据该集合把参数正确归位到 body，避免 path/query 参数被重复塞进 body。
+        """
+        body = spec.get("requestBody", {})
+        app_json = body.get("content", {}).get("application/json", {})
+        schema = app_json.get("schemas") or app_json.get("schema")
+        if isinstance(schema, dict) and schema.get("type") == "object":
+            return set(schema.get("properties", {}).keys())
+        return set()
 
     def _clean_schema(self, schema: Dict[str, Any]) -> Dict[str, Any]:
         """
@@ -189,24 +205,32 @@ class OpenAPIToolAdapter:
 
     # 构造鉴权 Header
     def _build_auth_headers(self) -> Dict[str, str]:
+        """构造鉴权 Header，兼容新旧两种 auth_config 结构：
+
+        新版: {auth_type: 'Bearer'/'Basic'/'APIKey'/'Header', data: ...}
+        旧版: {type: 'bearer'/'basic', token: ...}(前端工具表单提交的格式)
+
+        大小写不敏感，避免前端表单值与后端枚举不匹配导致鉴权静默失效。
+        """
         if not self.auth_config:
             return {}
 
-        auth_type = self.auth_config.get("auth_type")
-        data = self.auth_config.get("data")
+        cfg = self.auth_config
+        auth_type = str(cfg.get("auth_type") or cfg.get("type") or "").lower()
+        data = cfg.get("data") or cfg.get("token")
 
-        if auth_type == "Bearer":
+        if auth_type == "bearer":
             return {"Authorization": f"Bearer {data}"}
 
-        if auth_type == "Basic":
+        if auth_type == "basic":
             return {"Authorization": f"Basic {data}"}
 
-        if auth_type == "APIKey":
+        if auth_type in ("apikey", "api_key", "api-key"):
             return {"X-API-Key": data}
 
-        if auth_type == "Header":
+        if auth_type == "header":
             # data 应该是 dict
-            return data
+            return data or {}
 
         return {}
 
@@ -237,26 +261,25 @@ class OpenAPIToolAdapter:
         query_params = {}
         json_body = {}
 
-        # 替换 path 参数
+        # 依据 spec 区分三类参数：path 占位符 / requestBody 属性 / 其余按 query
+        body_param_names = self._body_param_names(meta["spec"])
+
         for key, value in kwargs.items():
             if f"{{{key}}}" in path:
                 path = path.replace(f"{{{key}}}", str(value))
                 path_params[key] = value
+            elif key in body_param_names:
+                json_body[key] = value
             else:
                 query_params[key] = value
 
-        # body 支持（POST/PUT/PATCH）
-        if method in ["POST", "PUT", "PATCH"]:
-            json_body = kwargs
+        # 重新拼接 URL：path 参数替换发生在循环内，初始 url 已过时
+        url = f"{self.base_url}{path}"
 
         import httpx
 
-        headers = {}
-
-        # auth 处理
-        if self.auth_config:
-            if self.auth_config.get("auth_type") == "Bearer":
-                headers["Authorization"] = f"Bearer {self.auth_config['data']}"
+        # auth 处理（与 _build_auth_headers 一致，避免两处逻辑漂移）
+        headers = self._build_auth_headers()
 
         async with httpx.AsyncClient() as client:
             response = await client.request(
