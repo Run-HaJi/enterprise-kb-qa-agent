@@ -8,8 +8,9 @@ from agentchat.api.services.tool import ToolService
 from agentchat.api.services.workspace_session import WorkSpaceSessionService
 from agentchat.prompts.completion import SYSTEM_PROMPT
 from agentchat.api.responses.builder import resp_200
+from agentchat.database.models.workspace_session import WorkSpaceSessionCreate
 from agentchat.schemas.usage_stats import UsageStatsAgentType
-from agentchat.schemas.workspace import WorkSpaceSimpleTask
+from agentchat.schemas.workspace import WorkSpaceAgents, WorkSpaceSimpleTask
 from agentchat.api.services.user import UserPayload, get_login_user
 from agentchat.services.workspace.simple_agent import WorkSpaceSimpleAgent
 from agentchat.utils.contexts import set_user_id_context, set_agent_name_context
@@ -33,7 +34,18 @@ async def create_workspace_session(*,
                                    title: str = "",
                                    contexts: dict = {},
                                    login_user: UserPayload = Depends(get_login_user)):
-    pass
+    try:
+        session = await WorkSpaceSessionService.create_workspace_session(
+            WorkSpaceSessionCreate(
+                title=title or "新会话",
+                agent=WorkSpaceAgents.SimpleAgent.value,
+                user_id=login_user.user_id,
+                contexts=[contexts] if contexts else [],
+            )
+        )
+        return resp_200(data=session.to_dict())
+    except Exception as err:
+        raise HTTPException(status_code=500, detail=str(err))
 
 @router.post("/session/{session_id}", summary="进入工作台会话")
 async def workspace_session_info(session_id: str,

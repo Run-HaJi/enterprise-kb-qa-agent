@@ -66,11 +66,18 @@ class WorkSpaceSimpleAgent:
         )
 
     async def setup_plugin_tools(self):
-        """Initialize plugin tools - with error handling"""
+        """Initialize plugin tools - with error handling
+
+        仅注册 WorkSpacePlugins 白名单内的内置工具；未注册的工具（如 OpenAPI
+        自定义工具）明确跳过并告警，避免一个未知工具名把整批插件拖垮。
+        """
         try:
             tools_name = await ToolService.get_tool_name_by_id(self.plugins)
             for name in tools_name:
-                self.plugin_tools.append(WorkSpacePlugins[name])
+                if name in WorkSpacePlugins:
+                    self.plugin_tools.append(WorkSpacePlugins[name])
+                else:
+                    logger.warning(f"插件 {name} 未注册为工作台插件，已跳过")
 
             logger.info(f"Loaded {len(self.plugin_tools)} plugin tools")
 
