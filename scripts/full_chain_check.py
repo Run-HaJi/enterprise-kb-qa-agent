@@ -1,5 +1,11 @@
 """后端全链路复检脚本"""
-import requests, json, time
+import sys, requests, json, time
+
+# Windows GBK 控制台无法输出 emoji，强制 UTF-8
+try:
+    sys.stdout.reconfigure(encoding="utf-8")
+except Exception:
+    pass
 
 B = "http://127.0.0.1:7860"
 KB = "t_a3da1e42de03489b"
@@ -39,7 +45,8 @@ if dialog_id:
     r = requests.post(f"{B}/api/v1/completion", headers={**H, "Content-Type": "application/json"},
                       json={"dialog_id": dialog_id, "user_input": "员工每月加班时间上限是多少？需要审批吗？"},
                       timeout=90, stream=True)
-    chunks, first_tok = [], time.time()
+    chunks, started_at = [], time.time()
+    first_tok = None
     for line in r.iter_lines(decode_unicode=True):
         if line and line.startswith("data:"):
             payload = line[5:].strip()
@@ -55,7 +62,8 @@ if dialog_id:
                 except Exception:
                     pass
     full = "".join(chunks)
-    step("对话链路(DeepSeek流式)", len(full) > 5, f"{len(chunks)}个分片, 首token {first_tok:.1f}s, 内容: {full[:60]}")
+    tok_cost = f"首token {(first_tok - started_at):.1f}s" if first_tok else "首token 无输出"
+    step("对话链路(DeepSeek流式)", len(full) > 5, f"{len(chunks)}个分片, {tok_cost}, 内容: {full[:60]}")
 else:
     step("对话链路(DeepSeek流式)", False, "无dialog")
 
