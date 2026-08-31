@@ -1,11 +1,13 @@
 # KBQA 项目开发规范
 
-> 本规范由 2026-08 阶段性重构实战沉淀，每一条都对应一次真实事故或返工。在此仓库工作时必须遵守。
+> 本规范由早期开发阶段（ZCode + GLM）沉淀，每一条都对应一次真实事故或返工。
+> 它与当时的实现一起生长，**不保证每个字都对**：与代码事实冲突、或执行成本高于价值
+> 的条款，允许按价值取舍，但在偏离时对用户说明（本项目曾据此放宽视觉存量清理条款）。
 
 ## 0. 验证纪律（最重要）
 
-- **说"完成"之前必须跑验收**：后端改动跑 `scripts/full_chain_check.py`（9 环全链路）+ `pytest tests/`；前端改动跑 `npx vite build` + Chrome 无头截图人工核验。
-- 截图验收用 `scripts/shot/shot.js`（本机 Chrome 无头，完整单幅 1440×900）。**禁止**用 ZCode 内置浏览器的 screenshot 出图给用户（有平铺缺陷）。
+- **说"完成"之前必须跑验收**：后端改动跑 `scripts/full_chain_check.py`（9 环全链路）+ `pytest tests/`；前端改动跑 `npx vite build`；**视觉/UI 改动**额外用 Chrome 无头截图人工核验。
+- 截图验收用 `scripts/shot/shot.js`（本机 Chrome 无头，完整单幅 1440×900）。**禁止**用 ZCode 内置浏览器的 screenshot 出图给用户——该浏览器会将截图平铺成 2×2 网格，部分内容被遮挡，导致模型视觉审核不到位。
 - "在我机器上是好的"不算验证——改动后即使本地服务没起也要按第 6 节顺序拉起再验。
 
 ## 1. 数据操作
@@ -29,10 +31,11 @@
 
 ## 4. 前端视觉规范（设计令牌体系）
 
-- **颜色一律走 `src/style.css` 的 `--color-*` 令牌**，禁止硬编码彩色值（`#409eff`/`#67c23a`/`#f56c6c`/rgba 彩底/蓝紫渐变全部清理过，不要引回来）。语义色（ok/warn/danger）已降饱和，用途仅限状态提示。
+- **颜色一律走 `src/style.css` 的 `--color-*` 令牌**，禁止在**新增/修改**的样式中硬编码彩色值（`#409eff`/`#67c23a`/`#f56c6c`/rgba 彩底/蓝紫渐变）。语义色（ok/warn/danger）已降饱和，用途仅限状态提示。
 - 设计语言：近黑底 + 白字 + 灰阶层级 + 单一品牌蓝强调；**图标用线性 SVG 简笔或字母徽章（monogram），禁用 emoji 和卡通图**；状态用文字表达。
 - 改色后做三轮扫描：`#hex 彩色`、`rgba(彩底)`、`linear-gradient(含浅色)`——三轮都有过漏网。
 - 新增浅色/深色值前先查令牌表，没有合适的就加令牌，不要就地写值。
+- **存量例外**：`agent.vue`/`tool.vue`/`model-editor.vue` 等管理页仍存在大量硬编码彩色与 emoji（如 `type.ts` 的 `KnowledgeFileStatus` 枚举），属已知债务。清理是独立工程量，**不得混入功能变更**，需另行立项（2026-08 已由作者确认此边界）。
 
 ## 5. 后端架构
 
@@ -48,10 +51,10 @@ Docker Desktop → 等引擎就绪 → agentchat-mysql/redis 自启
 → scripts/.venv python embedding_server.py   # :19000
 → src/backend/.venv uvicorn agentchat.main:app --port 7860   # cwd 必须在 src/backend
 → src/frontend npm run dev                    # :8090
-→ python scripts/full_chain_check.py          # 验收
+→ python scripts/full_chain_check.py          # 验收 (Windows 下脚本已内置 UTF-8 输出修复)
 ```
 
-常见坑：后端 cwd 错了配置加载不到（mysql endpoint 为 None）；MySQL 容器必须有 `-p 3306:3306` 端口映射（开发模式）；`taskkill //IM python.exe` 会误杀 embedding 服务，按端口 PID 精准杀。
+常见坑：后端 cwd 错了配置加载不到（mysql endpoint 为 None）；开发模式需要 MySQL 容器 `-p 3306:3306` 端口映射（本机 3306 被占用时容器侧注释该映射、并改用其它可达地址）；`taskkill //IM python.exe` 会误杀 embedding 服务，按端口 PID 精准杀。
 
 ## 7. 测试
 
