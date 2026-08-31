@@ -298,6 +298,10 @@ class GeneralAgent:
                     config={"callbacks": [usage_metadata_callback]},
                     stream_mode=["messages", "custom"],
             ):
+                if self.stop_streaming:
+                    # 用户中断（刷新/关闭页面等）：停止继续消费模型流，已累积内容照常落库
+                    logger.info("用户中断对话流，停止生成")
+                    break
                 if token == "custom":
                     yield self.wrap_event(metadata)
                 elif isinstance(metadata[0], AIMessageChunk) and metadata[0].content:
