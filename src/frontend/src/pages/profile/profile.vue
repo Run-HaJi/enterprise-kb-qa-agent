@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { ref, onMounted } from 'vue'
 import { ElMessage, ElMessageBox } from 'element-plus'
-import { User, Edit, Upload, Check, Close } from '@element-plus/icons-vue'
+import { Edit, Check, Close } from '@element-plus/icons-vue'
 import { useUserStore } from '../../store/user'
 import { updateUserInfoAPI, getUserIconsAPI, getUserInfoAPI } from '../../apis/auth'
 
@@ -12,13 +12,6 @@ const formData = ref({
   user_avatar: '',
   user_description: '该用户很懒，没有留下一片云彩'
 })
-
-// 测试按钮点击
-const testButtonClick = () => {
-  console.log('按钮被点击了！');
-  alert('按钮被点击了！');
-  confirmAvatarSelection();
-}
 
 // 页面状态
 const loading = ref(false)
@@ -31,7 +24,6 @@ const uploading = ref(false)
 // 头像相关
 const availableIcons = ref<string[]>([])
 const selectedAvatar = ref('')
-const uploadRef = ref()
 
 // 初始化数据
 onMounted(async () => {
@@ -158,31 +150,6 @@ const handleUploadSuccess = async (response: any) => {
     ElMessage.error('上传失败，未获取到图片链接');
     uploading.value = false;
   }
-}
-
-// 上传前验证
-const beforeUpload = (file: File) => {
-  const isJPGOrPNG = file.type === 'image/jpeg' || file.type === 'image/png'
-  const isLt2M = file.size / 1024 / 1024 < 2
-
-  if (!isJPGOrPNG) {
-    ElMessage.error('只能上传 JPG/PNG 格式的图片!')
-    return false
-  }
-  if (!isLt2M) {
-    ElMessage.error('图片大小不能超过 2MB!')
-    return false
-  }
-  
-  uploading.value = true
-  return true
-}
-
-// 上传失败处理
-const handleUploadError = (error: any) => {
-  console.error('上传失败:', error)
-  ElMessage.error('头像上传失败，请重试')
-  uploading.value = false
 }
 
 // 保存用户信息
@@ -374,72 +341,6 @@ const handleCustomUpload = async (event: Event) => {
       </div>
     </div>
 
-    <!-- 头像选择对话框 -->
-    <el-dialog
-      v-model="showAvatarDialog"
-      title="选择头像"
-      width="600px"
-      :close-on-click-modal="false"
-      append-to-body
-    >
-      <div class="avatar-selection">
-        <!-- 当前选中头像 -->
-        <div class="current-selection">
-          <h4>当前选择：</h4>
-          <div class="selected-avatar">
-            <img :src="selectedAvatar" alt="选中的头像" />
-          </div>
-        </div>
-
-        <!-- 预设头像列表 -->
-        <div class="preset-avatars">
-          <h4>选择预设头像：</h4>
-          <div class="avatar-grid">
-            <div
-              v-for="(icon, index) in availableIcons"
-              :key="index"
-              class="avatar-option"
-              :class="{ active: selectedAvatar === icon }"
-              @click="selectAvatar(icon)"
-            >
-              <img :src="icon" alt="头像选项" />
-            </div>
-          </div>
-        </div>
-
-        <!-- 上传自定义头像 -->
-        <div class="upload-section">
-          <h4>上传自定义头像：</h4>
-          <el-upload
-            ref="uploadRef"
-            action="/api/v1/upload"
-            :show-file-list="false"
-            :on-success="handleUploadSuccess"
-            :before-upload="beforeUpload"
-            :on-error="handleUploadError"
-            accept="image/*"
-            :disabled="uploading"
-          >
-            <el-button type="primary" :icon="Upload" :loading="uploading">
-              {{ uploading ? '上传中...' : '点击上传头像' }}
-            </el-button>
-          </el-upload>
-          <p class="upload-tip">支持 JPG、PNG 格式，文件大小不超过 2MB</p>
-        </div>
-      </div>
-
-      <template #footer>
-        <el-button @click="showAvatarDialog = false">取消</el-button>
-        <el-button 
-          type="primary" 
-          @click="testButtonClick"
-          :disabled="!selectedAvatar"
-        >
-          确定选择
-        </el-button>
-      </template>
-    </el-dialog>
-    
     <!-- 自定义头像选择对话框 -->
     <div v-if="showAvatarDialog" class="custom-dialog-overlay">
       <div class="custom-dialog">

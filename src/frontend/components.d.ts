@@ -13,7 +13,6 @@ declare module 'vue' {
     Create_agent: typeof import('./src/components/dialog/create_agent/create_agent.vue')['default']
     Drawer: typeof import('./src/components/drawer/drawer.vue')['default']
     ElButton: typeof import('element-plus/es')['ElButton']
-    ElDialog: typeof import('element-plus/es')['ElDialog']
     ElDropdown: typeof import('element-plus/es')['ElDropdown']
     ElDropdownItem: typeof import('element-plus/es')['ElDropdownItem']
     ElDropdownMenu: typeof import('element-plus/es')['ElDropdownMenu']

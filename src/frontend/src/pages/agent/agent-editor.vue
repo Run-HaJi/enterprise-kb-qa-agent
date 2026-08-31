@@ -92,7 +92,6 @@ const rules = {
 // 方法
 const loadAgent = (agent?: Agent) => {
   if (agent) {
-    console.log('📝 加载智能体数据进行编辑:', agent)
     isEditing.value = true
     editingAgentId.value = agent.agent_id
     
@@ -116,10 +115,6 @@ const loadAgent = (agent?: Agent) => {
       enable_memory: agent.enable_memory || false
     })
     
-    console.log('✅ 表单数据已更新:', formData)
-    console.log('🔧 当前工具选项:', toolOptions.value.map(t => ({ id: t.tool_id, name: t.name })))
-    console.log('当前知识库选项:', knowledgeOptions.value.map(k => ({ id: k.knowledge_id, name: k.name })))
-    console.log('🧠 当前大模型选项:', llmOptions.value.map(l => ({ id: l.llm_id, name: l.name })))
     
     // 延迟验证ID匹配性，确保选择器已渲染
     setTimeout(() => {
@@ -135,7 +130,6 @@ const loadAgent = (agent?: Agent) => {
       fileList.value = []
     }
   } else {
-    console.log('🆕 创建新智能体，重置表单数据')
     isEditing.value = false
     editingAgentId.value = ''
     
@@ -151,7 +145,6 @@ const loadAgent = (agent?: Agent) => {
       enable_memory: false
     })
     fileList.value = []
-    console.log('✅ 表单已重置为创建模式')
   }
 }
 
@@ -245,7 +238,6 @@ const saveAgent = async () => {
         ...requestData
       }
       
-      console.log('更新智能体数据:', updateData)
       const response = await updateAgentAPI(updateData)
       
       if (response.data.status_code === 200) {
@@ -256,7 +248,6 @@ const saveAgent = async () => {
         ElMessage.error(response.data.status_message || '更新失败')
       }
     } else {
-      console.log('创建智能体数据:', requestData)
       const response = await createAgentAPI(requestData)
       
       if (response.data.status_code === 200) {
@@ -289,22 +280,17 @@ const saveAgent = async () => {
 const loadLLMOptions = async () => {
   try {
     dataLoading.value.llm = true
-    console.log('🔄 开始加载大模型数据...')
     
     // 优先使用智能体专用的大模型API
     let response
     try {
       response = await getAgentModelsAPI()
-      console.log('📡 智能体大模型API响应:', response)
     } catch (error) {
-      console.log('⚠️ 智能体大模型API失败，尝试使用通用API:', error)
       response = await getVisibleLLMsAPI()
-      console.log('📡 通用大模型API响应:', response)
     }
     
     if (response.data.status_code === 200) {
       const rawData = response.data.data
-      console.log('原始大模型数据:', rawData)
       
       // 处理数据结构：可能是 Record<string, LLMResponse[]> 或直接的 LLMResponse[]
       let llmArray: LLMResponse[] = []
@@ -322,15 +308,12 @@ const loadLLMOptions = async () => {
         }
       }
       
-      console.log('🔄 处理后的数组:', llmArray)
       
       llmOptions.value = llmArray.map(llm => ({
         ...llm,
         name: `${llm.model} (${llm.provider})`
       }))
       
-      console.log(`✅ 成功加载 ${llmOptions.value.length} 个大模型`)
-      console.log('🧠 处理后的大模型数据:', llmOptions.value)
       // 新建模式下默认选第一个
       if (!isEditing.value && !formData.llm_id && llmOptions.value.length > 0) {
         formData.llm_id = llmOptions.value[0].llm_id
@@ -351,22 +334,17 @@ const loadLLMOptions = async () => {
 const loadToolOptions = async () => {
   try {
     dataLoading.value.tool = true
-    console.log('🔄 开始加载工具数据...')
     
     const response = await getVisibleToolsAPI()
-    console.log('📡 工具API响应:', response)
     
     if (response.data.status_code === 200) {
       const rawData = response.data.data
-      console.log('原始工具数据:', rawData)
       
       toolOptions.value = rawData.map(tool => ({
         ...tool,
         name: tool.display_name
       }))
       
-      console.log(`✅ 成功加载 ${toolOptions.value.length} 个工具`)
-      console.log('🔧 处理后的工具数据:', toolOptions.value)
     } else {
       console.error('❌ 工具API返回错误:', response.data.status_message)
     }
@@ -394,7 +372,6 @@ const loadKnowledgeOptions = async () => {
         name: knowledge.name,                 // 用于显示的名称
         icon: getKnowledgeIcon(knowledge.name)
       }))
-      console.log(`✅ 成功加载 ${knowledgeOptions.value.length} 个知识库`)
     }
   } catch (error) {
     console.error('加载知识库失败:', error)
@@ -488,7 +465,6 @@ const goBack = () => {
 
 // 初始化数据
 const initializeData = async () => {
-  console.log('🔄 开始初始化数据...')
   
   try {
     await Promise.all([
@@ -497,66 +473,21 @@ const initializeData = async () => {
       loadKnowledgeOptions()
     ])
     
-    console.log('✅ 数据初始化完成')
-    console.log('📊 数据统计:')
-    console.log('  - 大模型:', llmOptions.value.length, '个')
-    console.log('  - 工具:', toolOptions.value.length, '个')
-    console.log('  - 知识库:', knowledgeOptions.value.length, '个')
-    
-    // 如果没有数据，添加一些测试数据
-    if (toolOptions.value.length === 0) {
-      console.log('⚠️ 工具数据为空，添加测试数据')
-      toolOptions.value.push({
-        tool_id: 'test_tool_1',
-        zh_name: '搜索工具',
-        en_name: 'Search Tool',
-        user_id: 'test',
-        description: '用于搜索网络信息',
-        logo_url: '',
-        name: '🔍 搜索工具',
-        icon: '🔍'
-      } as any)
-    }
-    
-    if (knowledgeOptions.value.length === 0) {
-      console.log('⚠️ 知识库数据为空，添加测试数据')
-      knowledgeOptions.value.push({
-        id: 'test_knowledge_1',
-        name: '技术文档',
-        description: '技术相关文档',
-        user_id: 'test',
-        create_time: new Date().toISOString(),
-        update_time: new Date().toISOString(),
-        count: 0,
-        file_size: '0',
-        knowledge_id: 'test_knowledge_1',
-        knowledge_name: '技术文档',
-        knowledge_desc: '技术相关文档',
-        icon: '📚'
-      } as any)
-    }
-    
   } catch (error) {
     console.error('❌ 数据初始化失败:', error)
   }
 }
 
 onMounted(async () => {
-  console.log('📱 页面加载开始...')
-  console.log('🔍 当前路由参数:', route.query)
   
   // 先加载选项数据，这是前提条件
-  console.log('⏳ 正在加载选项数据...')
   await initializeData()
-  console.log('✅ 选项数据加载完成')
   
   // 確保所有選項數據都加載完成後，再加載智能體數據
   const agentId = route.query.id as string
   if (agentId) {
-    console.log('🔄 开始加载智能体数据，ID:', agentId, '类型:', typeof agentId)
     await loadAgentFromAPI(agentId)
   } else {
-    console.log('🆕 创建新智能体模式')
     // 创建模式下，清空表单并设置默认值
     loadAgent()
     // 确保默认选中第一个模型
