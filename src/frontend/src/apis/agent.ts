@@ -61,27 +61,16 @@ export function getAgentsAPI() {
 
 // 根据ID获取智能体详情
 export function getAgentByIdAPI(agentId: string) {
-  console.log('🔍 getAgentByIdAPI - 查找智能体ID:', agentId, '类型:', typeof agentId)
   return getAgentsAPI().then(response => {
-    console.log('📦 getAgentsAPI 响应:', response.data)
     if (response.data.status_code === 200) {
-      console.log('📋 所有智能体列表:', response.data.data.map(a => ({ 
-        agent_id: a.agent_id, 
-        id: (a as any).id, 
-        name: a.name, 
-        agent_id_type: typeof a.agent_id,
-        id_type: typeof (a as any).id
-      })))
       const agent = response.data.data.find(a => {
         // 支持多种ID字段名和类型比较
         const agentIdMatch = a.agent_id === agentId || String(a.agent_id) === String(agentId)
         const idMatch = (a as any).id === agentId || String((a as any).id) === String(agentId)
         const isMatch = agentIdMatch || idMatch
-        console.log(`🔎 比较智能体 "${a.name}": agent_id=${a.agent_id} (${typeof a.agent_id}), id=${(a as any).id} (${typeof (a as any).id}), 目标=${agentId} (${typeof agentId}), 匹配=${isMatch}`)
         return isMatch
       })
       if (agent) {
-        console.log('✅ 找到智能体:', agent)
         return {
           data: {
             status_code: 200,
@@ -90,7 +79,6 @@ export function getAgentByIdAPI(agentId: string) {
           }
         } as { data: ApiResponse<AgentResponse> }
       } else {
-        console.log('❌ 未找到智能体，ID:', agentId)
         return {
           data: {
             status_code: 404,

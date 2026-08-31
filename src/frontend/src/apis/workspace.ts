@@ -74,9 +74,6 @@ export const workspaceSimpleChatStreamAPI = async (
   const token = localStorage.getItem('token')
   const ctrl = new AbortController()
 
-  console.log('=== workspaceSimpleChatStreamAPI 调用 ===')
-  console.log('请求参数:', data)
-  console.log('请求 URL:', `${BASE_URL}/api/v1/workspace/simple/chat`)
 
   try {
     await fetchEventSource(`${BASE_URL}/api/v1/workspace/simple/chat`, {
@@ -89,26 +86,20 @@ export const workspaceSimpleChatStreamAPI = async (
       signal: ctrl.signal,
       openWhenHidden: true,
       onmessage(event) {
-        console.log('📨 收到 SSE 原始消息:', event.data)
         if (!event.data) return
         try {
           const parsed = JSON.parse(event.data)
-          console.log('📦 解析后的数据:', parsed)
           // 兼容后端返回 {event:'task_result', data:{message}} 或 {data:{chunk}}
           if (parsed?.data?.message !== undefined) {
             // 只有当 message 不为空字符串时才调用回调
             if (parsed.data.message !== '') {
-              console.log('📝 提取 message:', parsed.data.message)
               onMessage(parsed.data.message)
             } else {
-              console.log('⏭️ 跳过空 message')
             }
           } else if (parsed?.data?.chunk !== undefined) {
             if (parsed.data.chunk !== '') {
-              console.log('📝 提取 chunk:', parsed.data.chunk)
               onMessage(parsed.data.chunk)
             } else {
-              console.log('⏭️ 跳过空 chunk')
             }
           } else {
             console.warn('⚠️ 未识别的数据格式，跳过')
@@ -123,7 +114,6 @@ export const workspaceSimpleChatStreamAPI = async (
         ctrl.abort()
       },
       onclose() {
-        console.log('✅ SSE 连接关闭')
         onClose?.()
       }
     })

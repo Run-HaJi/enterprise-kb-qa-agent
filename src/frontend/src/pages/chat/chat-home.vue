@@ -77,7 +77,6 @@ const fetchPlugins = async () => {
     const response = await getWorkspacePluginsAPI()
     if (response.data.status_code === 200) {
       plugins.value = response.data.data || []
-      console.log('可用插件:', plugins.value)
     }
   } catch (error) {
     console.error('获取插件列表出错:', error)
@@ -169,10 +168,6 @@ const handleSend = async () => {
   
   // 日常模式：在本页进行对话（流式）
   {
-    console.log('=== 日常模式发送消息 ===')
-    console.log('selectedModelId:', selectedModelId.value)
-    console.log('query:', query)
-    console.log('session_id:', currentSessionId.value)
     
     if (!selectedModelId.value) {
       ElMessage.warning('请先选择模型')
@@ -182,7 +177,6 @@ const handleSend = async () => {
     // 如果还没有session_id，生成一个新的
     if (!currentSessionId.value) {
       currentSessionId.value = generateSessionId()
-      console.log('生成新的 session_id:', currentSessionId.value)
     }
 
     // 立即清空输入框，提升用户体验
@@ -192,7 +186,6 @@ const handleSend = async () => {
     isGenerating.value = true
 
     // 将用户消息加入消息列表
-    console.log('将用户消息加入 messages')
     messages.value.push({ role: 'user' as const, content: query })
     
     // 自动滚动到底部
@@ -201,7 +194,6 @@ const handleSend = async () => {
     // 预置一条AI消息用于流式累加（先添加到数组，然后通过索引更新以触发响应式）
     const aiMsgIndex = messages.value.length
     messages.value.push({ role: 'assistant', content: '' })
-    console.log('当前 messages 长度:', messages.value.length)
 
     try {
       const payload: WorkSpaceSimpleTask = {
@@ -210,11 +202,9 @@ const handleSend = async () => {
         plugins: selectedTools.value,
         session_id: currentSessionId.value  // 添加session_id参数
       }
-      console.log('准备调用 workspaceSimpleChatStreamAPI，payload:', payload)
       await workspaceSimpleChatStreamAPI(
         payload,
         (chunk) => {
-          console.log('收到 chunk，累加到 aiMsg:', chunk)
           // 通过索引更新以触发 Vue 的响应式
           messages.value[aiMsgIndex].content += chunk
           // 每次收到新内容时自动滚动到底部
@@ -226,7 +216,6 @@ const handleSend = async () => {
           isGenerating.value = false  // 出错时解除生成状态
         },
         () => {
-          console.log('日常模式流式结束')
           isGenerating.value = false  // 完成时解除生成状态
           window.dispatchEvent(new CustomEvent('kbqa:refresh-sessions'))  // 通知侧栏刷新会话历史
         }
@@ -268,7 +257,6 @@ const loadSessionHistory = async (sessionId: string) => {
           { role: 'assistant' as const, content: ctx.answer || '' }
         ]).flat().filter((msg: any) => msg.content) // 过滤掉空内容
         
-        console.log('已加载会话历史，消息数量:', messages.value.length)
         
         // 加载历史后滚动到底部
         scrollToBottom()
@@ -287,13 +275,11 @@ onMounted(async () => {
   // 检查是否有 session_id 参数，如果有则加载会话历史
   const sessionId = route.query.session_id as string
   if (sessionId) {
-    console.log('加载已有会话:', sessionId)
     currentSessionId.value = sessionId  // 设置当前会话ID
     await loadSessionHistory(sessionId)
   } else {
     // 如果没有session_id，生成一个新的
     currentSessionId.value = generateSessionId()
-    console.log('生成新会话ID:', currentSessionId.value)
   }
   
   document.addEventListener('click', handleClickOutside)
@@ -308,7 +294,6 @@ watch(
   () => route.query.session_id,
   async (newSessionId, oldSessionId) => {
     if (newSessionId && newSessionId !== oldSessionId) {
-      console.log('检测到会话ID变化:', oldSessionId, '->', newSessionId)
       // 更新当前会话ID
       currentSessionId.value = newSessionId as string
       // 清空当前消息
@@ -318,7 +303,6 @@ watch(
     } else if (!newSessionId && oldSessionId) {
       // 如果从有session_id变为没有，生成新的session_id
       currentSessionId.value = generateSessionId()
-      console.log('生成新会话ID:', currentSessionId.value)
       messages.value = []
     }
   }
