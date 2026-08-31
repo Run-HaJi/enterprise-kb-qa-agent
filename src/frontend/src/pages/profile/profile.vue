@@ -566,10 +566,13 @@ const handleCustomUpload = async (event: Event) => {
 .custom-dialog {
   width: 520px;
   max-width: 92vw;
+  max-height: 88vh;
   background: var(--color-panel-2);
   border: 1px solid var(--color-edge);
   border-radius: 14px;
   overflow: hidden;
+  display: flex;
+  flex-direction: column;
 }
 
 .custom-dialog-header {
@@ -596,6 +599,9 @@ const handleCustomUpload = async (event: Event) => {
 }
 
 .custom-dialog-body {
+  flex: 1;
+  min-height: 0;
+  overflow-y: auto;
   padding: 18px;
 }
 
@@ -640,7 +646,7 @@ const handleCustomUpload = async (event: Event) => {
     border-color: var(--color-brand);
   }
 
-  &.selected-avatar {
+  &.active {
     border-color: var(--color-brand);
     box-shadow: 0 0 0 2px rgba(91, 157, 255, 0.25);
   }
@@ -651,6 +657,14 @@ const handleCustomUpload = async (event: Event) => {
   font-size: 12px;
   color: var(--color-ink-3);
   text-align: center;
+}
+
+.selected-avatar img {
+  width: 96px;
+  height: 96px;
+  object-fit: cover;
+  border-radius: 14px;
+  border: 1px solid var(--color-edge);
 }
 
 .custom-dialog-footer {
