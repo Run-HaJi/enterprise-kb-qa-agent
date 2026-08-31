@@ -77,7 +77,8 @@ async def delete_knowledge(
 async def retrieval_knowledge(
     *,
     query: str = Body(..., description="用户的问题"),
-    knowledge_id: Union[str, List[str]] = Body(..., description="知识库ID")
+    knowledge_id: Union[str, List[str]] = Body(..., description="知识库ID"),
+    login_user: UserPayload = Depends(get_login_user)
 ):
     if isinstance(knowledge_id, str):
         content = await RagHandler.retrieve_ranked_documents(query, [knowledge_id], [knowledge_id])

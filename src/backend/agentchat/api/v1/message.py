@@ -1,12 +1,16 @@
-from fastapi import APIRouter, Request
+from fastapi import APIRouter, Request, Depends
 from agentchat.api.services.message import MessageLikeService, MessageDownService
+from agentchat.api.services.user import UserPayload, get_login_user
 from agentchat.api.responses.builder import resp_200
 
 router = APIRouter(tags=["Message"])
 
 
 @router.post("/message/like")
-async def insert_message_like(request: Request):
+async def insert_message_like(
+    request: Request,
+    login_user: UserPayload = Depends(get_login_user)
+):
     body = await request.json()
 
     user_input = body.get('user_input')
@@ -18,7 +22,10 @@ async def insert_message_like(request: Request):
 
 
 @router.post("/message/down")
-async def insert_message_down(request: Request):
+async def insert_message_down(
+    request: Request,
+    login_user: UserPayload = Depends(get_login_user)
+):
     body = await request.json()
 
     user_input = body.get('user_input')

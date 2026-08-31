@@ -8,7 +8,7 @@ from agentchat.database.dao.user import UserDao
 from agentchat.api.errcode.user import UserValidateError
 from agentchat.api.responses.builder import resp_200
 from agentchat.utils.JWT import ACCESS_TOKEN_EXPIRE_TIME
-from agentchat.api.services.user import UserService
+from agentchat.api.services.user import UserService, UserPayload, get_login_user
 from agentchat.database.models.user import AdminUser
 from agentchat.api.responses.builder import UnifiedResponseModel
 from loguru import logger
@@ -75,6 +75,16 @@ async def login(user_name: str = Body(description='用户名'),
     redis_client.set(USER_CURRENT_SESSION.format(db_user.user_id), access_token, ACCESS_TOKEN_EXPIRE_TIME + 3600)
 
     return resp_200(data={'user_id': db_user.user_id, 'access_token': access_token})
+
+
+@router.post('/user/logout', response_model=UnifiedResponseModel)
+async def logout(login_user: UserPayload = Depends(get_login_user),
+                 Authorize: AuthJWT = Depends()):
+    # 清除当前会话缓存（key 为登录态 cookie, 与 login 设置一致）
+    redis_client.delete(USER_CURRENT_SESSION.format(login_user.user_id))
+    # 清除 JWT access/refresh cookies
+    Authorize.unset_jwt_cookies()
+    return resp_200()
 
 
 @router.put("/user/update", response_model=UnifiedResponseModel)
